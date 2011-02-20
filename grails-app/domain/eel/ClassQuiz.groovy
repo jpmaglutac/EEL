@@ -1,7 +1,7 @@
 package eel
 
 class ClassQuiz {
-	def belongsTo = [quiz: Quiz, classCourse:ClassCourse]
+	def belongsTo = [quiz: Quiz, courseClass:CourseClass]
 	
 	Date start
 	Date end
