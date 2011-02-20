@@ -1,7 +1,7 @@
 package eel
 
 class Result {
-	def belongsTo = [student:Student, classQuiz:ClassQuiz]
+	def belongsTo = [student:User, classQuiz:ClassQuiz]
 	
 	def score
 

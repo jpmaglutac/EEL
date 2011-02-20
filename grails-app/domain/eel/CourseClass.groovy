@@ -1,7 +1,7 @@
 package eel
 
 class CourseClass {
-	def belongsTo = [teacher:Teacher, course:Course]
+	def belongsTo = [teacher:User, course:Course]
 
 	String section
 	int term

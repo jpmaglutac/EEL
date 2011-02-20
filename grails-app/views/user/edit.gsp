@@ -42,9 +42,16 @@
 					</tr>
 
 					<tr class="prop">
-						<td valign="top" class="name"><label for="userRealName">Full Name:</label></td>
-						<td valign="top" class="value ${hasErrors(bean:person,field:'userRealName','errors')}">
-							<input type="text" id="userRealName" name="userRealName" value="${person.userRealName?.encodeAsHTML()}"/>
+						<td valign="top" class="name"><label for="userFirstName">First Name:</label></td>
+						<td valign="top" class="value ${hasErrors(bean:person,field:'userFirstName','errors')}">
+							<input type="text" id="userFirstName" name="userFirstName" value="${person.userFirstName?.encodeAsHTML()}"/>
+						</td>
+					</tr>
+					
+					<tr class="prop">
+						<td valign="top" class="name"><label for="userLastName">Last Name:</label></td>
+						<td valign="top" class="value ${hasErrors(bean:person,field:'userLastName','errors')}">
+							<input type="text" id="userLastName" name="userLastName" value="${person.userLastName?.encodeAsHTML()}"/>
 						</td>
 					</tr>
 
@@ -68,6 +75,13 @@
 							<input type="text" id="description" name="description" value="${person.description?.encodeAsHTML()}"/>
 						</td>
 					</tr>
+					
+					<tr class="prop">
+						<td valign="top" class="name"><label for="courseOrDepartment">Course/Department:</label></td>
+						<td valign="top" class="value ${hasErrors(bean:person,field:'courseOrDepartment','errors')}">
+							<input type="text" id="courseOrDepartment" name="courseOrDepartment" value="${person.courseOrDepartment?.encodeAsHTML()}"/>
+						</td>
+					</tr>
 
 					<tr class="prop">
 						<td valign="top" class="name"><label for="email">Email:</label></td>
@@ -87,11 +101,9 @@
 						<td valign="top" class="name"><label for="authorities">Roles:</label></td>
 						<td valign="top" class="value ${hasErrors(bean:person,field:'authorities','errors')}">
 							<ul>
-							<g:each var="entry" in="${roleMap}">
-								<li>${entry.key.authority.encodeAsHTML()}
-									<g:checkBox name="${entry.key.authority}" value="${entry.value}"/>
-								</li>
-							</g:each>
+							<g:radioGroup name="selectedAuthority" values="${roleMap}">
+								<li>${it.key.authority.encodeAsHTML()} ${it.radio}</li>
+							</g:radioGroup>
 							</ul>
 						</td>
 					</tr>

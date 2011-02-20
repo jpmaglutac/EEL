@@ -99,6 +99,7 @@ class UserController {
 
 		def oldPassword = person.passwd
 		person.properties = params
+		person.addToAuthorities(Role.findByAuthority(params.selectedAuthority))
 		if (!params.passwd.equals(oldPassword)) {
 			person.passwd = authenticateService.encodePassword(params.passwd)
 		}
@@ -124,6 +125,7 @@ class UserController {
 		def person = new User()
 		person.properties = params
 		person.passwd = authenticateService.encodePassword(params.passwd)
+		person.addToAuthorities(Role.findByAuthority(params.selectedAuthority))
 		if (person.save()) {
 			addRoles(person)
 			redirect action: show, id: person.id
@@ -134,11 +136,12 @@ class UserController {
 	}
 
 	private void addRoles(person) {
-		for (String key in params.keySet()) {
+		/*for (String key in params.keySet()) {
 			if (key.contains('ROLE') && 'on' == params.get(key)) {
 				Role.findByAuthority(key).addToPeople(person)
 			}
-		}
+		}*/
+		Role.findByAuthority(params.selectedAuthority).addToPeople(person)
 	}
 
 	private Map buildPersonModel(person) {

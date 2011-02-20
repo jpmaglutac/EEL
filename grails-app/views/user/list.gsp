@@ -32,7 +32,7 @@
 				<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 					<td>${person.id}</td>
 					<td>${person.username?.encodeAsHTML()}</td>
-					<td>${person.userRealName?.encodeAsHTML()}</td>
+					<td>${person.getUserRealName()}</td>
 					<td>${person.enabled?.encodeAsHTML()}</td>
 					<td>${person.description?.encodeAsHTML()}</td>
 					<td class="actionButtons">

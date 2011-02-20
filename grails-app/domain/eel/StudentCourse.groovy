@@ -1,7 +1,7 @@
 package eel
 
 class StudentCourse {
-	def belongsTo = [student: Student, course: Course]
+	def belongsTo = [student: User, course: Course]
 
     static constraints = {
     }

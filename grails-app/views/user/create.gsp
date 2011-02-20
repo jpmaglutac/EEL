@@ -33,9 +33,16 @@
 					</tr>
 
 					<tr class="prop">
-						<td valign="top" class="name"><label for="userRealName">Full Name:</label></td>
-						<td valign="top" class="value ${hasErrors(bean:person,field:'userRealName','errors')}">
-							<input type="text" id="userRealName" name="userRealName" value="${person.userRealName?.encodeAsHTML()}"/>
+						<td valign="top" class="name"><label for="userFirstName">First Name:</label></td>
+						<td valign="top" class="value ${hasErrors(bean:person,field:'userFirstName','errors')}">
+							<input type="text" id="userFirstName" name="userFirstName" value="${person.userFirstName?.encodeAsHTML()}"/>
+						</td>
+					</tr>
+					
+					<tr class="prop">
+						<td valign="top" class="name"><label for="userLastName">Last Name:</label></td>
+						<td valign="top" class="value ${hasErrors(bean:person,field:'userLastName','errors')}">
+							<input type="text" id="userLastName" name="userLastName" value="${person.userLastName?.encodeAsHTML()}"/>
 						</td>
 					</tr>
 
@@ -45,7 +52,7 @@
 							<input type="password" id="passwd" name="passwd" value="${person.passwd?.encodeAsHTML()}"/>
 						</td>
 					</tr>
-
+					
 					<tr class="prop">
 						<td valign="top" class="name"><label for="enabled">Enabled:</label></td>
 						<td valign="top" class="value ${hasErrors(bean:person,field:'enabled','errors')}">
@@ -57,6 +64,13 @@
 						<td valign="top" class="name"><label for="description">Description:</label></td>
 						<td valign="top" class="value ${hasErrors(bean:person,field:'description','errors')}">
 							<input type="text" id="description" name="description" value="${person.description?.encodeAsHTML()}"/>
+						</td>
+					</tr>
+					
+					<tr class="prop">
+						<td valign="top" class="name"><label for="courseOrDepartment">Course/Department:</label></td>
+						<td valign="top" class="value ${hasErrors(bean:person,field:'courseOrDepartment','errors')}">
+							<input type="text" id="courseOrDepartment" name="courseOrDepartment" value="${person.courseOrDepartment?.encodeAsHTML()}"/>
 						</td>
 					</tr>
 
@@ -78,12 +92,11 @@
 						<td valign="top" class="name" align="left">Assign Roles:</td>
 					</tr>
 
-					<g:each in="${authorityList}">
+					<g:radioGroup name="selectedAuthority" values="${authorityList.authority}" labels="${authorityList.description}">
 					<tr>
-						<td valign="top" class="name" align="left">${it.authority.encodeAsHTML()}</td>
-						<td align="left"><g:checkBox name="${it.authority}"/></td>
+						<td valign="top" class="name" align="left">${it.label} ${it.radio}</td>
 					</tr>
-					</g:each>
+					</g:radioGroup>
 
 				</tbody>
 				</table>
