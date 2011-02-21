@@ -81,7 +81,7 @@ class UserController {
 	 * Person update action.
 	 */
 	def update = {
-
+		def role
 		def person = User.get(params.id)
 		if (!person) {
 			flash.message = "User not found with id $params.id"
@@ -99,7 +99,8 @@ class UserController {
 
 		def oldPassword = person.passwd
 		person.properties = params
-		person.addToAuthorities(Role.findByAuthority(params.selectedAuthority))
+		if((role = Role.findByAuthority(params.selectedAuthority?:"")))
+			person.addToAuthorities(role)
 		if (!params.passwd.equals(oldPassword)) {
 			person.passwd = authenticateService.encodePassword(params.passwd)
 		}
@@ -121,11 +122,12 @@ class UserController {
 	 * Person save action.
 	 */
 	def save = {
-
+		def role
 		def person = new User()
 		person.properties = params
 		person.passwd = authenticateService.encodePassword(params.passwd)
-		person.addToAuthorities(Role.findByAuthority(params.selectedAuthority))
+		if((role = Role.findByAuthority(params.selectedAuthority?:"")))
+			person.addToAuthorities(role)
 		if (person.save()) {
 			addRoles(person)
 			redirect action: show, id: person.id
@@ -141,7 +143,7 @@ class UserController {
 				Role.findByAuthority(key).addToPeople(person)
 			}
 		}*/
-		Role.findByAuthority(params.selectedAuthority).addToPeople(person)
+		Role.findByAuthority(params.selectedAuthority?:"")?.addToPeople(person)
 	}
 
 	private Map buildPersonModel(person) {
