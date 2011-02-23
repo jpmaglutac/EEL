@@ -1,7 +1,7 @@
 package eel
 
 class Quiz {
-	def belongsTo = [course: Course]
+	def belongsTo = [instructor: User]
 	
 	def noItems
 	

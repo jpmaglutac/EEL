@@ -1,7 +1,7 @@
 package eel
 
 class Lecture {
-	def belongsTo = [course: Course]
+	def belongsTo = [instructor: User]
 	
 	String title
 	String documentLocation
