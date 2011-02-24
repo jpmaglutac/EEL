@@ -58,9 +58,9 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="courseClass.teacher.label" default="Teacher" /></td>
+                            <td valign="top" class="name"><g:message code="courseClass.instructor.label" default="instructor" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="user" action="show" id="${courseClassInstance?.teacher?.id}">${courseClassInstance?.teacher?.encodeAsHTML()}</g:link></td>
+                            <td valign="top" class="value"><g:link controller="user" action="show" id="${courseClassInstance?.instructor?.id}">${courseClassInstance?.instructor?.encodeAsHTML()}</g:link></td>
                             
                         </tr>
                     

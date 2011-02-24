@@ -64,14 +64,14 @@
                                 </td>
                             </tr>
                         
-                            <tr class="prop">
+                            <%--<tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="teacher"><g:message code="courseClass.teacher.label" default="Teacher" /></label>
+                                    <label for="instructor"><g:message code="courseClass.instructor.label" default="instructor" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: courseClassInstance, field: 'teacher', 'errors')}">
-                                    <g:select name="teacher.id" from="${eel.User.list()}" optionKey="id" value="${courseClassInstance?.teacher?.id}"  />
+                                <td valign="top" class="value ${hasErrors(bean: courseClassInstance, field: 'instructor', 'errors')}">
+                                    <g:select name="instructor.id" from="${eel.User.list()}" optionKey="id" value="${courseClassInstance?.instructor?.id}"  />
                                 </td>
-                            </tr>
+                            </tr>--%>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">

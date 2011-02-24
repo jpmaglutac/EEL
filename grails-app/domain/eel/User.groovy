@@ -30,6 +30,10 @@ class User {
 
 	/** plain password to create a MD5 password */
 	String pass = '[secret]'
+	
+	String toString(){
+		"${userLastName}, ${userFirstName}"
+	}
 
 	static constraints = {
 		username(blank: false, unique: true)

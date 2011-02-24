@@ -2,10 +2,41 @@ package eel
 
 class CourseClassController {
 
+	def authenticateService
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index = {
         redirect(action: "list", params: params)
+    }
+    
+    def joinClass = {
+    	CourseClass courseClass = CourseClass.get(params.id)
+    	[courseClass: courseClass]
+    }
+    
+    def addStudent = {
+    	User user = authenticateService.userDomain()
+    	CourseClass courseClass = CourseClass.get(params.courseClassId)
+    	if(params.enrollmentKey != courseClass.enrollmentKey){
+    		flash.message = "Incorrect enrollment key!"
+    		redirect(action: "joinClass", id: courseClass.id)
+    	}else{
+    		ClassStudent classStudent = new ClassStudent(student: user, courseClass: courseClass)
+    		if(classStudent.save(flush: true)){
+    			flash.message = "Welcome to this class!"
+    			redirect(action: "show", id: courseClass.id)
+    		}else{
+    			flash.message = "Something went wrong!"
+    			redirect(action: "joinClass", id: courseClass.id)
+    		}
+    	}
+    }
+    
+    def instructorList = {
+    	User user = authenticateService.userDomain()
+    	params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        [courseClassInstanceList: CourseClass.findAllByInstructor(user, params), courseClassInstanceTotal: CourseClass.count()]
     }
 
     def list = {
@@ -21,6 +52,12 @@ class CourseClassController {
 
     def save = {
         def courseClassInstance = new CourseClass(params)
+        User user = authenticateService.userDomain() 
+        if(user){
+        	courseClassInstance.instructor = user
+        }else{
+        	redirect(controller: "login")
+     	}
         if (courseClassInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'courseClass.label', default: 'CourseClass'), courseClassInstance.id])}"
             redirect(action: "show", id: courseClassInstance.id)
@@ -32,6 +69,11 @@ class CourseClassController {
 
     def show = {
         def courseClassInstance = CourseClass.get(params.id)
+        User user = authenticateService.userDomain()
+        if(authenticateService.ifAnyGranted("ROLE_STUDENT")&&!ClassStudent.findByStudentAndCourseClass(user,courseClassInstance)){
+        	
+        	redirect(action:"joinClass", id: courseClassInstance.id)
+        }
         if (!courseClassInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'courseClass.label', default: 'CourseClass'), params.id])}"
             redirect(action: "list")
