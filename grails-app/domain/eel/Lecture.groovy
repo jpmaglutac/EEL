@@ -1,10 +1,11 @@
 package eel
 
+
 class Lecture {
 	def belongsTo = [instructor: User]
 	
 	String title
-	String documentLocation
+	UFile file
 
     static constraints = {
     }

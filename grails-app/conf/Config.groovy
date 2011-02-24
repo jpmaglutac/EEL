@@ -93,3 +93,12 @@ log4j = {
 //log4j.logger.org.springframework.security='off,stdout'
 
 //log4j.logger.org.springframework.security='off,stdout'
+
+//file upload config
+fileuploader {
+	lecture {
+		maxSize = 1024 * 1024 * 16 //16 mbytes
+		allowedExtensions = ["doc"]
+		path = "/tmp/docs/"
+	}
+}
