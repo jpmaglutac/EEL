@@ -3,6 +3,9 @@ package eel
 class ClassLectureController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    
+    def fileUploadService
+    def authenticateService
 
     def index = {
         redirect(action: "list", params: params)
@@ -15,19 +18,69 @@ class ClassLectureController {
 
     def create = {
         def classLectureInstance = new ClassLecture()
+        User user = authenticateService.userDomain()
+        def courseClass = CourseClass.get(params.id)
+        if(!courseClass){
+        	flash.message = "Cannot find selected class!"
+        	redirect(action: "create", id: params.id)
+        }
+        def lectures = Lecture.findAllByCourseAndInstructor(courseClass.course, user)
         classLectureInstance.properties = params
-        return [classLectureInstance: classLectureInstance]
+        return [classLectureInstance: classLectureInstance, lectures: lectures]
     }
-
-    def save = {
-        def classLectureInstance = new ClassLecture(params)
-        if (classLectureInstance.save(flush: true)) {
+    
+    def addLecture = {
+    	def classLectureInstance = new ClassLecture()
+    	def courseClass = CourseClass.get(params.courseClassId)
+    	classLectureInstance.lecture = Lecture.get(params.lectureId)
+    	classLectureInstance.courseClass = courseClass
+    	if (classLectureInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'classLecture.label', default: 'ClassLecture'), classLectureInstance.id])}"
             redirect(action: "show", id: classLectureInstance.id)
         }
         else {
-            render(view: "create", model: [classLectureInstance: classLectureInstance])
+           	render(view: "create", model: [lectureInstance: lectureInstance, id: params.courseClassId])
         }
+    }
+
+    def save = {
+    	def msg
+        def lectureInstance = new Lecture()
+        def courseClass = CourseClass.get(params.courseClassId)
+        if(!courseClass){
+        	flash.message("Cannot find selected class!")
+        	redirect(action: "create", id: params.courseClassId)
+        }
+        lectureInstance.title = params.title
+        lectureInstance.course = courseClass.course
+        User user = authenticateService.userDomain() 
+        if(user){
+        	lectureInstance.instructor = user
+        }else{
+        	redirect(controller: "login")
+     	}
+     	try{
+        	lectureInstance.file = fileUploadService.uploadFile(request.getFile("file"), msg)
+        }catch(Exception e){
+        	flash.message = e.getMessage()
+        	redirect(action: "create", id: params.courseClassId)
+        }
+        if (lectureInstance.save(flush: true)) {
+        	def classLectureInstance = new ClassLecture()
+        	classLectureInstance.lecture = lectureInstance
+        	classLectureInstance.courseClass = courseClass
+        	if (classLectureInstance.save(flush: true)) {
+            	flash.message = "${message(code: 'default.created.message', args: [message(code: 'classLecture.label', default: 'ClassLecture'), classLectureInstance.id])}"
+            	redirect(action: "show", id: classLectureInstance.id)
+        	}
+        	else {
+            	render(view: "create", model: [lectureInstance: lectureInstance, id: params.courseClassId])
+        	}
+        }
+        else {
+            render(view: "create", model: [lectureInstance: lectureInstance, id: params.courseClassId])
+        }
+        
     }
 
     def show = {

@@ -2,7 +2,7 @@ package eel
 
 
 class Lecture {
-	def belongsTo = [instructor: User]
+	def belongsTo = [instructor: User, course: Course]
 	
 	String title
 	UFile file

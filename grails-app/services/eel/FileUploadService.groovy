@@ -21,7 +21,7 @@ class FileUploadService {
 			check if file exists
 		**************************/
 		if (file.size == 0) {
-			msg = "Could not find file: " + request.locale
+			msg = "Could not find file"
 			throw new Exception(msg)
 		}
 		
