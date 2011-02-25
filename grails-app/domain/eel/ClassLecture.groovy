@@ -6,3 +6,5 @@ class ClassLecture {
     static constraints = {
     }
 }
+
+//edited by lester
