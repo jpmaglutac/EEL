@@ -28,8 +28,6 @@
                         
                             <g:sortableColumn property="enrollmentKey" title="${message(code: 'courseClass.enrollmentKey.label', default: 'Enrollment Key')}" />
                         
-                            <g:sortableColumn property="schoolYear" title="${message(code: 'courseClass.schoolYear.label', default: 'School Year')}" />
-                        
                             <g:sortableColumn property="section" title="${message(code: 'courseClass.section.label', default: 'Section')}" />
                         
                             <th><g:message code="courseClass.instructor.label" default="instructor" /></th>
@@ -45,8 +43,6 @@
                             <td>${fieldValue(bean: courseClassInstance, field: "course")}</td>
                         
                             <td>${fieldValue(bean: courseClassInstance, field: "enrollmentKey")}</td>
-                        
-                            <td>${fieldValue(bean: courseClassInstance, field: "schoolYear")}</td>
                         
                             <td>${fieldValue(bean: courseClassInstance, field: "section")}</td>
                         

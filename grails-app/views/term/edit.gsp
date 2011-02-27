@@ -1,11 +1,11 @@
 
 
-<%@ page import="eel.CourseClass" %>
+<%@ page import="eel.Term" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'courseClass.label', default: 'CourseClass')}" />
+        <g:set var="entityName" value="${message(code: 'term.label', default: 'Term')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -19,62 +19,54 @@
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="${courseClassInstance}">
+            <g:hasErrors bean="${termInstance}">
             <div class="errors">
-                <g:renderErrors bean="${courseClassInstance}" as="list" />
+                <g:renderErrors bean="${termInstance}" as="list" />
             </div>
             </g:hasErrors>
             <g:form method="post" >
-                <g:hiddenField name="id" value="${courseClassInstance?.id}" />
-                <g:hiddenField name="version" value="${courseClassInstance?.version}" />
+                <g:hiddenField name="id" value="${termInstance?.id}" />
+                <g:hiddenField name="version" value="${termInstance?.version}" />
                 <div class="dialog">
                     <table>
                         <tbody>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="course"><g:message code="courseClass.course.label" default="Course" /></label>
+                                  <label for="endDate"><g:message code="term.endDate.label" default="End Date" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: courseClassInstance, field: 'course', 'errors')}">
-                                    <g:select name="course.id" from="${eel.Course.list()}" optionKey="id" value="${courseClassInstance?.course?.id}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="enrollmentKey"><g:message code="courseClass.enrollmentKey.label" default="Enrollment Key" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: courseClassInstance, field: 'enrollmentKey', 'errors')}">
-                                    <g:textField name="enrollmentKey" value="${courseClassInstance?.enrollmentKey}" />
+                                <td valign="top" class="value ${hasErrors(bean: termInstance, field: 'endDate', 'errors')}">
+                                    <g:datePicker name="endDate" precision="day" value="${termInstance?.endDate}"  />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="section"><g:message code="courseClass.section.label" default="Section" /></label>
+                                  <label for="schoolYear"><g:message code="term.schoolYear.label" default="School Year" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: courseClassInstance, field: 'section', 'errors')}">
-                                    <g:textField name="section" value="${courseClassInstance?.section}" />
-                                </td>
-                            </tr>
-                            
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="instructor"><g:message code="courseClass.term.label" default="term" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: courseClassInstance, field: 'term', 'errors')}">
-                                    <g:select name="term.id" from="${eel.Term.list()}" optionKey="id" value="${courseClassInstance?.term?.id}"  />
+                                <td valign="top" class="value ${hasErrors(bean: termInstance, field: 'schoolYear', 'errors')}">
+                                    <g:textField name="schoolYear" value="${termInstance?.schoolYear}" />
                                 </td>
                             </tr>
                         
-                            <%--<tr class="prop">
+                            <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="instructor"><g:message code="courseClass.instructor.label" default="instructor" /></label>
+                                  <label for="startDate"><g:message code="term.startDate.label" default="Start Date" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: courseClassInstance, field: 'instructor', 'errors')}">
-                                    <g:select name="instructor.id" from="${eel.User.list()}" optionKey="id" value="${courseClassInstance?.instructor?.id}"  />
+                                <td valign="top" class="value ${hasErrors(bean: termInstance, field: 'startDate', 'errors')}">
+                                    <g:datePicker name="startDate" precision="day" value="${termInstance?.startDate}"  />
                                 </td>
-                            </tr>--%>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="term"><g:message code="term.term.label" default="Term" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: termInstance, field: 'term', 'errors')}">
+                                    <g:textField name="term" value="${fieldValue(bean: termInstance, field: 'term')}" />
+                                </td>
+                            </tr>
+                        
                         </tbody>
                     </table>
                 </div>

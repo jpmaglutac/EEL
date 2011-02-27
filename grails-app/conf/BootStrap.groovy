@@ -18,9 +18,11 @@ class BootStrap {
     	teacher.addToPeople(uTeacher)
     	teacher.save(flush: true)
     	
+    	Term term = new Term(schoolYear: "20102011", term: 3, startDate: new Date(), endDate: (new Date())+1)
+    	term.save(flush: true)
     	Course softdev = new Course(courseCode: "SOFTDEV", description: "Software Development", department: "ITE")
     	softdev.save(flush: true)
-    	CourseClass i41 = new CourseClass(course: softdev, enrollmentKey: "hey", instructor: uTeacher, term: 3, schoolYear: "20102011", section: "I41")
+    	CourseClass i41 = new CourseClass(course: softdev, enrollmentKey: "hey", instructor: uTeacher, term: term, section: "I41")
     	i41.save(flush: true)
     }
     def destroy = {

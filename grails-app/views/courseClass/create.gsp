@@ -45,13 +45,13 @@
                                     <g:textField name="enrollmentKey" value="${courseClassInstance?.enrollmentKey}" />
                                 </td>
                             </tr>
-                        
+                            
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="schoolYear"><g:message code="courseClass.schoolYear.label" default="School Year" /></label>
+                                    <label for="term"><g:message code="courseClass.term.label" default="Term" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: courseClassInstance, field: 'schoolYear', 'errors')}">
-                                    <g:textField name="schoolYear" value="${courseClassInstance?.schoolYear}" />
+                                <td valign="top" class="value ${hasErrors(bean: courseClassInstance, field: 'term', 'errors')}">
+                                    <g:select name="term.id" from="${eel.Term.list()}" optionKey="id" value="${courseClassInstance?.term?.id}"  />
                                 </td>
                             </tr>
                         
@@ -72,15 +72,6 @@
                                     <g:select name="instructor.id" from="${eel.User.list()}" optionKey="id" value="${courseClassInstance?.instructor?.id}"  />
                                 </td>
                             </tr>--%>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="term"><g:message code="courseClass.term.label" default="Term" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: courseClassInstance, field: 'term', 'errors')}">
-                                    <g:textField name="term" value="${fieldValue(bean: courseClassInstance, field: 'term')}" />
-                                </td>
-                            </tr>
                         
                         </tbody>
                     </table>
