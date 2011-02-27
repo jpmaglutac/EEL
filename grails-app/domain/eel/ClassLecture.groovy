@@ -7,4 +7,4 @@ class ClassLecture {
     }
 }
 
-//edited by lester
+//edited by Pepe Windows
