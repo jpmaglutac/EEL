@@ -4,6 +4,7 @@ class ClassLectureController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     
+	//edited by catzie
     def fileUploadService
     def authenticateService
 
