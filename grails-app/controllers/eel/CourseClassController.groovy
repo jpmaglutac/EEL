@@ -43,6 +43,23 @@ class CourseClassController {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [courseClassInstanceList: CourseClass.list(params), courseClassInstanceTotal: CourseClass.count()]
     }
+    
+    def listByCourse = {
+        Course course = Course.get(params.id)
+        if(!course){
+            redirect(controller:"course", action: "list")
+        }
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        def terms = Term.withCriteria {
+            def now = new Date()
+            and{
+                lt("startDate", now)
+                gt("endDate", now)
+            }
+        }
+        def courseClasses = CourseClass.findAllByCourseAndTermInList(course, terms, params)
+        [courseClassInstanceList: courseClasses, courseClassInstanceTotal: courseClasses.size()]
+    }  
 
     def create = {
         def courseClassInstance = new CourseClass()
