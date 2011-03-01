@@ -28,14 +28,14 @@
                     <table>
                         <tbody>
                         
-                            <tr class="prop">
+                            <%--<tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="course"><g:message code="courseClass.course.label" default="Course" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: courseClassInstance, field: 'course', 'errors')}">
                                     <g:select name="course.id" from="${eel.Course.list()}" optionKey="id" value="${courseClassInstance?.course?.id}"  />
                                 </td>
-                            </tr>
+                            </tr>--%>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
@@ -77,6 +77,7 @@
                     </table>
                 </div>
                 <div class="buttons">
+                    <g:hiddenField name="courseId" value="${params.id}" />
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>
             </g:form>

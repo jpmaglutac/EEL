@@ -69,11 +69,20 @@ class CourseClassController {
 
     def save = {
         def courseClassInstance = new CourseClass(params)
+        def course = Course.get(params.courseId)
         User user = authenticateService.userDomain() 
         if(user){
         	courseClassInstance.instructor = user
         }else{
         	redirect(controller: "login")
+        	return
+     	}
+     	if(course){
+     	    courseClassInstance.course = course
+     	}else{
+     	    println "course not found"
+     	    redirect(controller: "course")
+     	    return
      	}
         if (courseClassInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'courseClass.label', default: 'CourseClass'), courseClassInstance.id])}"
