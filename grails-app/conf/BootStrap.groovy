@@ -18,6 +18,14 @@ class BootStrap {
     	teacher.addToPeople(uTeacher)
     	teacher.save(flush: true)
     	
+    	User uStudent = new User(username: "student", userFirstName: "dent", userLastName: "stu",
+    		passwd: authenticateService.encodePassword("student"), email: "student@stu.dent", enabled: true,
+    		courseOrDepartment: "ACT", description: "student")
+    	uStudent.addToAuthorities(student)
+    	uStudent.save(flush: true)
+    	student.addToPeople(uStudent)
+    	student.save(flush: true)
+    	
     	Term term = new Term(schoolYear: "20102011", term: 3, startDate: new Date(), endDate: (new Date())+1)
     	term.save(flush: true)
     	Course softdev = new Course(courseCode: "SOFTDEV", description: "Software Development", department: "ITE")
