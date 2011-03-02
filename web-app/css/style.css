@@ -97,7 +97,7 @@ height:32px;
 
 /* start headings */
 
-h1{
+h1, .fheader{
 font-family:"Arial Narrow", Arial, sans-serif;
 font-size:24px;
 margin:10px 0px 10px 0px;

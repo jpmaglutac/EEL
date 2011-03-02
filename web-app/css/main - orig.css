@@ -1,3 +1,8 @@
+html * {
+    margin: 0;
+    /*padding: 0; SELECT NOT DISPLAYED CORRECTLY IN FIREFOX */
+}
+
 /* GENERAL */
 
 .spinner {
@@ -6,6 +11,31 @@
     right: 0;
 }
 
+body {
+    background: #fff;
+    color: #333;
+    font: 11px verdana, arial, helvetica, sans-serif;
+}
+#grailsLogo {
+	padding:20px;
+}
+
+a:link, a:visited, a:hover {
+    color: #666;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+h1 {
+    color: #48802c;
+    font-weight: normal;
+    font-size: 16px;
+    margin: .8em 0 .3em 0;
+}
+
+ul {
+    padding-left: 15px;
+}
 
 input, select, textarea {
     background-color: #fcfcfc;
@@ -27,15 +57,19 @@ input:focus, select:focus, textarea:focus {
     border: 1px solid #b2d1ff;
 }
 
+.body {
+    float: left;
+    margin: 0 15px 10px 15px;
+}
+
 /* NAVIGATION MENU */
 
 .nav {
     background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
     border: 1px solid #ccc;
-    border-style: solid none solid none solid none solid none;
+    border-style: solid none solid none;
     margin-top: 5px;
     padding: 7px 12px;
-	border-radius:4px;
 }
 
 .menuButton {
@@ -212,7 +246,6 @@ th.desc a {
     margin-top: 5px;
     overflow: hidden;
     padding: 0;
-	border-radius:3px;
 }
 
 .buttons input {

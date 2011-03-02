@@ -5,24 +5,30 @@
 		<title>EEL - Expert E-Learning System</title>
 		<link rel="stylesheet" href="${resource(dir:'css',file:'reset.css')}" type="text/css" />	
 		<link rel="stylesheet" href="${resource(dir:'css',file:'style.css')}" type="text/css" />
+		<link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" type="text/css" />
+		<g:layoutHead />
+        <g:javascript library="application" />
 	</head>
 	<body>
 
 		<div id="wrapper">
 
 			<div id="top-bar">
-				You are not logged in. <a href="">Login?</a>
+				<g:isLoggedIn>
+					Welcome, . <g:link controller="logout">Logout?</g:link>
+				</g:isLoggedIn>
+				<g:isNotLoggedIn>
+					You are not logged in. <g:link controller="login">Login?</g:link>
+				</g:isNotLoggedIn>
 			</div>
 			<div id="banner">
 
 			</div>
 			<div id="nav-bar">
 				<ul>
-					<li><a href="" class="current">Lorem</a></li>
-					<li><a href="">Ipsum</a></li>
-					<li><a href="">Dolor</a></li>
-					<li><a href="">Sit</a></li>
-					<li><a href="">Amet</a></li>
+					<li><a href="${createLink(uri: '/')}" class="${(request.forwardURI=='/EEL/')?'current':''}">Home</a></li>
+					<li><g:link class="${(request.forwardURI=='/EEL/course/list')?'current':''}" controller="course" action="list">List Courses</g:link></li>
+					<li><a href="">My Classes</a></li>
 				</ul>
 			</div>
 			<div id="body-container">
