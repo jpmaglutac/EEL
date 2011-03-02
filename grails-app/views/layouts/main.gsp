@@ -15,7 +15,7 @@
 
 			<div id="top-bar">
 				<g:isLoggedIn>
-					Welcome, . <g:link controller="logout">Logout?</g:link>
+					Welcome, <g:loggedInUserFullName /> . <g:link controller="logout">Logout?</g:link>
 				</g:isLoggedIn>
 				<g:isNotLoggedIn>
 					You are not logged in. <g:link controller="login">Login?</g:link>
@@ -28,7 +28,7 @@
 				<ul>
 					<li><a href="${createLink(uri: '/')}" class="${(request.forwardURI=='/EEL/')?'current':''}">Home</a></li>
 					<li><g:link class="${(request.forwardURI=='/EEL/course/list')?'current':''}" controller="course" action="list">List Courses</g:link></li>
-					<li><a href="">My Classes</a></li>
+					<li><g:link class="${(request.forwardURI=='/EEL/courseClass/listByUser')?'current':''}" controller="courseClass" action="listByUser">My Classes</g:link></li>
 				</ul>
 			</div>
 			<div id="body-container">
