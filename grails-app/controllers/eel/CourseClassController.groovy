@@ -58,8 +58,36 @@ class CourseClassController {
             }
         }
         def courseClasses = CourseClass.findAllByCourseAndTermInList(course, terms, params)
-        [courseClassInstanceList: courseClasses, courseClassInstanceTotal: courseClasses.size()]
-    }  
+        [courseClassInstanceList: courseClasses, courseClassInstanceTotal: CourseClass.findAllByCourseAndTermInList(course, terms).size()]
+    }
+    
+    def listByUser = {
+    	User user = authenticateService.userDomain()
+    	def terms = Term.withCriteria {
+            def now = new Date()
+            and{
+                lt("startDate", now)
+                gt("endDate", now)
+            }
+        }
+    	def courseClasses
+    	if(authenticateService.ifAllGranted("ROLE_STUDENT")){
+    		courseClasses = ClassStudent.withCriteria {
+    			eq("student", user)
+    			courseClass{
+    				'in'("term", terms)
+    			}
+    		}
+    		courseClasses = courseClasses.courseClass
+    	}else if(authenticateService.ifAllGranted("ROLE_TEACHER")){
+    		courseClasses = CourseClass.findAllByInstructorAndTermInList(user, terms)
+    		
+    	}else{
+    		redirect(action: "list")
+    		return
+    	}
+    	[courseClassInstanceList: courseClasses]
+    }
 
     def create = {
         def courseClassInstance = new CourseClass()
