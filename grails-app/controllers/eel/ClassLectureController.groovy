@@ -16,6 +16,16 @@ class ClassLectureController {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [classLectureInstanceList: ClassLecture.list(params), classLectureInstanceTotal: ClassLecture.count()]
     }
+    
+    def listByClass = {
+        def courseClass = CourseClass.get(params.id)
+        if(!courseClass){
+            redirect(controller: "courseClass", action: "listByUser")
+            return
+        }
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        [classLectureInstanceList: ClassLecture.findAllByCourseClass(courseClass, params), classLectureInstanceTotal: ClassLecture.findAllByCourseClass(courseClass).size()]
+    }
 
     def create = {
         def classLectureInstance = new ClassLecture()
