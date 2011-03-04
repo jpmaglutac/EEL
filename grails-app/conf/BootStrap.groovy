@@ -9,6 +9,9 @@ class BootStrap {
     	student.save(flush: true)
     	Role teacher = new Role(authority: "ROLE_TEACHER", description: "Teacher")
     	teacher.save(flush: true)
+    	Role admin = new Role(authority: "ROLE_ADMIN", description: "Admin")
+    	admin.save(flush: true)
+    	
     	
     	User uTeacher = new User(username: "teacher", userFirstName: "cher", userLastName: "tea",
     		passwd: authenticateService.encodePassword("teacher"), email: "teacher@tea.cher", enabled: true,
@@ -25,6 +28,14 @@ class BootStrap {
     	uStudent.save(flush: true)
     	student.addToPeople(uStudent)
     	student.save(flush: true)
+    	
+    	User uAdmin = new User(username: "admin", userFirstName: "min", userLastName: "ad",
+    		passwd: authenticateService.encodePassword("admin"), email: "admin@ad.min", enabled: true,
+    		courseOrDepartment: "Admin", description: "admin")
+    	uAdmin.addToAuthorities(admin)
+    	uAdmin.save(flush: true)
+    	admin.addToPeople(uAdmin)
+    	admin.save(flush: true)
     	
     	Term term = new Term(schoolYear: "20102011", term: 3, startDate: new Date(), endDate: (new Date())+1)
     	term.save(flush: true)
