@@ -36,8 +36,13 @@
                     <g:each in="${courseInstanceList}" status="i" var="courseInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${courseInstance.id}">${fieldValue(bean: courseInstance, field: "id")}</g:link></td>
-                        
+                            <td><g:ifAnyGranted role="ROLE_STUDENT">
+                                    <g:link controller="courseClass" action="listByCourse" id="${courseInstance.id}">${fieldValue(bean: courseInstance, field: "id")}</g:link>
+                                </g:ifAnyGranted>
+                                <g:ifAnyGranted role="ROLE_TEACHER,ROLE_ADMIN">
+                                    <g:link action="show" id="${courseInstance.id}">${fieldValue(bean: courseInstance, field: "id")}</g:link>
+                                </g:ifAnyGranted>
+                            </td>
                             <td>${fieldValue(bean: courseInstance, field: "courseCode")}</td>
                         
                             <td>${fieldValue(bean: courseInstance, field: "department")}</td>
