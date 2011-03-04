@@ -37,7 +37,7 @@
 					<td>${person.description?.encodeAsHTML()}</td>
 					<td class="actionButtons">
 						<span class="actionButton">
-							<g:link controller="user" action="show" id="${person.id}">Show</g:link>
+							<g:link controller="profile" action="view" id="${person.id}">Show</g:link>
 						</span>
 					</td>
 				</tr>
