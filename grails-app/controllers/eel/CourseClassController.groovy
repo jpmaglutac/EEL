@@ -2,7 +2,7 @@ package eel
 
 class CourseClassController {
 
-	def authenticateService
+    def authenticateService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
