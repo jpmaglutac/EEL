@@ -1,11 +1,11 @@
 
 
-<%@ page import="eel.QuizChoice" %>
+<%@ page import="eel.QuizItem" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'quizChoice.label', default: 'QuizChoice')}" />
+        <g:set var="entityName" value="${message(code: 'quizItem.label', default: 'QuizItem')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -18,39 +18,42 @@
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="${quizChoiceInstance}">
+            <g:hasErrors bean="${quizItemInstance}">
             <div class="errors">
-                <g:renderErrors bean="${quizChoiceInstance}" as="list" />
+                <g:renderErrors bean="${quizItemInstance}" as="list" />
             </div>
             </g:hasErrors>
-            <g:form action="save" >
+            <g:form action="saveChoices" >
                 <div class="dialog">
                     <table>
                         <tbody>
                         
-                            <tr class="prop">
+                        	<tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="choice"><g:message code="quizChoice.choice.label" default="Choice" /></label>
+                                    <label for="question"><g:message code="quizItem.question.label" default="Question" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: quizChoiceInstance, field: 'choice', 'errors')}">
-                                    <g:textField name="choice" value="${quizChoiceInstance?.choice}" />
+                                <td valign="top" class="value ${hasErrors(bean: quizItemInstance, field: 'question', 'errors')}">
+                                    <g:textArea name="question" value="${quizItemInstance?.question}" />
                                 </td>
                             </tr>
                         
-                            <%--<tr class="prop">
+                            <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="quizItem"><g:message code="quizChoice.quizItem.label" default="Quiz Item" /></label>
+                                    <label for="correctAns"><g:message code="quizItem.correctAns.label" default="Correct Ans" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: quizChoiceInstance, field: 'quizItem', 'errors')}">
-                                    <g:select name="quizItem.id" from="${eel.QuizItem.list()}" optionKey="id" value="${quizChoiceInstance?.quizItem?.id}"  />
+                                <td valign="top" class="value ${hasErrors(bean: quizItemInstance, field: 'correctAns', 'errors')}">
+                                    <g:radioGroup name="correctAns" values="${quizChoices?.id}" labels="${quizChoices?.choice}" value="${quizItemInstance?.correctAns}">
+                                    	${it.radio} ${it.label}<br />
+                                    </g:radioGroup>
                                 </td>
-                            </tr>--%>
+                            </tr>
                         
                         </tbody>
                     </table>
                 </div>
                 <div class="buttons">
                     <g:hiddenField name="quizItemId" value="${params.id}" />
+                    <span class="menuButton"><g:link controller="quizChoice" action="create" id="${quizItemInstance.id}" class="create">Add Choice</g:link></span>
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>
             </g:form>

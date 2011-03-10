@@ -9,5 +9,7 @@ class QuizItem {
     def belongsTo = [quiz: Quiz]
 
     static constraints = {
+        correctAns(nullable: true)
+        question(nullable: true)
     }
 }

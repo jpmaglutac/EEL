@@ -17,12 +17,47 @@ class QuizItemController {
     }
     
     def goToType = {
-    	println params.quizId
     	redirect(action: params.quizType, id: params.id)
     }
     
     def MULTIPLE = {
-    	println params.quizId
+    
+    }
+    
+    def saveMULTIPLE = {
+	    Quiz quiz = Quiz.get(params.quizId)
+	    if(quiz){
+	        def quizItem = new QuizItem()
+	        quizItem.quiz = quiz
+	        quizItem.quizType = QuizType.MULTIPLE
+	        quizItem.question = params.question
+	        if(quizItem.save(flush:true)){
+	            redirect(action: "enterChoices", id: quizItem.id)
+	        }
+	    }else{
+	        redirect(controller: "quiz")
+	    }
+    }
+    
+    def enterChoices = {
+        def quizItemInstance = QuizItem.get(params.id)
+        [quizItemInstance: quizItemInstance, quizChoices: QuizChoice.findAllByQuizItem(quizItemInstance)]
+    }
+    
+    def saveChoices = {
+        def quizItemInstance = QuizItem.get(params.quizItemId)
+        if(!quizItemInstance){
+            redirect(controller: "quiz")
+            return
+        }
+        quizItemInstance.correctAns = params.correctAns
+        if (quizItemInstance.save(flush: true)) {
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
+            redirect(action: "show", id: quizItemInstance.id)
+        }
+        else {
+            render(view: "enterChoices", model: [id: params.quizItemId, quizItemInstance: quizItemInstance])
+        }
     }
     
     def IDENTIFICATION = {
