@@ -42,6 +42,15 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
+                                  <label for="question"><g:message code="quizItem.question.label" default="Question" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: quizItemInstance, field: 'question', 'errors')}">
+                                    <g:textField name="question" value="${quizItemInstance?.question}" />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
                                   <label for="quiz"><g:message code="quizItem.quiz.label" default="Quiz" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: quizItemInstance, field: 'quiz', 'errors')}">

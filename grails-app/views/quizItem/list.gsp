@@ -26,6 +26,8 @@
                         
                             <g:sortableColumn property="correctAns" title="${message(code: 'quizItem.correctAns.label', default: 'Correct Ans')}" />
                         
+                            <g:sortableColumn property="question" title="${message(code: 'quizItem.question.label', default: 'Question')}" />
+                        
                             <th><g:message code="quizItem.quiz.label" default="Quiz" /></th>
                         
                             <g:sortableColumn property="quizType" title="${message(code: 'quizItem.quizType.label', default: 'Quiz Type')}" />
@@ -39,6 +41,8 @@
                             <td><g:link action="show" id="${quizItemInstance.id}">${fieldValue(bean: quizItemInstance, field: "id")}</g:link></td>
                         
                             <td>${fieldValue(bean: quizItemInstance, field: "correctAns")}</td>
+                        
+                            <td>${fieldValue(bean: quizItemInstance, field: "question")}</td>
                         
                             <td>${fieldValue(bean: quizItemInstance, field: "quiz")}</td>
                         

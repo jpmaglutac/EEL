@@ -23,44 +23,28 @@
                 <g:renderErrors bean="${quizItemInstance}" as="list" />
             </div>
             </g:hasErrors>
-            <g:form action="save" >
+            <g:form action="saveTRUEORFALSE" >
                 <div class="dialog">
                     <table>
                         <tbody>
+                        
+                        	<tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="question"><g:message code="quizItem.question.label" default="Question" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: quizItemInstance, field: 'question', 'errors')}">
+                                    <g:textArea name="question" value="${quizItemInstance?.question}" />
+                                </td>
+                            </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="correctAns"><g:message code="quizItem.correctAns.label" default="Correct Ans" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: quizItemInstance, field: 'correctAns', 'errors')}">
-                                    <g:textField name="correctAns" value="${quizItemInstance?.correctAns}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="question"><g:message code="quizItem.question.label" default="Question" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: quizItemInstance, field: 'question', 'errors')}">
-                                    <g:textField name="question" value="${quizItemInstance?.question}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="quiz"><g:message code="quizItem.quiz.label" default="Quiz" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: quizItemInstance, field: 'quiz', 'errors')}">
-                                    <g:select name="quiz.id" from="${eel.Quiz.list()}" optionKey="id" value="${quizItemInstance?.quiz?.id}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="quizType"><g:message code="quizItem.quizType.label" default="Quiz Type" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: quizItemInstance, field: 'quizType', 'errors')}">
-                                    <g:select name="quizType" from="${eel.QuizType?.values()}" keys="${eel.QuizType?.values()*.name()}" value="${quizItemInstance?.quizType?.name()}"  />
+                                    <g:radioGroup name="correctAns" values="['True', 'False']" labels="['True', 'False']" value="${quizItemInstance?.correctAns}">
+                                    	${it.radio} ${it.label}<br />
+                                    </g:radioGroup>
                                 </td>
                             </tr>
                         
@@ -68,6 +52,7 @@
                     </table>
                 </div>
                 <div class="buttons">
+                	<g:hiddenField name="quizId" value="${params.id}" />
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>
             </g:form>

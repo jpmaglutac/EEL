@@ -12,6 +12,54 @@ class QuizItemController {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [quizItemInstanceList: QuizItem.list(params), quizItemInstanceTotal: QuizItem.count()]
     }
+    
+    def chooseType = {
+    }
+    
+    def goToType = {
+    	println params.quizId
+    	redirect(action: params.quizType, id: params.id)
+    }
+    
+    def MULTIPLE = {
+    	println params.quizId
+    }
+    
+    def IDENTIFICATION = {
+    
+    }
+    
+    def saveIDENTIFICATION = {
+    	def quizItemInstance = new QuizItem(params)
+    	quizItemInstance.quizType = QuizType.IDENTIFICATION
+    	Quiz quiz = Quiz.get(params.quizId)
+    	if(quiz){ quizItemInstance.quiz = quiz }
+        if (quizItemInstance.save(flush: true)) {
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
+            redirect(action: "show", id: quizItemInstance.id)
+        }
+        else {
+            render(view: "IDENTIFICATION", model: [id: params.quizId, quizItemInstance: quizItemInstance])
+        }
+    }
+    
+    def TRUEORFALSE = {
+    
+    }
+    
+    def saveTRUEORFALSE = {
+    	def quizItemInstance = new QuizItem(params)
+    	quizItemInstance.quizType = QuizType.TRUEORFALSE
+    	Quiz quiz = Quiz.get(params.quizId)
+    	if(quiz){ quizItemInstance.quiz = quiz }
+        if (quizItemInstance.save(flush: true)) {
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
+            redirect(action: "show", id: quizItemInstance.id)
+        }
+        else {
+            render(view: "IDENTIFICATION", model: [id: params.quizId, quizItemInstance: quizItemInstance])
+        }
+    }
 
     def create = {
         def quizItemInstance = new QuizItem()

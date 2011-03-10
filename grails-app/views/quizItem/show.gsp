@@ -37,6 +37,13 @@
                         </tr>
                     
                         <tr class="prop">
+                            <td valign="top" class="name"><g:message code="quizItem.question.label" default="Question" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: quizItemInstance, field: "question")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="quizItem.quiz.label" default="Quiz" /></td>
                             
                             <td valign="top" class="value"><g:link controller="quiz" action="show" id="${quizItemInstance?.quiz?.id}">${quizItemInstance?.quiz?.encodeAsHTML()}</g:link></td>
