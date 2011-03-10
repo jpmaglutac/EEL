@@ -1,19 +1,10 @@
 package eel
 
-class QuizController {
+class ClassQuizController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def authenticateService
-
-    def index = {
-        redirect(action: "list", params: params)
-    }
-
-    def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [quizInstanceList: Quiz.list(params), quizInstanceTotal: Quiz.count()]
-    }
 
     def create = {
         def quizInstance = new Quiz()
@@ -24,10 +15,17 @@ class QuizController {
     def save = {
         def quizInstance = new Quiz(params)
     	User user = authenticateService.userDomain()
-	quizInstance.instructor = user
+		quizInstance.instructor = user
+		def courseClass = CourseClass.get(params.courseClassId)
+		if(!courseClass)
+			redirect(controller: "courseClass", action: "listByUser")
         if (quizInstance.save(flush: true)) {
+        	def classQuiz = new ClassQuiz()
+        	classQuiz.quiz = quizInstance
+        	classQuiz.courseClass = courseClass
+        	classQuiz.save(flush: true)
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'quiz.label', default: 'Quiz'), quizInstance.id])}"
-            redirect(action: "show", id: quizInstance.id)
+            redirect(controller: "quiz", action: "show", id: quizInstance.id)
         }
         else {
             render(view: "create", model: [quizInstance: quizInstance])
@@ -41,7 +39,7 @@ class QuizController {
             redirect(action: "list")
         }
         else {
-            [quizInstance: quizInstance, quizItems: QuizItem.findAllByQuiz(quizInstance)]
+            [quizInstance: quizInstance]
         }
     }
 

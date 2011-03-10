@@ -1,11 +1,11 @@
 
 
-<%@ page import="eel.QuizItem" %>
+<%@ page import="eel.Quiz" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'quizItem.label', default: 'QuizItem')}" />
+        <g:set var="entityName" value="${message(code: 'quiz.label', default: 'Quiz')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -18,33 +18,22 @@
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="${quizItemInstance}">
+            <g:hasErrors bean="${quizInstance}">
             <div class="errors">
-                <g:renderErrors bean="${quizItemInstance}" as="list" />
+                <g:renderErrors bean="${quizInstance}" as="list" />
             </div>
             </g:hasErrors>
-            <g:form action="saveTRUEORFALSE" >
+            <g:form action="save" >
                 <div class="dialog">
                     <table>
                         <tbody>
                         
-                        	<tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="question"><g:message code="quizItem.question.label" default="Question" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: quizItemInstance, field: 'question', 'errors')}">
-                                    <g:textArea name="question" value="${quizItemInstance?.question}" />
-                                </td>
-                            </tr>
-                        
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="correctAns"><g:message code="quizItem.correctAns.label" default="Correct Ans" /></label>
+                                    <label for="name"><g:message code="quiz.name.label" default="Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: quizItemInstance, field: 'correctAns', 'errors')}">
-                                    <g:radioGroup name="correctAns" values="['True', 'False']" labels="['True', 'False']" value="${(quizItemInstance?.correctAns)?:'True'}">
-                                    	${it.radio} ${it.label}<br />
-                                    </g:radioGroup>
+                                <td valign="top" class="value ${hasErrors(bean: quizInstance, field: 'name', 'errors')}">
+                                    <g:textField name="name" value="${quizInstance?.name}" />
                                 </td>
                             </tr>
                         
@@ -52,7 +41,7 @@
                     </table>
                 </div>
                 <div class="buttons">
-                	<g:hiddenField name="quizId" value="${params.id}" />
+                	<g:hiddenField name="courseClassId" value="${params.id}" />
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>
             </g:form>

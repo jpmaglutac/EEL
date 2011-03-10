@@ -73,6 +73,7 @@
                     <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 	<span class="menuButton"><g:link class="create" controller="classLecture" action="create" id="${courseClassInstance.id}">Add Lecture</g:link></span>
+                	<span class="menuButton"><g:link class="create" controller="classQuiz" action="create" id="${courseClassInstance.id}">Add Quiz</g:link></span>
                 	<span class="menuButton"><g:link class="list" controller="classLecture" action="listByClass" id="${courseClassInstance.id}">View Lectures</g:link></span>
                 	<span class="menuButton"><g:link class="list" controller="classStudent" action="listStudentsByClass" id="${courseClassInstance.id}">View Students</g:link></span>
                 </g:form>

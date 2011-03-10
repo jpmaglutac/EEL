@@ -42,6 +42,26 @@
                             <td valign="top" class="value">${fieldValue(bean: quizInstance, field: "name")}</td>
                             
                         </tr>
+                        
+                        <tr class="prop">
+                            <td valign="top" class="name">Quiz Items</td>
+                            
+                            <td valign="top" class="value">
+                            	<table>
+                            		<tr>
+                            			<th>Question</th>
+                            			<th>Correct Answer</th>
+                            		</tr>
+                            		<g:each in="${quizItems}" var="quizItem">
+                            			<tr>
+                            				<td>${quizItem.question}</td>
+                            				<td>${(quizItem.quizType==eel.QuizType.MULTIPLE)?eel.QuizChoice.get(quizItem.correctAns).choice:quizItem.correctAns}</td>
+                            			</tr>
+                            		</g:each>
+                            	</table>
+                            </td>
+                            
+                        </tr>
                     
                     </tbody>
                 </table>

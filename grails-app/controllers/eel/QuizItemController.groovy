@@ -53,7 +53,7 @@ class QuizItemController {
         quizItemInstance.correctAns = params.correctAns
         if (quizItemInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
-            redirect(action: "show", id: quizItemInstance.id)
+            redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id)
         }
         else {
             render(view: "enterChoices", model: [id: params.quizItemId, quizItemInstance: quizItemInstance])
@@ -71,7 +71,7 @@ class QuizItemController {
     	if(quiz){ quizItemInstance.quiz = quiz }
         if (quizItemInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
-            redirect(action: "show", id: quizItemInstance.id)
+            redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id)
         }
         else {
             render(view: "IDENTIFICATION", model: [id: params.quizId, quizItemInstance: quizItemInstance])
@@ -89,7 +89,7 @@ class QuizItemController {
     	if(quiz){ quizItemInstance.quiz = quiz }
         if (quizItemInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
-            redirect(action: "show", id: quizItemInstance.id)
+            redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id)
         }
         else {
             render(view: "IDENTIFICATION", model: [id: params.quizId, quizItemInstance: quizItemInstance])
