@@ -9,4 +9,8 @@ class CourseClass {
 
     static constraints = {
     }
+    
+    String toString(){
+    	"${course.courseCode} - ${section}"
+    }
 }

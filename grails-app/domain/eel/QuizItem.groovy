@@ -12,4 +12,8 @@ class QuizItem {
         correctAns(nullable: true)
         question(nullable: true)
     }
+    
+    String toString(){
+    	"${question}"
+    }
 }

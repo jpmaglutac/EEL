@@ -5,6 +5,10 @@ class ClassLecture {
 
     static constraints = {
     }
+    
+    String toString(){
+    	"${lecture.toString()}: ${courseClass.toString()}"
+    }
 }
 
 //edited by Pepe Windows
