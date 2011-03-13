@@ -3,7 +3,7 @@ package eel
 class Result {
 	def belongsTo = [student:User, classQuiz:ClassQuiz]
 	
-	def score
+	int score
 
     static constraints = {
     }
