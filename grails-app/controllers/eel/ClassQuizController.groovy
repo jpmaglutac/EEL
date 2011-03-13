@@ -7,9 +7,30 @@ class ClassQuizController {
     def authenticateService
 
     def create = {
-        def quizInstance = new Quiz()
-        quizInstance.properties = params
-        return [quizInstance: quizInstance]
+        def courseClass = CourseClass.get(params.id)
+        User user = authenticateService.userDomain()
+        def quizzes = Quiz.findAllByCourseAndInstructor(courseClass.course, user)
+        return [quizzes: quizzes]
+    }
+    
+    def checkQuiz = {
+    	def quiz = Quiz.get(params.quizId)
+    	[quizInstance: quiz]
+    }
+    
+    def addQuiz = {
+    	def quiz = Quiz.get(params.quizId)
+    	def courseClass = CourseClass.get(params.courseClassId)
+    	def classQuiz = new ClassQuiz(params)
+    	classQuiz.quiz = quiz
+    	classQuiz.courseClass = courseClass
+    	if (classQuiz.save(flush: true)) {
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'classQuiz.label', default: 'Class Quiz'), classQuiz.id])}"
+            redirect(controller: "quiz", action: "show", id: quiz.id)
+        }
+        else {
+            render(view: "checkQuiz", model: [quizInstance: quizInstance, classQuizInstance: classQuiz])
+        }
     }
 
     def save = {
@@ -19,6 +40,7 @@ class ClassQuizController {
 		def courseClass = CourseClass.get(params.courseClassId)
 		if(!courseClass)
 			redirect(controller: "courseClass", action: "listByUser")
+		quizInstance.course = courseClass.course
         if (quizInstance.save(flush: true)) {
         	def classQuiz = new ClassQuiz(params)
         	classQuiz.quiz = quizInstance

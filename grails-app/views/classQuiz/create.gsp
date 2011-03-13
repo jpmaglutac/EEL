@@ -62,6 +62,24 @@
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>
             </g:form>
+            
+            <g:form action="checkQuiz" >
+            	<h1>Add quizzes from your other classes</h1>
+            	<div class="dialog">
+            		<table>
+            			<tbody>
+            				<tr class="prop">
+            					<td valign="top" class="name">Quiz:</td>
+            					<td valign="top"><g:select name="quizId" optionKey="id" from="${quizzes}" /></td>
+            				</tr>
+            			</tbody>
+            		</table>
+            	</div>
+            	<g:hiddenField name="courseClassId" value="${params.id}" />
+                <div class="buttons">
+                    <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
+                </div>
+            </g:form>
         </div>
     </body>
 </html>
