@@ -7,6 +7,10 @@ class ClassQuiz {
 	Date endDate
 	
     static constraints = {
+    	
+    }
+    
+    String toString(){
     	"${quiz.toString()}: ${courseClass.toString()}"
     }
 }
