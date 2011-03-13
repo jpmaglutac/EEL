@@ -30,6 +30,15 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
+                                    <label for="startDate"><g:message code="term.startDate.label" default="Start Date" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: termInstance, field: 'startDate', 'errors')}">
+                                    <g:datePicker name="startDate" precision="day" value="${termInstance?.startDate}"  />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
                                     <label for="endDate"><g:message code="term.endDate.label" default="End Date" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: termInstance, field: 'endDate', 'errors')}">
@@ -46,14 +55,6 @@
                                 </td>
                             </tr>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="startDate"><g:message code="term.startDate.label" default="Start Date" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: termInstance, field: 'startDate', 'errors')}">
-                                    <g:datePicker name="startDate" precision="day" value="${termInstance?.startDate}"  />
-                                </td>
-                            </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">

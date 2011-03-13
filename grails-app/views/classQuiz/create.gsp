@@ -27,13 +27,30 @@
                 <div class="dialog">
                     <table>
                         <tbody>
-                        
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="name"><g:message code="quiz.name.label" default="Name" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: quizInstance, field: 'name', 'errors')}">
                                     <g:textField name="name" value="${quizInstance?.name}" />
+                                </td>
+                            </tr>
+                            
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="startDate"><g:message code="classQuiz.startDate.label" default="Start Date" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: classQuizInstance, field: 'startDate', 'errors')}">
+                                    <g:datePicker name="startDate" value="${classQuizInstance?.startDate}"  />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="endDate"><g:message code="classQuiz.endDate.label" default="End Date" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: classQuizInstance, field: 'endDate', 'errors')}">
+                                    <g:datePicker name="endDate" value="${classQuizInstance?.endDate}"  />
                                 </td>
                             </tr>
                         

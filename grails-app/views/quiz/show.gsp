@@ -52,7 +52,7 @@
                             			<th>Question</th>
                             			<th>Correct Answer</th>
                             		</tr>
-                            		<g:each in="${quizItems}" var="quizItem">
+                            		<g:each in="${quizInstance.quizItems}" var="quizItem">
                             			<tr>
                             				<td>${quizItem.question}</td>
                             				<td>${(quizItem.quizType==eel.QuizType.MULTIPLE)?eel.QuizChoice.get(quizItem.correctAns).choice:quizItem.correctAns}</td>

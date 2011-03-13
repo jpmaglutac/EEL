@@ -3,7 +3,7 @@ package eel
 class QuizItem {
 
     QuizType quizType
-    def hasMany = [quizChoices: QuizChoice]
+    static hasMany = [quizChoices: QuizChoice]
     String correctAns
     String question
     def belongsTo = [quiz: Quiz]

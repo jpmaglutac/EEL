@@ -32,6 +32,8 @@ class QuizItemController {
 	        quizItem.quizType = QuizType.MULTIPLE
 	        quizItem.question = params.question
 	        if(quizItem.save(flush:true)){
+	            quiz.addToQuizItems(quizItem)
+	            quiz.save(flush:true)
 	            redirect(action: "enterChoices", id: quizItem.id)
 	        }
 	    }else{
@@ -41,7 +43,7 @@ class QuizItemController {
     
     def enterChoices = {
         def quizItemInstance = QuizItem.get(params.id)
-        [quizItemInstance: quizItemInstance, quizChoices: QuizChoice.findAllByQuizItem(quizItemInstance)]
+        [quizItemInstance: quizItemInstance]
     }
     
     def saveChoices = {
@@ -70,6 +72,8 @@ class QuizItemController {
     	Quiz quiz = Quiz.get(params.quizId)
     	if(quiz){ quizItemInstance.quiz = quiz }
         if (quizItemInstance.save(flush: true)) {
+            quiz.addToQuizItems(quizItemInstance)
+	        quiz.save(flush:true)
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
             redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id)
         }
@@ -88,6 +92,8 @@ class QuizItemController {
     	Quiz quiz = Quiz.get(params.quizId)
     	if(quiz){ quizItemInstance.quiz = quiz }
         if (quizItemInstance.save(flush: true)) {
+            quiz.addToQuizItems(quizItemInstance)
+	        quiz.save(flush:true)
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
             redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id)
         }

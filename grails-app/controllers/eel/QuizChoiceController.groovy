@@ -24,6 +24,8 @@ class QuizChoiceController {
         QuizItem quizItem = QuizItem.get(params.quizItemId)
         quizChoiceInstance.quizItem = quizItem
         if (quizChoiceInstance.save(flush: true)) {
+            quizItem.addToQuizChoices(quizChoiceInstance)
+            quizItem.save(flush:true)
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizChoice.label', default: 'QuizChoice'), quizChoiceInstance.id])}"
             redirect(action: "enterChoices", controller: "quizItem", id: quizItem.id)
         }
