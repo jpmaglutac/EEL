@@ -46,13 +46,13 @@ class QuizChoiceController {
     }
 
     def edit = {
-        def quizChoiceInstance = QuizChoice.get(params.id)
+        def quizChoiceInstance = QuizChoice.findByChoice(params.id)
         if (!quizChoiceInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'quizChoice.label', default: 'QuizChoice'), params.id])}"
-            redirect(action: "list")
+            redirect(controller: "quizItem", action: "enterChoices", id: params.quizItemId)
         }
         else {
-            return [quizChoiceInstance: quizChoiceInstance]
+            return [quizChoiceInstance: quizChoiceInstance, quizItemId: params.quizItemId]
         }
     }
 
@@ -64,22 +64,22 @@ class QuizChoiceController {
                 if (quizChoiceInstance.version > version) {
                     
                     quizChoiceInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'quizChoice.label', default: 'QuizChoice')] as Object[], "Another user has updated this QuizChoice while you were editing")
-                    render(view: "edit", model: [quizChoiceInstance: quizChoiceInstance])
+                    render(view: "edit", model: [quizChoiceInstance: quizChoiceInstance, quizItemId: params.quizItemId])
                     return
                 }
             }
             quizChoiceInstance.properties = params
             if (!quizChoiceInstance.hasErrors() && quizChoiceInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'quizChoice.label', default: 'QuizChoice'), quizChoiceInstance.id])}"
-                redirect(action: "show", id: quizChoiceInstance.id)
+                redirect(controller: "quizItem", action: "enterChoices", id: params.quizItemId)
             }
             else {
-                render(view: "edit", model: [quizChoiceInstance: quizChoiceInstance])
+                render(view: "edit", model: [quizChoiceInstance: quizChoiceInstance, quizItemId: params.quizItemId])
             }
         }
         else {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'quizChoice.label', default: 'QuizChoice'), params.id])}"
-            redirect(action: "list")
+            redirect(controller: "quizItem", action: "enterChoices", id: params.quizItemId)
         }
     }
 
@@ -89,7 +89,7 @@ class QuizChoiceController {
             try {
                 quizChoiceInstance.delete(flush: true)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'quizChoice.label', default: 'QuizChoice'), params.id])}"
-                redirect(action: "list")
+                redirect(controller: "quizItem", action: "enterChoices", id: params.quizItemId)
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
                 flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'quizChoice.label', default: 'QuizChoice'), params.id])}"
@@ -98,7 +98,7 @@ class QuizChoiceController {
         }
         else {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'quizChoice.label', default: 'QuizChoice'), params.id])}"
-            redirect(action: "list")
+            redirect(controller: "quizItem", action: "enterChoices", id: params.quizItemId)
         }
     }
 }

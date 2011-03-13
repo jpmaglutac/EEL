@@ -40,19 +40,20 @@
                                 </td>
                             </tr>
                         
-                            <tr class="prop">
+                            <%--<tr class="prop">
                                 <td valign="top" class="name">
                                   <label for="quizItem"><g:message code="quizChoice.quizItem.label" default="Quiz Item" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: quizChoiceInstance, field: 'quizItem', 'errors')}">
                                     <g:select name="quizItem.id" from="${eel.QuizItem.list()}" optionKey="id" value="${quizChoiceInstance?.quizItem?.id}"  />
                                 </td>
-                            </tr>
+                            </tr>--%>
                         
                         </tbody>
                     </table>
                 </div>
                 <div class="buttons">
+                	<g:hiddenField name="quizItemId" value="${quizItemId}" />
                     <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" /></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 </div>

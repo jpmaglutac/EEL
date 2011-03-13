@@ -56,6 +56,7 @@
                             			<tr>
                             				<td>${quizItem.question}</td>
                             				<td>${(quizItem.quizType==eel.QuizType.MULTIPLE)?eel.QuizChoice.get(quizItem.correctAns).choice:quizItem.correctAns}</td>
+                            				<td><g:link controller="quizItem" action="edit" id="${quizItem.id}">Edit</g:link></td>
                             			</tr>
                             		</g:each>
                             	</table>

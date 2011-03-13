@@ -41,9 +41,10 @@
                                 <td valign="top" class="name">
                                     <label for="correctAns"><g:message code="quizItem.correctAns.label" default="Correct Ans" /></label>
                                 </td>
+                                
                                 <td valign="top" class="value ${hasErrors(bean: quizItemInstance, field: 'correctAns', 'errors')}">
                                     <g:radioGroup name="correctAns" values="${quizItemInstance.quizChoices?.id}" labels="${quizItemInstance.quizChoices?.choice}" value="${quizItemInstance?.correctAns}">
-                                    	${it.radio} ${it.label}<br />
+                                    	${it.radio} ${it.label} <g:link controller="quizChoice" action="edit" id="${it.label}" params="[quizItemId: quizItemInstance.id]">Edit</g:link><br />
                                     </g:radioGroup>
                                 </td>
                             </tr>

@@ -132,6 +132,10 @@ class QuizItemController {
 
     def edit = {
         def quizItemInstance = QuizItem.get(params.id)
+        if(quizItemInstance.quizType == QuizType.MULTIPLE){
+        	redirect(action: "enterChoices", id: params.id)
+        	return
+        }
         if (!quizItemInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), params.id])}"
             redirect(action: "list")
@@ -156,7 +160,7 @@ class QuizItemController {
             quizItemInstance.properties = params
             if (!quizItemInstance.hasErrors() && quizItemInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
-                redirect(action: "show", id: quizItemInstance.id)
+                redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id)
             }
             else {
                 render(view: "edit", model: [quizItemInstance: quizItemInstance])
@@ -170,11 +174,12 @@ class QuizItemController {
 
     def delete = {
         def quizItemInstance = QuizItem.get(params.id)
+        def quizId = quizItemInstance.quiz.id
         if (quizItemInstance) {
             try {
                 quizItemInstance.delete(flush: true)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), params.id])}"
-                redirect(action: "list")
+                redirect(controller:"quiz", action: "show", id:quizId)
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
                 flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), params.id])}"
