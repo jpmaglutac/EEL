@@ -87,6 +87,7 @@ class ClassLectureController {
         	classLectureInstance.lecture = lectureInstance
         	classLectureInstance.courseClass = courseClass
         	if (classLectureInstance.save(flush: true)) {
+        		fileReadingService.saveDefinitions(lectureInstance)
             	flash.message = "${message(code: 'default.created.message', args: [message(code: 'classLecture.label', default: 'ClassLecture'), classLectureInstance.id])}"
             	redirect(action: "show", id: classLectureInstance.id)
         	}
