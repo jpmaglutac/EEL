@@ -7,9 +7,15 @@ class ClassLectureController {
 	//edited by catzie
     def fileUploadService
     def authenticateService
+    def fileReadingService
 
     def index = {
         redirect(action: "list", params: params)
+    }
+    
+    def readFile = {
+    	ClassLecture classLecture = ClassLecture.get(params.id)
+    	fileReadingService.readFile(classLecture.lecture.file)
     }
 
     def list = {
