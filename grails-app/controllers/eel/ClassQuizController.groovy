@@ -104,6 +104,8 @@ class ClassQuizController {
 		def classQuiz = ClassQuiz.get(params.classQuizId)
 		result.classQuiz = classQuiz
 		result.student = user
+		result.score = 0
+		result.save(flush: true)
 		def answersGiven = params.findAll {
 			it.toString().contains("answerGiven")
 		}
@@ -111,6 +113,7 @@ class ClassQuizController {
 			def id = it.key[0]
 			def studentAnswer = StudentAnswer.get(id)
 			studentAnswer.answerGiven = it.value
+			studentAnswer.result = result
 			studentAnswer.save(flush: true)
 			if(studentAnswer.answerGiven == studentAnswer.quizItem.correctAns){
 				score++
