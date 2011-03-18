@@ -37,7 +37,9 @@ class ResultController {
             redirect(action: "list")
         }
         else {
-            [resultInstance: resultInstance]
+            def answerInstances = StudentAnswer.findAllByResult(resultInstance)
+            
+            [resultInstance: resultInstance, answerInstances: answerInstances]
         }
     }
 

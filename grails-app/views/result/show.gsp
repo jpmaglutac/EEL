@@ -14,14 +14,16 @@
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
         <div class="body">
-            <h1><g:message code="default.show.label" args="[entityName]" /></h1>
+            <h1>
+            <%--<g:message code="default.show.label" args="[entityName]" />--%>
+            Summary of Results
+            </h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
             <div class="dialog">
                 <table>
                     <tbody>
-                    
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="result.id.label" default="Id" /></td>
                             
@@ -50,6 +52,31 @@
                             
                         </tr>
                     
+
+                    
+                    </tbody>
+                </table>
+                <br />
+                <h1>Results Breakdown</h1>
+                <table>
+                    <tbody>
+                        <tr class="prop">
+                            <g:each in="${answerInstances}" var="answer" status="i">
+                            <td>${i+1}</td>
+                            </g:each>
+                        </tr>
+                        <tr class="prop">
+                            <g:each in="${answerInstances}" var="answer">
+                                <td>
+                                    <g:if test="${answer.quizItem.quizType == eel.QuizType.MULTIPLE}">
+                                        ${eel.QuizChoice.get(answer.answerGiven)}
+                                    </g:if>
+                                    <g:else>
+                                        ${answer.answerGiven}
+                                    </g:else>
+                                </td>
+                            </g:each>
+                        </tr>
                     </tbody>
                 </table>
             </div>

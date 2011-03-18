@@ -115,6 +115,8 @@ class ClassQuizController {
 			studentAnswer.answerGiven = it.value
 			studentAnswer.result = result
 			studentAnswer.save(flush: true)
+			result.addToStudentAnswers(studentAnswer)
+			result.save(flush: true)
 			if(studentAnswer.answerGiven == studentAnswer.quizItem.correctAns){
 				score++
 			}

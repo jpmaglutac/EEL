@@ -58,6 +58,22 @@
                                 </td>
                             </tr>
                         
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="studentAnswers"><g:message code="result.studentAnswers.label" default="Student Answers" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: resultInstance, field: 'studentAnswers', 'errors')}">
+                                    
+<ul>
+<g:each in="${resultInstance?.studentAnswers?}" var="s">
+    <li><g:link controller="studentAnswer" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></li>
+</g:each>
+</ul>
+<g:link controller="studentAnswer" action="create" params="['result.id': resultInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'studentAnswer.label', default: 'StudentAnswer')])}</g:link>
+
+                                </td>
+                            </tr>
+                        
                         </tbody>
                     </table>
                 </div>
