@@ -4,12 +4,12 @@
 </head>
 
 <body>
-
+	<g:ifAllGranted role="ROLE_ADMIN">
 	<div class="nav">
 		<span class="menuButton"><a class="home" href="${createLinkTo(dir:'')}">Home</a></span>
 		<span class="menuButton"><g:link class="create" action="create">New User</g:link></span>
 	</div>
-
+	</g:ifAllGranted>
 	<div class="body">
 		<h1>User List</h1>
 		<g:if test="${flash.message}">
@@ -19,25 +19,25 @@
 			<table>
 			<thead>
 				<tr>
-					<g:sortableColumn property="id" title="Id" />
+					<!--<g:sortableColumn property="id" title="Id" />-->
 					<g:sortableColumn property="username" title="Login Name" />
 					<g:sortableColumn property="userRealName" title="Full Name" />
 					<g:sortableColumn property="enabled" title="Enabled" />
 					<g:sortableColumn property="description" title="Description" />
-					<th>&nbsp;</th>
+					<th class="tableTitle">Details</th>
 				</tr>
 			</thead>
 			<tbody>
 			<g:each in="${personList}" status="i" var="person">
 				<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-					<td>${person.id}</td>
+					<!--<td>${person.id}</td>-->
 					<td>${person.username?.encodeAsHTML()}</td>
 					<td>${person.getUserRealName()}</td>
 					<td>${person.enabled?.encodeAsHTML()}</td>
 					<td>${person.description?.encodeAsHTML()}</td>
 					<td class="actionButtons">
 						<span class="actionButton">
-							<g:link controller="profile" action="view" id="${person.id}">Show</g:link>
+							<g:link controller="profile" action="view" id="${person.id}">View Details</g:link>
 						</span>
 					</td>
 				</tr>
