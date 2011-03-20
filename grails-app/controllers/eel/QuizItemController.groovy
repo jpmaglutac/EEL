@@ -66,6 +66,7 @@ class QuizItemController {
     			if(lectureDefinitions.size()==1){
     				flash.message = "Cannot generate questions for selected type of question"
     				redirect(controller: "quiz", action: "show", id: params.id)
+    				return 
     			}
     			item.question = lectureDefinitions[0].definition
     			item.save(flush: true)
@@ -83,7 +84,7 @@ class QuizItemController {
             quiz.addToQuizItems(item)
 	        quiz.save(flush:true)
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), item.id])}"
-            redirect(controller: "quiz", action: "show", id: item.quiz.id)
+            redirect(controller: "quizItem", action: "show", id: item.id, params: [definitionId: lectureDefinitions[0].id])
         }
 
     }
@@ -115,7 +116,7 @@ class QuizItemController {
     }
     
     def saveChoices = {
-        def quizItemInstance = QuizItem.get(params.quizItemId)
+        def quizItemInstance = QuizItem.get(params.id)
         if(!quizItemInstance){
             redirect(controller: "quiz")
             return
@@ -239,12 +240,22 @@ class QuizItemController {
             redirect(action: "list")
         }
     }
-
-    def delete = {
+    
+    def removeDefinition = {
+    	if(params.definitionId){
+        	def definition = LectureDefinition.get(params.definitionId)
+            definition?.delete(flush: true)
+        }
         def quizItemInstance = QuizItem.get(params.id)
         def quizId = quizItemInstance.quiz.id
+        println params
         if (quizItemInstance) {
             try {
+            	def quizChoices = QuizChoice.findAllByQuizItem(quizItemInstance)
+            	quizChoices.each {
+            		quizItemInstance.removeFromQuizChoices(it)
+            		it.delete(flush: true)
+            	}
                 quizItemInstance.delete(flush: true)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), params.id])}"
                 redirect(controller:"quiz", action: "show", id:quizId)
@@ -258,5 +269,37 @@ class QuizItemController {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), params.id])}"
             redirect(action: "list")
         }
+    }
+
+    def delete = {
+        def quizItemInstance = QuizItem.get(params.id)
+        def quizId = quizItemInstance.quiz.id
+        println params
+        if (quizItemInstance) {
+            try {
+            	def quizChoices = QuizChoice.findAllByQuizItem(quizItemInstance)
+            	quizChoices.each {
+            		quizItemInstance.removeFromQuizChoices(it)
+            		it.delete(flush: true)
+            	}
+                quizItemInstance.delete(flush: true)
+                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), params.id])}"
+                redirect(controller:"quiz", action: "show", id:quizId)
+            }
+            catch (org.springframework.dao.DataIntegrityViolationException e) {
+                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), params.id])}"
+                redirect(action: "show", id: params.id)
+            }
+        }
+        else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), params.id])}"
+            redirect(action: "list")
+        }
+    }
+    
+    def useItem = {
+    	def quizItemInstance = QuizItem.get(params.id)
+        def quizId = quizItemInstance.quiz.id
+        redirect(controller:"quiz", action: "show", id:quizId)
     }
 }

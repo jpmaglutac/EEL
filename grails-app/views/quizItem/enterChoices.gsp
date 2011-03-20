@@ -53,9 +53,10 @@
                     </table>
                 </div>
                 <div class="buttons">
-                    <g:hiddenField name="quizItemId" value="${params.id}" />
+                    <g:hiddenField name="id" value="${params.id}" />
                     <span class="menuButton"><g:link controller="quizChoice" action="create" id="${quizItemInstance.id}" class="create">Add Choice</g:link></span>
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
+                	<span class="button"><g:actionSubmit class="delete" action="delete" value="Delete" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 </div>
             </g:form>
         </div>
