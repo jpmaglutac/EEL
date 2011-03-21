@@ -108,10 +108,9 @@ class ClassQuizController {
 	
 	def submitQuiz = {
 		def score = 0
-		
 		def user = authenticateService.userDomain()
 		def classQuiz = ClassQuiz.get(params.classQuizId)
-		
+		def result = Result.findByStudentAndClassQuiz(user, classQuiz)
 		def answersGiven = params.findAll {
 			it.toString().contains("answerGiven")
 		}
