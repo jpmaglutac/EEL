@@ -38,6 +38,17 @@
                             
                             <tr class="prop">
                                 <td valign="top" class="name">
+                                    <label for="name"><g:message code="quiz.timeAllotted.label" default="Time Alloted" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: quizInstance, field: 'timeAllotted', 'errors')}">
+                                    <g:set var="timeAllotted" value="${(quizInstance?.timeAllotted)?new Date(quizInstance?.timeAllotted):null}" />
+                                    Hours:<g:select name="timeAllottedHours" from="${0..10}" value="${timeAllotted?.getHours()}" /><br />
+                                    Minutes:<g:select name="timeAllottedMins" from="${0..60}" value="${timeAllotted?.getMinutes()}" />
+                                </td>
+                            </tr>
+                            
+                            <tr class="prop">
+                                <td valign="top" class="name">
                                     <label for="startDate"><g:message code="classQuiz.startDate.label" default="Start Date" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: classQuizInstance, field: 'startDate', 'errors')}">
