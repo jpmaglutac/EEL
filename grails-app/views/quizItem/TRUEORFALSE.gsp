@@ -57,7 +57,7 @@
                 	<g:if test="${quizItemInstance}">
                 		<g:hiddenField name="id" value="${quizItemInstance.id}" />
                 		<span class="button"><g:actionSubmit class="delete" action="delete" value="Delete" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-                	<g:if>
+                	</g:if>
                 </div>
             </g:form>
         </div>
