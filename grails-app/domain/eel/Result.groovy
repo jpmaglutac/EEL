@@ -6,6 +6,7 @@ class Result {
 	static hasMany = [studentAnswers: StudentAnswer]
 	
 	int score
+	boolean submitted
 	
 	Date dateCreated
 	

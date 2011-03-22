@@ -78,6 +78,7 @@ class ClassQuizController {
 		result.classQuiz = classQuiz
 		result.student = user
 		result.score = 0
+		result.submitted = false
 		result.save(flush: true)
     	if(user&&classQuiz){
     		def quizItems = classQuiz.quiz.quizItems.asList()
@@ -127,6 +128,7 @@ class ClassQuizController {
 			}
 		}
 		result.score = score
+		result.submitted = true
 		result.save(flush: true)
 		redirect(controller: "courseClass", action: "show", id: classQuiz.courseClass.id)
 	}
