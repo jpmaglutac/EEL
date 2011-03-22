@@ -23,48 +23,46 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="quizItem.id.label" default="Id" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: quizItemInstance, field: "id")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="quizItem.correctAns.label" default="Correct Ans" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: quizItemInstance, field: "correctAns")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="quizItem.question.label" default="Question" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: quizItemInstance, field: "question")}</td>
                             
                         </tr>
-                    
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="quizItem.quiz.label" default="Quiz" /></td>
-                            
-                            <td valign="top" class="value"><g:link controller="quiz" action="show" id="${quizItemInstance?.quiz?.id}">${quizItemInstance?.quiz?.encodeAsHTML()}</g:link></td>
-                            
+                        	<td valign="top" class="name"><g:message code="quizItem.correctAns.label" default="Correct Ans" /></td>
+                        	<td valign="top" class="value">
+                        		<g:if test="${quizItemInstance.quizType == eel.QuizType.MULTIPLE}">
+                        			<g:each in="${quizItemInstance.quizChoices}" var="choice">
+                        				<g:radio disabled="true" name="choices" checked="${(quizItemInstance.correctAns == choice.id.toString())?'checked':''}" />${choice.choice}<br />
+                        			</g:each>
+                        			
+                        			<%--<g:radioGroup disabled="true" name="correctAns" values="${quizItemInstance.quizChoices?.id}" labels="${quizItemInstance.quizChoices?.choice}" value="${quizItemInstance?.correctAns}">
+                             			${it.radio} ${it.label} <br />
+                             		</g:radioGroup>--%>
+                        		</g:if><g:else>${fieldValue(bean: quizItemInstance, field: "correctAns")}</g:else>
+                        	</td>
                         </tr>
+                        
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="quizItem.quizType.label" default="Quiz Type" /></td>
                             
-                            <td valign="top" class="value">${quizItemInstance?.quizType?.encodeAsHTML()}</td>
+                            <td valign="top" class="value">${quizItemInstance?.quizType?.name}</td>
                             
                         </tr>
                     
                     </tbody>
                 </table>
             </div>
+            Would you like to use this generated question? If the generated information is incorrect/unusable, please press "Remove Definition"
             <div class="buttons">
+            	
                 <g:form>
                     <g:hiddenField name="id" value="${quizItemInstance?.id}" />
-                    <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+                    <g:hiddenField name="definitionId" value="${params.definitionId}" />
+                    <span class="button"><g:actionSubmit action="useItem" value="Yes" /></span>
+                    <span class="button"><g:actionSubmit action="delete" value="No" /></span>
+                    <span class="button"><g:actionSubmit class="delete" action="removeDefinition" value="Remove Definition" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 </g:form>
             </div>
         </div>

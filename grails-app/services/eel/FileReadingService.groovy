@@ -81,6 +81,8 @@ class FileReadingService {
 					def lectureDefinition = new LectureDefinition()
 					lectureDefinition.identifier = identifier
 					lectureDefinition.definition = definition
+					lectureDefinition.lecture = lecture
+					lectureDefinition.save(flush: true)
 					identifier = ""
 				}
 			}

@@ -49,15 +49,13 @@
 			</tbody>
 			</table>
 		</div>
-
 		<div class="buttons">
 		    <g:if test="${isUser}">
 			    <g:form>
 				    <input type="hidden" name="id" value="${person.id}" />
 				    <span class="button"><g:actionSubmit class="edit" value="Edit" /></span>
-			    </g:form>
+				</g:form>
 			</g:if>
 		</div>
-
 	</div>
 </body>

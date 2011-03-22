@@ -52,6 +52,10 @@
                 <div class="buttons">
                 	<g:hiddenField name="quizId" value="${params.id}" />
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
+                	<g:if test="${quizItemInstance}">
+                		<g:hiddenField name="id" value="${quizItemInstance.id}" />
+                		<span class="button"><g:actionSubmit class="delete" action="delete" value="Delete" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+                	</g:if>
                 </div>
             </g:form>
         </div>

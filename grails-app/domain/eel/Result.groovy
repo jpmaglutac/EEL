@@ -6,6 +6,12 @@ class Result {
 	static hasMany = [studentAnswers: StudentAnswer]
 	
 	int score
+	
+	Date dateCreated
+	
+	def beforeInsert = {
+    	dateCreated = new Date()
+	}
 
     static constraints = {
     }

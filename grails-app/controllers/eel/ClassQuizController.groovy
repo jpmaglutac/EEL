@@ -35,6 +35,8 @@ class ClassQuizController {
 
     def save = {
         def quizInstance = new Quiz(params)
+        def timeAllotted = (params.timeAllottedHours.toInteger()*60+params.timeAllottedMins.toInteger())*60*1000
+    	quizInstance.timeAllotted = timeAllotted
     	User user = authenticateService.userDomain()
 		quizInstance.instructor = user
 		def courseClass = CourseClass.get(params.courseClassId)
@@ -72,6 +74,11 @@ class ClassQuizController {
     def initializeQuiz = {
     	def user = authenticateService.userDomain()
     	def classQuiz = ClassQuiz.get(params.id)
+    	Result result = new Result()
+		result.classQuiz = classQuiz
+		result.student = user
+		result.score = 0
+		result.save(flush: true)
     	if(user&&classQuiz){
     		def quizItems = classQuiz.quiz.quizItems.asList()
     		Collections.shuffle(quizItems)
@@ -93,19 +100,17 @@ class ClassQuizController {
 	def takeQuiz = {
 		ClassQuiz classQuiz = ClassQuiz.get(params.id)
 		def user = authenticateService.userDomain()
+		def result = Result.findByStudentAndClassQuiz(user, classQuiz)
+		def timeRemaining = classQuiz.quiz.timeAllotted - ((new Date()).getTime() - result.dateCreated.getTime())
 		def items = StudentAnswer.findAllByStudentAndQuizItemInList(user, classQuiz.quiz.quizItems, [sort: "id", order: "asc"])
-		[classQuiz: classQuiz, items: items]
+		[classQuiz: classQuiz, items: items, timeRemaining: timeRemaining]
 	}
 	
 	def submitQuiz = {
 		def score = 0
-		Result result = new Result()
 		def user = authenticateService.userDomain()
 		def classQuiz = ClassQuiz.get(params.classQuizId)
-		result.classQuiz = classQuiz
-		result.student = user
-		result.score = 0
-		result.save(flush: true)
+		def result = Result.findByStudentAndClassQuiz(user, classQuiz)
 		def answersGiven = params.findAll {
 			it.toString().contains("answerGiven")
 		}
