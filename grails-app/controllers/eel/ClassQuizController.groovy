@@ -13,6 +13,12 @@ class ClassQuizController {
         return [quizzes: quizzes]
     }
     
+    def edit = {
+        def classQuiz = ClassQuiz.get(params.id)
+        def quiz = classQuiz.quiz
+        [classQuizInstance: classQuiz, quizInstance: quiz]
+    }
+    
     def checkQuiz = {
     	def quiz = Quiz.get(params.quizId)
     	[quizInstance: quiz]
@@ -26,7 +32,7 @@ class ClassQuizController {
     	classQuiz.courseClass = courseClass
     	if (classQuiz.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'classQuiz.label', default: 'Class Quiz'), classQuiz.id])}"
-            redirect(controller: "quiz", action: "show", id: quiz.id)
+            redirect(controller: "quiz", action: "show", id: quiz.id, params: [classQuizId: classQuiz.id])
         }
         else {
             render(view: "checkQuiz", model: [quizInstance: quizInstance, classQuizInstance: classQuiz])
@@ -47,9 +53,12 @@ class ClassQuizController {
         	def classQuiz = new ClassQuiz(params)
         	classQuiz.quiz = quizInstance
         	classQuiz.courseClass = courseClass
-        	classQuiz.save(flush: true)
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'quiz.label', default: 'Quiz'), quizInstance.id])}"
-            redirect(controller: "quiz", action: "show", id: quizInstance.id)
+        	if(classQuiz.save(flush: true)){
+                flash.message = "${message(code: 'default.created.message', args: [message(code: 'quiz.label', default: 'Quiz'), quizInstance.id])}"
+                redirect(controller: "quiz", action: "show", id: quizInstance.id, params: [classQuizId: classQuiz.id])
+            }else{
+                render(view: "create", model: [quizInstance: quizInstance, classQuizInstance: classQuiz])
+            }
         }
         else {
             render(view: "create", model: [quizInstance: quizInstance])
@@ -76,7 +85,7 @@ class ClassQuizController {
         if(!courseClass)
             redirect(controller: "courseClass", action: "listByUser")
         def quizzes = ClassQuiz.findAllByCourseClass(courseClass)
-        [quizInstanceList:quizzes]
+        [classQuizInstanceList:quizzes]
     }
     
     def initializeQuiz = {

@@ -23,11 +23,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <g:each in="${quizInstanceList}" status="i" var="quizInstance">
+                    <g:each in="${classQuizInstanceList}" status="i" var="classQuizInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td>${quizInstance.quiz.name}</td>
-                            <td><g:link controller="quiz" action="show" id="${quizInstance.id}">Edit Quiz</g:link>
+                            <td>${classQuizInstance.quiz.name}</td>
+                            <td><g:link controller="quiz" action="show" id="${classQuizInstance.quiz.id}" params="${[classQuizId: classQuizInstance.id]}">Edit Quiz</g:link>
                         
                         </tr>
                     </g:each>
