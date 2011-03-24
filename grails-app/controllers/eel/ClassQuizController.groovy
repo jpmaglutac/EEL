@@ -19,6 +19,20 @@ class ClassQuizController {
         [classQuizInstance: classQuiz, quizInstance: quiz]
     }
     
+    def update = {
+    	def classQuiz = ClassQuiz.get(params.classQuizId)
+    	classQuiz.quiz.name = params.name
+    	classQuiz.quiz.timeAllotted = (params.timeAllottedHours.toInteger()*60+params.timeAllottedMins.toInteger())*60*1000
+    	classQuiz.startDate = params.startDate
+    	classQuiz.endDate = params.endDate
+    	if((classQuiz.quiz.save(flush:true)!=null)&(classQuiz.save(flush:true)!=null)){
+    		flash.message = "Quiz ${classQuiz.quiz.toString()} updated"
+    		redirect(action: "show", controller: "quiz", id: classQuiz.quiz.id, params: [classQuizId: classQuiz.id])
+    	}else{
+    		render(view: "create", model: [quizInstance: quizInstance, classQuizInstance: classQuiz])
+    	}
+    }
+    
     def checkQuiz = {
     	def quiz = Quiz.get(params.quizId)
     	[quizInstance: quiz]

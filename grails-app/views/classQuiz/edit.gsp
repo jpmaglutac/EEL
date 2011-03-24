@@ -41,8 +41,9 @@
                                     <label for="name"><g:message code="quiz.timeAllotted.label" default="Time Alloted" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: quizInstance, field: 'timeAllotted', 'errors')}">
-                                    Hours:<g:select name="timeAllottedHours" from="${0..10}" value="${quizInstance.timeAllotted/1000/60/60}" /><br />
-                                    Minutes:<g:select name="timeAllottedMins" from="${0..60}" value="${quizInstance.timeAllotted/1000/60}" />
+                                	<g:set var="hours" value="${Math.floor(quizInstance.timeAllotted/1000/60/60).toInteger()}" />
+                                    Hours:<g:select name="timeAllottedHours" from="${0..10}" value="${hours}" /><br />
+                                    Minutes:<g:select name="timeAllottedMins" from="${0..60}" value="${(quizInstance.timeAllotted/1000/60)-(hours*60)}" />
                                 </td>
                             </tr>
                             
@@ -68,7 +69,7 @@
                     </table>
                 </div>
                 <div class="buttons">
-                	<g:hiddenField name="courseClassId" value="${params.id}" />
+                	<g:hiddenField name="classQuizId" value="${params.id}" />
                     <span class="button"><g:submitButton name="update" class="save" value="${message(code: 'default.button.update.label', default: 'Update')}" /></span>
                 </div>
             </g:form>
