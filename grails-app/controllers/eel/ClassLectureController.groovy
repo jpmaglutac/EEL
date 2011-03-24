@@ -13,6 +13,34 @@ class ClassLectureController {
         redirect(action: "list", params: params)
     }
     
+    def editLecture = {
+    	def classLecture = ClassLecture.get(params.id)
+    	[lectureInstance: classLecture.lecture]
+    }
+    
+    def updateLecture = {
+    	 def lectureInstance = Lecture.get(params.id)
+        if (lectureInstance) {
+            if (params.version) {
+                def version = params.version.toLong()
+                if (lectureInstance.version > version) {
+                    
+                    lectureInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'lecture.label', default: 'Lecture')] as Object[], "Another user has updated this Lecture while you were editing")
+                    render(view: "edit", model: [lectureInstance: lectureInstance])
+                    return
+                }
+            }
+            lectureInstance.properties = params
+            if (!lectureInstance.hasErrors() && lectureInstance.save(flush: true)) {
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'lecture.label', default: 'Lecture'), lectureInstance.id])}"
+                redirect(action: "show", id: params.classLectureId)
+            }
+            else {
+                render(view: "edit", model: [lectureInstance: lectureInstance])
+            }
+        }
+    }
+    
     def readFile = {
     	ClassLecture classLecture = ClassLecture.get(params.id)
     	fileReadingService.readFile(classLecture.lecture.file)

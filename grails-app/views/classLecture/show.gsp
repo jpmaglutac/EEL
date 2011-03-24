@@ -39,7 +39,7 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="classLecture.lecture.label" default="Lecture" /></td>
+                            <td valign="top" class="name"><g:message code="classLecture.lecture.label" default="Lecture Name" /></td>
                             
                             <td valign="top" class="value"><g:link controller="lecture" action="show" id="${classLectureInstance?.lecture?.id}">${classLectureInstance?.lecture?.encodeAsHTML()}</g:link></td>
                             
@@ -52,7 +52,7 @@
                 <g:form>
 				<g:ifAnyGranted role="ROLE_ADMIN,ROLE_TEACHER">
                     <g:hiddenField name="id" value="${classLectureInstance?.id}" />
-                    <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
+                    <span class="button"><g:actionSubmit class="edit" action="editLecture" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
 					<span class="download"><g:link controller="download" id="${classLectureInstance?.lecture?.file?.id}">Download</g:link></span>
 				</g:ifAnyGranted>
