@@ -29,6 +29,8 @@
 					<li><a href="${createLink(uri: '/')}" class="${(request.forwardURI=='/EEL/')?'current':''}">Home</a></li>
 					<li><g:link class="${(request.forwardURI=='/EEL/course/list')?'current':''}" controller="course" action="list">List Courses</g:link></li>
 					<li><g:link class="${(request.forwardURI=='/EEL/courseClass/listByUser')?'current':''}" controller="courseClass" action="listByUser">My Classes</g:link></li>
+				    <li><g:link class="${(request.forwardURI=='/EEL/courseClass/listByTerm')?'current':''}" controller="courseClass" action="listByTerm">Historical Class List</g:link></li>
+				    <li><g:loggedInUserProfileLink>My Profile</g:loggedInUserProfileLink></li>
 				</ul>
 			</div>
 			<div id="body-container">

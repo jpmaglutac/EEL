@@ -71,6 +71,14 @@ class ClassQuizController {
         [quizInstanceList:quizzes]
     }
     
+    def listByClass = {
+        def courseClass = CourseClass.get(params.id)
+        if(!courseClass)
+            redirect(controller: "courseClass", action: "listByUser")
+        def quizzes = ClassQuiz.findAllByCourseClass(courseClass)
+        [quizInstanceList:quizzes]
+    }
+    
     def initializeQuiz = {
     	def user = authenticateService.userDomain()
     	def classQuiz = ClassQuiz.get(params.id)
@@ -95,6 +103,13 @@ class ClassQuizController {
     
     def startQuiz = {
     	ClassQuiz quiz = ClassQuiz.get(params.id)
+    	def user = authenticateService.userDomain()
+    	def result = Result.findByStudentAndClassQuiz(user, quiz)
+    	if(result?.submitted){
+    	    flash.message = "You have already taken this quiz"
+    	    redirect(action: "listActiveByClass", id: quiz.courseClass.id)
+    	    return
+    	}
     	[quiz: quiz]
     }
     

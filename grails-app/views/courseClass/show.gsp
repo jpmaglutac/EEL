@@ -101,7 +101,7 @@
                 	<span class="menuButton"><g:link class="create" controller="classLecture" action="create" id="${courseClassInstance.id}">Add Lecture</g:link></span>
                 	<span class="menuButton"><g:link class="create" controller="classQuiz" action="create" id="${courseClassInstance.id}">Add Quiz</g:link></span>
                 	<span class="menuButton"><g:link class="list" controller="classLecture" action="listByClass" id="${courseClassInstance.id}">View Lectures</g:link></span>
-                	<span class="menuButton"><g:link class="list" controller="classQuiz" action="listActiveByClass" id="${courseClassInstance.id}">View Active Quizzes</g:link></span>
+                	<span class="menuButton"><g:link class="list" controller="classQuiz" action="listByClass" id="${courseClassInstance.id}">View Quizzes</g:link></span>
                 	<span class="menuButton"><g:link class="list" controller="classStudent" action="listStudentsByClass" id="${courseClassInstance.id}">View Students</br></br></g:link></span>
 					</g:ifAnyGranted>
 					<g:ifAnyGranted role="ROLE_STUDENT,ROLE_ADMIN">
