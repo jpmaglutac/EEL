@@ -13,6 +13,26 @@ class ClassQuizController {
         return [quizzes: quizzes]
     }
     
+    def edit = {
+        def classQuiz = ClassQuiz.get(params.id)
+        def quiz = classQuiz.quiz
+        [classQuizInstance: classQuiz, quizInstance: quiz]
+    }
+    
+    def update = {
+    	def classQuiz = ClassQuiz.get(params.classQuizId)
+    	classQuiz.quiz.name = params.name
+    	classQuiz.quiz.timeAllotted = (params.timeAllottedHours.toInteger()*60+params.timeAllottedMins.toInteger())*60*1000
+    	classQuiz.startDate = params.startDate
+    	classQuiz.endDate = params.endDate
+    	if((classQuiz.quiz.save(flush:true)!=null)&(classQuiz.save(flush:true)!=null)){
+    		flash.message = "Quiz ${classQuiz.quiz.toString()} updated"
+    		redirect(action: "show", controller: "quiz", id: classQuiz.quiz.id, params: [classQuizId: classQuiz.id])
+    	}else{
+    		render(view: "create", model: [quizInstance: quizInstance, classQuizInstance: classQuiz])
+    	}
+    }
+    
     def checkQuiz = {
     	def quiz = Quiz.get(params.quizId)
     	[quizInstance: quiz]
@@ -26,7 +46,7 @@ class ClassQuizController {
     	classQuiz.courseClass = courseClass
     	if (classQuiz.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'classQuiz.label', default: 'Class Quiz'), classQuiz.id])}"
-            redirect(controller: "quiz", action: "show", id: quiz.id)
+            redirect(controller: "quiz", action: "show", id: quiz.id, params: [classQuizId: classQuiz.id])
         }
         else {
             render(view: "checkQuiz", model: [quizInstance: quizInstance, classQuizInstance: classQuiz])
@@ -47,9 +67,12 @@ class ClassQuizController {
         	def classQuiz = new ClassQuiz(params)
         	classQuiz.quiz = quizInstance
         	classQuiz.courseClass = courseClass
-        	classQuiz.save(flush: true)
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'quiz.label', default: 'Quiz'), quizInstance.id])}"
-            redirect(controller: "quiz", action: "show", id: quizInstance.id)
+        	if(classQuiz.save(flush: true)){
+                flash.message = "${message(code: 'default.created.message', args: [message(code: 'quiz.label', default: 'Quiz'), quizInstance.id])}"
+                redirect(controller: "quiz", action: "show", id: quizInstance.id, params: [classQuizId: classQuiz.id])
+            }else{
+                render(view: "create", model: [quizInstance: quizInstance, classQuizInstance: classQuiz])
+            }
         }
         else {
             render(view: "create", model: [quizInstance: quizInstance])
@@ -69,6 +92,14 @@ class ClassQuizController {
             }
         }
         [quizInstanceList:quizzes]
+    }
+    
+    def listByClass = {
+        def courseClass = CourseClass.get(params.id)
+        if(!courseClass)
+            redirect(controller: "courseClass", action: "listByUser")
+        def quizzes = ClassQuiz.findAllByCourseClass(courseClass)
+        [classQuizInstanceList:quizzes]
     }
     
     def initializeQuiz = {
@@ -95,6 +126,13 @@ class ClassQuizController {
     
     def startQuiz = {
     	ClassQuiz quiz = ClassQuiz.get(params.id)
+    	def user = authenticateService.userDomain()
+    	def result = Result.findByStudentAndClassQuiz(user, quiz)
+    	if(result?.submitted){
+    	    flash.message = "You have already taken this quiz"
+    	    redirect(action: "listActiveByClass", id: quiz.courseClass.id)
+    	    return
+    	}
     	[quiz: quiz]
     }
     

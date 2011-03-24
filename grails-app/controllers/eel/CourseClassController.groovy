@@ -61,6 +61,40 @@ class CourseClassController {
         [courseClassInstanceList: courseClasses, courseClassInstanceTotal: CourseClass.findAllByCourseAndTermInList(course, terms).size()]
     }
     
+    def listByTerm = {
+    	User user = authenticateService.userDomain()
+    	def term
+    	if(!params.term){
+    	    term = Term.withCriteria {
+                def now = new Date()
+                and{
+                    lt("startDate", now)
+                    gt("endDate", now)
+                }
+            }
+            term = term[0]
+        }else{
+            term = Term.get(params.term)
+        }
+    	def courseClasses
+    	if(authenticateService.ifAllGranted("ROLE_STUDENT")){
+    		courseClasses = ClassStudent.withCriteria {
+    			eq("student", user)
+    			courseClass{
+    				eq("term", term)
+    			}
+    		}
+    		courseClasses = courseClasses.courseClass
+    	}else if(authenticateService.ifAllGranted("ROLE_TEACHER")){
+    		courseClasses = CourseClass.findAllByInstructorAndTerm(user, term)
+    		
+    	}else{
+    		redirect(action: "list")
+    		return
+    	}
+    	[term: term, courseClassInstanceList: courseClasses]
+    }
+    
     def listByUser = {
     	User user = authenticateService.userDomain()
     	def terms = Term.withCriteria {

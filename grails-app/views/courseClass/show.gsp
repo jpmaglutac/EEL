@@ -12,7 +12,7 @@
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
-          <!--  <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span> -->
+          <!--<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>-->
         </div>
 	</g:ifAllGranted>
         <div class="body">
@@ -42,14 +42,14 @@
                             
                         </tr>
                     
-                        <!--<tr class="prop">
+                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="courseClass.enrollmentKey.label" default="Enrollment Key" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: courseClassInstance, field: "enrollmentKey")}</td>
                             
-                        </tr>-->
+                        </tr>
                     
-                       <!-- <tr class="prop">
+                       <tr class="prop">
                             <td valign="top" class="name"><g:message code="courseClass.section.label" default="Section" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: courseClassInstance, field: "section")}</td>
@@ -101,7 +101,7 @@
                 	<span class="menuButton"><g:link class="create" controller="classLecture" action="create" id="${courseClassInstance.id}">Add Lecture</g:link></span>
                 	<span class="menuButton"><g:link class="create" controller="classQuiz" action="create" id="${courseClassInstance.id}">Add Quiz</g:link></span>
                 	<span class="menuButton"><g:link class="list" controller="classLecture" action="listByClass" id="${courseClassInstance.id}">View Lectures</g:link></span>
-                	<span class="menuButton"><g:link class="list" controller="classQuiz" action="listActiveByClass" id="${courseClassInstance.id}">View Active Quizzes</g:link></span>
+                	<span class="menuButton"><g:link class="list" controller="classQuiz" action="listByClass" id="${courseClassInstance.id}">View Quizzes</g:link></span>
                 	<span class="menuButton"><g:link class="list" controller="classStudent" action="listStudentsByClass" id="${courseClassInstance.id}">View Students</br></br></g:link></span>
 					</g:ifAnyGranted>
 					<g:ifAnyGranted role="ROLE_STUDENT,ROLE_ADMIN">

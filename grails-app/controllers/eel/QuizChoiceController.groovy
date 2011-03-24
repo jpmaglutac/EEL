@@ -21,7 +21,7 @@ class QuizChoiceController {
 
     def save = {
         def quizChoiceInstance = new QuizChoice(params)
-        QuizItem quizItem = QuizItem.get(params.id)
+        QuizItem quizItem = QuizItem.get(params.quizItemId)
         quizChoiceInstance.quizItem = quizItem
         if (quizChoiceInstance.save(flush: true)) {
             quizItem.addToQuizChoices(quizChoiceInstance)

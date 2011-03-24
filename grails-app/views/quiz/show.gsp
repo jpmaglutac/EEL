@@ -72,7 +72,7 @@
                     <g:hiddenField name="id" value="${quizInstance?.id}" />
                     <span class="menuButton"><g:link controller="quizItem" action="chooseType" id="${quizInstance.id}" class="create">Add Question</g:link>
                     <span class="menuButton"><g:link controller="quizItem" action="chooseGeneratedType" id="${quizInstance.id}" class="create">Generate Question</g:link>
-                    <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
+                    <span class="button"><g:link class="edit" controller="classQuiz" id="${params.classQuizId}" action="edit" >Edit Details</g:link></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 </g:form>
             </div>
