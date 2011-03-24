@@ -16,7 +16,7 @@
         <div class="body">
             <h1>
             <%--<g:message code="default.show.label" args="[entityName]" />--%>
-            Summary of Results
+            Quiz Summary
             </h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
@@ -25,58 +25,64 @@
                 <table>
                     <tbody>
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="result.id.label" default="Id" /></td>
+                            <td valign="top" class="name"><g:message code="result.classQuiz.label" default="Quiz" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: resultInstance, field: "id")}</td>
+                            <td valign="top" class="value">${resultInstance?.classQuiz?.encodeAsHTML()}</td>
                             
                         </tr>
-                    
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="result.classQuiz.label" default="Class Quiz" /></td>
+                            <td valign="top" class="name"><g:message code="result.score.label" default="No. of Items" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="classQuiz" action="show" id="${resultInstance?.classQuiz?.id}">${resultInstance?.classQuiz?.encodeAsHTML()}</g:link></td>
+                            <td valign="top" class="value">${eel.QuizItem.countByQuiz(resultInstance.classQuiz.quiz)}</td>
                             
                         </tr>
-                    
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="result.score.label" default="Score" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: resultInstance, field: "score")}</td>
                             
                         </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="result.student.label" default="Student" /></td>
-                            
-                            <td valign="top" class="value"><g:link controller="user" action="show" id="${resultInstance?.student?.id}">${resultInstance?.student?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
-                    
-
-                    
                     </tbody>
                 </table>
                 <br />
-                <h1>Results Breakdown</h1>
+                <h1>Quiz Details</h1>
                 <table>
                     <tbody>
+                        <tr>
+                        <th>Item No.</th>
+                        <th>Quiz Type</th>
+                        <th>Score</th>
+                        <th>Details</th>
+                        </tr>
+                        
+                        <g:each in="${answerInstances}" var="answer" status="i">
                         <tr class="prop">
-                            <g:each in="${answerInstances}" var="answer" status="i">
                             <td>${i+1}</td>
-                            </g:each>
+                            <td>
+                                ${answer.quizItem.quizType.name}
+                            </td>
+                            <td>
+                                <g:if test="${answer.answerGiven ==  answer.quizItem.correctAns}">
+                                    1
+                                </g:if>
+                                <g:else>
+                                    0                                    
+                                </g:else>
+
+                                <%--
+                                <g:if test="${answer.quizItem.quizType == eel.QuizType.MULTIPLE}">
+                                    ${eel.QuizChoice.get(answer.answerGiven)}
+                                </g:if>
+                                <g:else>
+                                    ${answer.answerGiven}
+                                </g:else>
+                                --%>
+                            </td>
+                            <td>
+                                View Details
+                            </td>
                         </tr>
-                        <tr class="prop">
-                            <g:each in="${answerInstances}" var="answer">
-                                <td>
-                                    <g:if test="${answer.quizItem.quizType == eel.QuizType.MULTIPLE}">
-                                        ${eel.QuizChoice.get(answer.answerGiven)}
-                                    </g:if>
-                                    <g:else>
-                                        ${answer.answerGiven}
-                                    </g:else>
-                                </td>
-                            </g:each>
-                        </tr>
+                        </g:each>
                     </tbody>
                 </table>
             </div>

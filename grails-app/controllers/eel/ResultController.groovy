@@ -1,6 +1,7 @@
 package eel
 
 class ResultController {
+    def authenticateService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -41,6 +42,12 @@ class ResultController {
             
             [resultInstance: resultInstance, answerInstances: answerInstances]
         }
+    }
+    
+    def gradebook = {
+    	User user = authenticateService.userDomain()
+        def allQuizzes = Result.findAllByStudentAndSubmitted(user,true)
+        [resultInstanceList: allQuizzes]
     }
 
     def edit = {
