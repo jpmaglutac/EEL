@@ -27,10 +27,12 @@
 			<div id="nav-bar">
 				<ul>
 					<li><a href="${createLink(uri: '/')}" class="${(request.forwardURI=='/EEL/')?'current':''}">Home</a></li>
-					<li><g:link class="${(request.forwardURI=='/EEL/course/list')?'current':''}" controller="course" action="list">List Courses</g:link></li>
-					<li><g:link class="${(request.forwardURI=='/EEL/courseClass/listByUser')?'current':''}" controller="courseClass" action="listByUser">My Classes</g:link></li>
-				    <li><g:link class="${(request.forwardURI=='/EEL/courseClass/listByTerm')?'current':''}" controller="courseClass" action="listByTerm">Historical Class List</g:link></li>
-				    <li><g:loggedInUserProfileLink>My Profile</g:loggedInUserProfileLink></li>
+					<g:ifAnyGranted role="ROLE_ADMIN,ROLE_TEACHER,ROLE_STUDENT">
+					    <li><g:link class="${(request.forwardURI=='/EEL/course/list')?'current':''}" controller="course" action="list">List Courses</g:link></li>
+					    <li><g:link class="${(request.forwardURI=='/EEL/courseClass/listByUser')?'current':''}" controller="courseClass" action="listByUser">My Classes</g:link></li>
+				        <li><g:link class="${(request.forwardURI=='/EEL/courseClass/listByTerm')?'current':''}" controller="courseClass" action="listByTerm">Historical Class List</g:link></li>
+				        <li><g:loggedInUserProfileLink>My Profile</g:loggedInUserProfileLink></li>
+					</g:ifAnyGranted>
 				</ul>
 			</div>
 			<div id="body-container">
@@ -40,7 +42,7 @@
 
 			</div>
 			<div id="footer">
-				Lorem ipsum dolor sit amet &copy; 2011
+				Expert E-Learning &copy; 2011 
 			</div>
 
 		</div> <!-- end wrapper -->

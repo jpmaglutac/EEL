@@ -7,4 +7,7 @@ security {
 	loginUserDomainClass = "eel.User"
 	authorityDomainClass = "eel.Role"
 	requestMapClass = "eel.Requestmap"
+	
+	// added for config'd requestmap
+	useRequestMapDomainClass = true
 }
