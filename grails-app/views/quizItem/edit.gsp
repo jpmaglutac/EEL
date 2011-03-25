@@ -36,7 +36,7 @@
                                   <label for="question"><g:message code="quizItem.question.label" default="Question" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: quizItemInstance, field: 'question', 'errors')}">
-                                    <g:textField name="question" value="${quizItemInstance?.question}" />
+                                    <g:textArea name="question" value="${quizItemInstance?.question}" />
                                 </td>
                             </tr>
                             
@@ -59,6 +59,7 @@
                     </table>
                 </div>
                 <div class="buttons">
+                    <g:hiddenField name="classQuizId" value="${params.classQuizId}" />
                     <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" /></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 </div>

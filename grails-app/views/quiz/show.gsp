@@ -56,7 +56,7 @@
                             			<tr>
                             				<td>${quizItem.question}</td>
                             				<td>${(quizItem.quizType==eel.QuizType.MULTIPLE)?eel.QuizChoice.get(quizItem.correctAns).choice:quizItem.correctAns}</td>
-                            				<td><g:link controller="quizItem" action="edit" id="${quizItem.id}">Edit</g:link></td>
+                            				<td><g:link controller="quizItem" action="edit" id="${quizItem.id}" params="${[classQuizId: params.classQuizId]}">Edit</g:link></td>
                             			</tr>
                             		</g:each>
                             	</table>
@@ -70,10 +70,12 @@
             <div class="buttons">
                 <g:form>
                     <g:hiddenField name="id" value="${quizInstance?.id}" />
-                    <span class="menuButton"><g:link controller="quizItem" action="chooseType" id="${quizInstance.id}" class="create">Add Question</g:link>
-                    <span class="menuButton"><g:link controller="quizItem" action="chooseGeneratedType" id="${quizInstance.id}" class="create">Generate Question</g:link>
+                    <g:hiddenField name="classQuizId" value="${params.classQuizId}" />
+                    <span class="menuButton"><g:link controller="quizItem" action="chooseType" id="${quizInstance.id}" params="${[classQuizId: params.classQuizId]}" class="create">Add Question</g:link>
+                    <span class="menuButton"><g:link controller="quizItem" action="chooseGeneratedType" params="${[classQuizId: params.classQuizId]}" id="${quizInstance.id}" class="create">Generate Question</g:link>
                     <span class="button"><g:link class="edit" controller="classQuiz" id="${params.classQuizId}" action="edit" >Edit Details</g:link></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+                    <span class="button"><g:link controller="courseClass" action="show" id="${eel.ClassQuiz.get(params.classQuizId)?.courseClass?.id}">Back to Class Page</g:link></span>
                 </g:form>
             </div>
         </div>

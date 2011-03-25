@@ -39,7 +39,7 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="correctAns"><g:message code="quizItem.correctAns.label" default="Correct Ans" /></label>
+                                    <label for="correctAns"><g:message code="quizItem.correctAns.label" default="Correct Ans" /><br />Please select one</label>
                                 </td>
                                 
                                 <td valign="top" class="value ${hasErrors(bean: quizItemInstance, field: 'correctAns', 'errors')}">
@@ -54,7 +54,8 @@
                 </div>
                 <div class="buttons">
                     <g:hiddenField name="id" value="${params.id}" />
-                    <span class="menuButton"><g:link controller="quizChoice" action="create" id="${quizItemInstance.id}" class="create">Add Choice</g:link></span>
+                    <g:hiddenField name="classQuizId" value="${params.classQuizId}" />
+                    <span class="menuButton"><g:link controller="quizChoice" action="create" id="${quizItemInstance.id}" params="${[classQuizId: params.classQuizId]}" class="create">Add Choice</g:link></span>
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 	<span class="button"><g:actionSubmit class="delete" action="delete" value="Delete" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 </div>

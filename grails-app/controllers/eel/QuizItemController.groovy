@@ -25,7 +25,7 @@ class QuizItemController {
     }
     
     def goToType = {
-    	redirect(action: params.quizType, id: params.id)
+    	redirect(action: params.quizType, id: params.id, params: [classQuizId: params.classQuizId])
     }
     
     def generateType = {
@@ -36,7 +36,7 @@ class QuizItemController {
     	def rand = new Random()
     	if(lectureDefinitions.size()==0){
     		flash.message = "Cannot generate questions for selected lecture"
-    		redirect(controller: "quiz", action: "show", id: params.id)
+    		redirect(controller: "quiz", action: "show", id: params.id, params: [classQuizId: params.classQuizId])
     	}
     	def item = new QuizItem()
     	def quiz = Quiz.get(params.id)
@@ -65,7 +65,7 @@ class QuizItemController {
     			def numChoices = (lectureDefinitions.size()>4)?4:lectureDefinitions.size()
     			if(lectureDefinitions.size()==1){
     				flash.message = "Cannot generate questions for selected type of question"
-    				redirect(controller: "quiz", action: "show", id: params.id)
+    				redirect(controller: "quiz", action: "show", id: params.id, params: [classQuizId: params.classQuizId])
     				return 
     			}
     			item.question = lectureDefinitions[0].definition
@@ -84,7 +84,7 @@ class QuizItemController {
             quiz.addToQuizItems(item)
 	        quiz.save(flush:true)
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), item.id])}"
-            redirect(controller: "quizItem", action: "show", id: item.id, params: [definitionId: lectureDefinitions[0].id])
+            redirect(controller: "quizItem", action: "show", id: item.id, params: [definitionId: lectureDefinitions[0].id, classQuizId: params.classQuizId])
         }
 
     }
@@ -103,7 +103,7 @@ class QuizItemController {
 	        if(quizItem.save(flush:true)){
 	            quiz.addToQuizItems(quizItem)
 	            quiz.save(flush:true)
-	            redirect(action: "enterChoices", id: quizItem.id)
+	            redirect(action: "enterChoices", id: quizItem.id, params: [classQuizId: params.classQuizId])
 	        }
 	    }else{
 	        redirect(controller: "quiz")
@@ -121,13 +121,19 @@ class QuizItemController {
             redirect(controller: "quiz")
             return
         }
-        quizItemInstance.correctAns = params.correctAns
+        if(params.correctAns?.length()>0)
+            quizItemInstance.correctAns = params.correctAns
+        else{
+            flash.message = "Please select one choice as the correct answer."
+            render(view: "enterChoices", model: [id: params.quizItemId, quizItemInstance: quizItemInstance], params:[classQuizId: params.classQuizId])
+            return
+        }
         if (quizItemInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
-            redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id)
+            redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id, params: [classQuizId: params.classQuizId])
         }
         else {
-            render(view: "enterChoices", model: [id: params.quizItemId, quizItemInstance: quizItemInstance])
+            render(view: "enterChoices", model: [id: params.quizItemId, quizItemInstance: quizItemInstance], params:[classQuizId: params.classQuizId])
         }
     }
     
@@ -144,10 +150,10 @@ class QuizItemController {
             quiz.addToQuizItems(quizItemInstance)
 	        quiz.save(flush:true)
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
-            redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id)
+            redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id, params: [classQuizId: params.classQuizId])
         }
         else {
-            render(view: "IDENTIFICATION", model: [id: params.quizId, quizItemInstance: quizItemInstance])
+            render(view: "IDENTIFICATION", model: [id: params.quizId, quizItemInstance: quizItemInstance], params:[classQuizId: params.classQuizId])
         }
     }
     
@@ -164,10 +170,10 @@ class QuizItemController {
             quiz.addToQuizItems(quizItemInstance)
 	        quiz.save(flush:true)
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
-            redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id)
+            redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id, params: [classQuizId: params.classQuizId])
         }
         else {
-            render(view: "IDENTIFICATION", model: [id: params.quizId, quizItemInstance: quizItemInstance])
+            render(view: "IDENTIFICATION", model: [id: params.quizId, quizItemInstance: quizItemInstance], params:[classQuizId: params.classQuizId])
         }
     }
 
@@ -202,7 +208,7 @@ class QuizItemController {
     def edit = {
         def quizItemInstance = QuizItem.get(params.id)
         if(quizItemInstance.quizType == QuizType.MULTIPLE){
-        	redirect(action: "enterChoices", id: params.id)
+        	redirect(action: "enterChoices", id: params.id, params:[classQuizId: params.classQuizId])
         	return
         }
         if (!quizItemInstance) {
@@ -222,17 +228,17 @@ class QuizItemController {
                 if (quizItemInstance.version > version) {
                     
                     quizItemInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'quizItem.label', default: 'QuizItem')] as Object[], "Another user has updated this QuizItem while you were editing")
-                    render(view: "edit", model: [quizItemInstance: quizItemInstance])
+                    render(view: "edit", model: [quizItemInstance: quizItemInstance], params: [classQuizId: params.classQuizId])
                     return
                 }
             }
             quizItemInstance.properties = params
             if (!quizItemInstance.hasErrors() && quizItemInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
-                redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id)
+                redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id, params: [classQuizId: params.classQuizId])
             }
             else {
-                render(view: "edit", model: [quizItemInstance: quizItemInstance])
+                render(view: "edit", model: [quizItemInstance: quizItemInstance], params: [classQuizId: params.classQuizId])
             }
         }
         else {
@@ -248,7 +254,6 @@ class QuizItemController {
         }
         def quizItemInstance = QuizItem.get(params.id)
         def quizId = quizItemInstance.quiz.id
-        println params
         if (quizItemInstance) {
             try {
             	def quizChoices = QuizChoice.findAllByQuizItem(quizItemInstance)
@@ -258,11 +263,11 @@ class QuizItemController {
             	}
                 quizItemInstance.delete(flush: true)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), params.id])}"
-                redirect(controller:"quiz", action: "show", id:quizId)
+                redirect(controller:"quiz", action: "show", id:quizId, params: [classQuizId: params.classQuizId])
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
                 flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), params.id])}"
-                redirect(action: "show", id: params.id)
+                redirect(action: "show", id: params.id, params: [classQuizId: params.classQuizId])
             }
         }
         else {
@@ -284,11 +289,11 @@ class QuizItemController {
             	}
                 quizItemInstance.delete(flush: true)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), params.id])}"
-                redirect(controller:"quiz", action: "show", id:quizId)
+                redirect(controller:"quiz", action: "show", id:quizId, params: [classQuizId: params.classQuizId])
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
                 flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), params.id])}"
-                redirect(action: "show", id: params.id)
+                redirect(action: "show", id: params.id, params: [classQuizId: params.classQuizId])
             }
         }
         else {
@@ -300,6 +305,6 @@ class QuizItemController {
     def useItem = {
     	def quizItemInstance = QuizItem.get(params.id)
         def quizId = quizItemInstance.quiz.id
-        redirect(controller:"quiz", action: "show", id:quizId)
+        redirect(controller:"quiz", action: "show", id:quizId, params: [classQuizId: params.classQuizId])
     }
 }

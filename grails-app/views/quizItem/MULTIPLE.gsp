@@ -42,6 +42,7 @@
                 </div>
                 <div class="buttons">
                 	<g:hiddenField name="quizId" value="${params.id}" />
+                	<g:hiddenField name="classQuizId" value="${params.classQuizId}" />
                     <span class="button"><g:submitButton name="create" class="save" value="Add Choices" /></span>
                 </div>
             </g:form>

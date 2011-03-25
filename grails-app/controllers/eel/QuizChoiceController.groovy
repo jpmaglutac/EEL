@@ -27,10 +27,10 @@ class QuizChoiceController {
             quizItem.addToQuizChoices(quizChoiceInstance)
             quizItem.save(flush:true)
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizChoice.label', default: 'QuizChoice'), quizChoiceInstance.id])}"
-            redirect(action: "enterChoices", controller: "quizItem", id: quizItem.id)
+            redirect(action: "enterChoices", controller: "quizItem", id: quizItem.id, params: [classQuizId: params.classQuizId])
         }
         else {
-            render(view: "create", model: [quizChoiceInstance: quizChoiceInstance, id: quizItem?.id])
+            render(view: "create", model: [quizChoiceInstance: quizChoiceInstance, id: quizItem?.id], params: [classQuizId: params.classQuizId])
         }
     }
 

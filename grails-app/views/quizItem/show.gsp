@@ -60,6 +60,7 @@
                 <g:form>
                     <g:hiddenField name="id" value="${quizItemInstance?.id}" />
                     <g:hiddenField name="definitionId" value="${params.definitionId}" />
+                    <g:hiddenField name="classQuizId" value="${params.classQuizId}" />
                     <span class="button"><g:actionSubmit action="useItem" value="Yes" /></span>
                     <span class="button"><g:actionSubmit action="delete" value="No" /></span>
                     <span class="button"><g:actionSubmit class="delete" action="removeDefinition" value="Remove Definition" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
