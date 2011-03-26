@@ -5,6 +5,8 @@ import java.util.Random
 class QuizItemController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    
+    def fileReadingService
 
     def index = {
         redirect(action: "list", params: params)
@@ -42,7 +44,7 @@ class QuizItemController {
     	def quiz = Quiz.get(params.id)
     	item.quiz = quiz
     	item.quizType = quizType
-    	
+    	item.relatedLecture = lecture
     	switch(quizType){
     		case QuizType.IDENTIFICATION:
     			item.correctAns = lectureDefinitions[0].identifier
@@ -121,9 +123,10 @@ class QuizItemController {
             redirect(controller: "quiz")
             return
         }
-        if(params.correctAns?.length()>0)
+        if(params.correctAns?.length()>0){
             quizItemInstance.correctAns = params.correctAns
-        else{
+            quizItemInstance.relatedLecture = fileReadingService.findRelatedLecture(quizItemInstance)
+        }else{
             flash.message = "Please select one choice as the correct answer."
             render(view: "enterChoices", model: [id: params.quizItemId, quizItemInstance: quizItemInstance], params:[classQuizId: params.classQuizId])
             return
@@ -146,6 +149,7 @@ class QuizItemController {
     	quizItemInstance.quizType = QuizType.IDENTIFICATION
     	Quiz quiz = Quiz.get(params.quizId)
     	if(quiz){ quizItemInstance.quiz = quiz }
+    	quizItemInstance.relatedLecture = fileReadingService.findRelatedLecture(quizItemInstance)
         if (quizItemInstance.save(flush: true)) {
             quiz.addToQuizItems(quizItemInstance)
 	        quiz.save(flush:true)
@@ -166,6 +170,7 @@ class QuizItemController {
     	quizItemInstance.quizType = QuizType.TRUEORFALSE
     	Quiz quiz = Quiz.get(params.quizId)
     	if(quiz){ quizItemInstance.quiz = quiz }
+    	quizItemInstance.relatedLecture = fileReadingService.findRelatedLecture(quizItemInstance)
         if (quizItemInstance.save(flush: true)) {
             quiz.addToQuizItems(quizItemInstance)
 	        quiz.save(flush:true)
@@ -233,6 +238,7 @@ class QuizItemController {
                 }
             }
             quizItemInstance.properties = params
+            quizItemInstance.relatedLecture = fileReadingService.findRelatedLecture(quizItemInstance)
             if (!quizItemInstance.hasErrors() && quizItemInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
                 redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id, params: [classQuizId: params.classQuizId])
