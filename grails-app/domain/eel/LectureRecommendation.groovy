@@ -2,7 +2,7 @@ package eel
 
 class LectureRecommendation {
 	
-	def belongsTo = [lecture:Lecture, recommendation:Recommendation]
+	def belongsTo = [lecture:Lecture, result: Result]
 
     static constraints = {
     }

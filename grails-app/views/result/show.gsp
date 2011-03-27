@@ -16,6 +16,9 @@
             <div class="dialog">
                 <table>
                     <tbody>
+                    	<g:each in="${resultInstance.lectureRecommendations}" var="recommendation">
+                    		${recommendation.lecture}
+                    	</g:each>
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="result.classQuiz.label" default="Quiz" /></td>
                             

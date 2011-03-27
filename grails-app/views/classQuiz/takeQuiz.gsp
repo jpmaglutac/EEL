@@ -14,7 +14,7 @@
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
-            <g:form id="quiz">
+            <g:form id="quiz" onSubmit="return confirm('Are you sure you want to finish this quiz?');">
             	<div class="dialog">
                 	<g:each in="${items}" var="${item}" status="i">
                 		<b>${i+1}. ${item.quizItem}</b><br />

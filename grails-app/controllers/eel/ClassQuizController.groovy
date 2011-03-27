@@ -147,11 +147,20 @@ class ClassQuizController {
 	
 	def submitQuiz = {
 		def score = 0
+		def passing = 0.5
 		def user = authenticateService.userDomain()
 		def classQuiz = ClassQuiz.get(params.classQuizId)
 		def result = Result.findByStudentAndClassQuiz(user, classQuiz)
 		def answersGiven = params.findAll {
 			it.toString().contains("answerGiven")
+		}
+		def lectures = []
+		def scores = []
+		def total = []
+		if(result.submitted == true){
+			flash.message = "Quiz already answered!"
+			redirect(controller: "result", action: "show", id: result.id)
+			return
 		}
 		answersGiven.each {
 			def id = it.key[0]
@@ -161,14 +170,43 @@ class ClassQuizController {
 			studentAnswer.save(flush: true)
 			result.addToStudentAnswers(studentAnswer)
 			result.save(flush: true)
-			if(studentAnswer.answerGiven == studentAnswer.quizItem.correctAns){
-				score++
+			def relatedLecture = studentAnswer.quizItem.relatedLecture
+			if(relatedLecture){
+				def ind = 0
+				if(lectures.contains(relatedLecture)){
+					ind = lectures.indexOf(relatedLecture)
+					total[ind] = total[ind] + 1
+				}else{
+					lectures << relatedLecture
+					scores << 0
+					total << 1
+					ind = lectures.indexOf(relatedLecture)
+				}
+				if(studentAnswer.answerGiven == studentAnswer.quizItem.correctAns){
+					score++
+					scores[ind] = scores[ind] + 1
+				}
+			}else{
+				if(studentAnswer.answerGiven == studentAnswer.quizItem.correctAns)
+					score++
 			}
 		}
 		result.score = score
 		result.submitted = true
 		result.save(flush: true)
-		redirect(controller: "courseClass", action: "show", id: classQuiz.courseClass.id)
+		for(int i=0; i!=lectures.size(); i++){
+			def percentage = scores[i]/total[i]
+			if(percentage < passing){
+				def lectureRecommendation = new LectureRecommendation()
+				lectureRecommendation.result = result
+				lectureRecommendation.lecture = lectures[i]
+				lectureRecommendation.save(flush: true)
+				result.addToLectureRecommendations(lectureRecommendation)
+				result.save(flush: true)
+			}
+		}
+		flash.message = "Quiz successfully answered"
+		redirect(controller: "result", action: "show", id: result.id)
 	}
 
 }
