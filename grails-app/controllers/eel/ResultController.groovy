@@ -13,7 +13,7 @@ class ResultController {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [resultInstanceList: Result.list(params), resultInstanceTotal: Result.count()]
     }
-
+    
     def create = {
         def resultInstance = new Result()
         resultInstance.properties = params
@@ -46,7 +46,16 @@ class ResultController {
     
     def gradebook = {
     	User user = authenticateService.userDomain()
-        def allQuizzes = Result.findAllByStudentAndSubmitted(user,true)
+    	CourseClass courseClass = CourseClass.get(params.id)
+    	if(!courseClass)
+    		redirect(controller: "courseClass", action: "listByUser")
+        def allQuizzes = Result.withCriteria {
+    		eq("student", user)
+    		eq("submitted", true)
+    		classQuiz{
+    			eq("courseClass", courseClass)
+    		}
+    	}
         [resultInstanceList: allQuizzes]
     }
 

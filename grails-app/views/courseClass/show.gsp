@@ -102,6 +102,7 @@
 					<span class="menuButton"><g:link class="list" controller="classLecture" action="listByClass" id="${courseClassInstance.id}">View Lectures</g:link></span>
 					<span class="menuButton"><g:link class="list" controller="classQuiz" action="listActiveByClass" id="${courseClassInstance.id}">View Active Quizzes</g:link></span>
                 	<span class="menuButton"><g:link class="list" controller="classStudent" action="listStudentsByClass" id="${courseClassInstance.id}">View Students</br></br></g:link></span>
+                	<span class="menuButton"><g:link class="list" controller="result" action="gradebook" id="${courseClassInstance.id}">View Gradebook</br></br></g:link></span>
 					</g:ifAnyGranted>
                 </g:form>
             </div>
