@@ -16,9 +16,6 @@
             <div class="dialog">
                 <table>
                     <tbody>
-                    	<g:each in="${resultInstance.lectureRecommendations}" var="recommendation">
-                    		${recommendation.lecture}
-                    	</g:each>
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="result.classQuiz.label" default="Quiz" /></td>
                             
@@ -80,13 +77,25 @@
                         </g:each>
                     </tbody>
                 </table>
-            </div>
-            <div class="buttons">
-                <g:form>
-                    <g:hiddenField name="id" value="${resultInstance?.id}" />
-                    <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-                </g:form>
+                <g:if test="${resultInstance.lectureRecommendations.size() > 0}">
+                    <h1>Lecture Recommendations</h1>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Lecture</th>
+                                <th>View Lecture</th>
+                            </tr>
+                            
+                            <g:each in="${resultInstance.lectureRecommendations}" var="recommendation">
+                            <g:set value="${eel.ClassLecture.findByLectureAndCourseClass(recommendation.lecture, resultInstance.classQuiz.courseClass)}" var="classLecture" />
+                            <tr class="prop">
+                                <td>${recommendation.lecture}</td>
+                                <td><g:link controller="classLecture" action="show" id="${classLecture.id}">View Lecture</g:link></td>
+                            </tr>
+                            </g:each>
+                        </tbody>
+                    </table>
+                </g:if>
             </div>
         </div>
     </body>
