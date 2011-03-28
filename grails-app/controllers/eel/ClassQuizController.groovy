@@ -6,6 +6,8 @@ class ClassQuizController {
 
     def authenticateService
 
+
+	
     def create = {
         def courseClass = CourseClass.get(params.id)
         User user = authenticateService.userDomain()
@@ -94,6 +96,15 @@ class ClassQuizController {
         [quizInstanceList:quizzes]
     }
     
+	def result = {
+		def courseClass = CourseClass.get(params.id)
+		def cq = ClassQuiz.get(params.id)
+        if(!courseClass)
+            redirect(controller: "courseClass", action: "listByUser")
+        def score = Result.findAllByClassQuiz(cq) 
+        [resultInstanceList:score]
+	}	
+	
     def listByClass = {
         def courseClass = CourseClass.get(params.id)
         if(!courseClass)
@@ -102,6 +113,7 @@ class ClassQuizController {
         [classQuizInstanceList:quizzes]
     }
     
+
     def initializeQuiz = {
     	def user = authenticateService.userDomain()
     	def classQuiz = ClassQuiz.get(params.id)

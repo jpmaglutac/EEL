@@ -19,6 +19,7 @@
                         <tr>
                         
                             <th>Name</th>
+                            <th>Options</th>
                         
                         </tr>
                     </thead>
@@ -27,7 +28,7 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
                             <td>${quizInstance.quiz.name}</td>
-                            <td><g:link controller="classQuiz" action="startQuiz" id="${quizInstance.id}">Take Quiz</g:link>
+                            <td class="view"><g:link controller="classQuiz" action="startQuiz" id="${quizInstance.id}">Take Quiz</g:link>
                         
                         </tr>
                     </g:each>

@@ -21,14 +21,14 @@
                             <!--<g:sortableColumn property="id" title="${message(code: 'courseClass.id.label', default: 'Id')}" />-->
                         
                             <th class="tableTitle"><g:message code="courseClass.course.label" default="Course" /></th>
-						<g:ifAnyGranted role="ROLE_ADMIN, ROLE_TEACHER">
-                            <g:sortableColumn property="enrollmentKey" title="${message(code: 'courseClass.enrollmentKey.label', default: 'Enrollment Key')}" />
-                        </g:ifAnyGranted>
+					<g:ifAnyGranted role="ROLE_ADMIN, ROLE_TEACHER">
+						<g:sortableColumn property="enrollmentKey" title="${message(code: 'courseClass.enrollmentKey.label', default: 'Enrollment Key')}" />
+					</g:ifAnyGranted>
                             <g:sortableColumn property="section" title="${message(code: 'courseClass.section.label', default: 'Section')}" />
                         
                             <th class="tableTitle"><g:message code="courseClass.term.label" default="Term" /></th>
                             
-                            <th class="tableTitle"><g:message code="courseClass.instructor.label" default="instructor" /></th>
+                            <th class="tableTitle"><g:message code="courseClass.instructor.label" default="Instructor" /></th>
 							<th class="tableTitle">Details</th>
                         </tr>
                     </thead>

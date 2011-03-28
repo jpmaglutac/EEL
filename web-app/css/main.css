@@ -253,13 +253,14 @@ th.desc a {
 	color: #333;
 	background: #fff url(../images/skin/shadow.jpg);
 }
-.download a{
+.download a{    background: url(../images/skin/database_table.png) center left no-repeat;
 	font-family:Verdana, Geneva, sans-serif;
 	margin-left:5px;
 	font-size: 10px;
 	font-weight: bold;
-	color: #333;
+	color: #333333;
 	text-decoration:none;
+	padding:0px 0px 0px 20px;
 }
 
 .courseClassPage {

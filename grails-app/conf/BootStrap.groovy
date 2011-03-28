@@ -5,17 +5,14 @@ class BootStrap {
 	def authenticateService
 
     def init = { servletContext ->
+		if(Requestmap.count() == 0){
     	Role student = new Role(authority: "ROLE_STUDENT", description: "Student")
     	student.save(flush: true)
     	Role teacher = new Role(authority: "ROLE_TEACHER", description: "Teacher")
     	teacher.save(flush: true)
     	Role admin = new Role(authority: "ROLE_ADMIN", description: "Admin")
     	admin.save(flush: true)
-    	/*
-		Role developer = new Role(authority: "ROLE_DEVELOPER", description: "Admin")
-    	developer.save(flush: true)
-		*/
-    	
+   	
     	
     	User uTeacher = new User(username: "teacher", userFirstName: "Tea", userLastName: "Cher",
     		passwd: authenticateService.encodePassword("teacher"), email: "teacher@tea.cher", enabled: true,
@@ -48,11 +45,12 @@ class BootStrap {
     	CourseClass i41 = new CourseClass(course: softdev, enrollmentKey: "hey", instructor: uTeacher, term: term, section: "I41")
     	i41.save(flush: true)
 		
-		//new Requestmap(url: '/**', configAttribute: 'ROLE_DEVELOPER').save()
 		new Requestmap(url: '/admin/**', configAttribute: 'ROLE_ADMIN').save()
 		new Requestmap(url: '/classLecture/create/**', configAttribute: 'ROLE_TEACHER').save()
+		new Requestmap(url: '/classLecture/show/**', configAttribute: 'ROLE_TEACHER,ROLE_STUDENT').save()
+		new Requestmap(url: '/classQuiz/**', configAttribute: 'ROLE_TEACHER, ROLE_STUDENT').save()
 		new Requestmap(url: '/classQuiz/create/**', configAttribute: 'ROLE_TEACHER').save()
-		new Requestmap(url: '/classStudent/**', configAttribute: 'ROLE_TEACHER').save()
+		new Requestmap(url: '/classStudent/**', configAttribute: 'ROLE_TEACHER,ROLE_STUDENT,ROLE_ADMIN').save()
 		new Requestmap(url: '/courseClass/**', configAttribute: 'ROLE_TEACHER,ROLE_STUDENT').save()
 		new Requestmap(url: '/course/**', configAttribute: 'ROLE_ADMIN,ROLE_TEACHER,ROLE_STUDENT').save()
 		new Requestmap(url: '/course/create/**', configAttribute: 'ROLE_ADMIN').save()
@@ -60,10 +58,11 @@ class BootStrap {
 		new Requestmap(url: '/lecture/**', configAttribute: 'ROLE_TEACHER,ROLE_STUDENT').save()
 		new Requestmap(url: '/login/**', configAttribute: 'IS_AUTHENTICATED_ANONYMOUSLY').save()
 		new Requestmap(url: '/logout/**', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
-		new Requestmap(url: '/profile/**', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
+		new Requestmap(url: '/profile/**', configAttribute: 'ROLE_TEACHER,ROLE_STUDENT,ROLE_ADMIN').save()
 		new Requestmap(url: '/quizChoice/**', configAttribute: 'ROLE_TEACHER').save()
 		new Requestmap(url: '/quiz/**', configAttribute: 'ROLE_TEACHER').save()
 		new Requestmap(url: '/classQuiz/startQuiz/**', configAttribute: 'ROLE_STUDENT').save()
+		new Requestmap(url: '/classQuiz/result/**', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
 		new Requestmap(url: '/quizItem/**', configAttribute: 'ROLE_TEACHER').save()
 		new Requestmap(url: '/requestmap/**', configAttribute: 'ROLE_ADMIN').save()
 		new Requestmap(url: '/result/**', configAttribute: 'ROLE_TEACHER,ROLE_STUDENT').save()
@@ -80,6 +79,7 @@ class BootStrap {
 		*** user roles:
 			ROLE_STUDENT				ROLE_TEACHER					ROLE_ADMIN	
 		***/
+		}
     }
     def destroy = {
     }

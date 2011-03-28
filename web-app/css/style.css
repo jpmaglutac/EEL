@@ -4,8 +4,67 @@ font-family:Arial, sans-serif;
 font-size:13px;
 }
 
-/* start layout styles */
+/*jquery dd menu*/
+#nav-bar {
+margin: 0;
+padding: 0;
+}
+#nav-bar li{
+float: left;
+list-style: none;
+}
+#nav-bar li a{
+display: block;
+text-decoration: none;
+color: #EAFFED;
+white-space: nowrap;
+}
+#nav-bar li a:hover {
+}
+#nav-bar li ul{
+margin: 10px 0px 0px 0px;
+padding: 0;
+position: absolute;
+visibility: hidden;
+border-left:3px solid #086703;
+border-bottom:2px solid #086703;
+}
+#nav-bar li ul li{
+float: none;
+display: inline;
+padding:0px;
+font-size:80%;
+text-transform:uppercase;
+}
+#nav-bar li ul li a{
+width: auto;
+background:#022200;
+padding:5px 5px 5px 5px;
 
+border-bottom:1px solid #086703;
+color:#ffffff;
+}
+#nav-bar li ul li a:hover{
+background:#000000;
+text-shadow:none;
+}
+
+/* start layout styles */
+td.view a {
+background:#ffffff url('../images/skin/shadow.jpg') bottom repeat-x;
+padding:2px;
+border:1px outset #cccccc;
+margin:2px;
+color:#555555;
+}
+td.view a:hover{
+background:#ffffff url('../images/skin/shadow.jpg') bottom repeat-x;
+padding:2px;
+border:1px outset #E37904;
+margin:2px;
+color:#E37904;
+text-decoration:none;
+}
 #top-bar{
 background: url('../images/top-bar.PNG') no-repeat;
 width:940px;
@@ -42,8 +101,11 @@ text-shadow:1px 1px 5px #000000;
 }
 #nav-bar .current{
 background:#022200;
-padding:0px 10px 0px 10px;
+padding:0px 10px 2px 10px;
 border-radius:3px;
+}
+#nav-bar .current:hover{
+text-shadow:none;
 }
 #nav-bar li{
 list-style:none;
