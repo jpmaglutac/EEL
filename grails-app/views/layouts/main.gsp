@@ -6,6 +6,34 @@
 		<link rel="stylesheet" href="${resource(dir:'css',file:'reset.css')}" type="text/css" />	
 		<link rel="stylesheet" href="${resource(dir:'css',file:'style.css')}" type="text/css" />
 		<link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" type="text/css" />
+		<script src="${resource(dir:'js',file:'jquery.js')}" type="text/javascript"></script>
+		<script>
+			var timeout    = 500;
+			var closetimer = 0;
+			var ddmenuitem = 0;
+
+			function jsddm_open()
+			{  jsddm_canceltimer();
+			   jsddm_close();
+			   ddmenuitem = $(this).find('ul').css('visibility', 'visible');}
+
+			function jsddm_close()
+			{  if(ddmenuitem) ddmenuitem.css('visibility', 'hidden');}
+
+			function jsddm_timer()
+			{  closetimer = window.setTimeout(jsddm_close, timeout);}
+
+			function jsddm_canceltimer()
+			{  if(closetimer)
+			   {  window.clearTimeout(closetimer);
+				  closetimer = null;}}
+
+			$(document).ready(function()
+			{  $('#jsddm > li').bind('mouseover', jsddm_open)
+			   $('#jsddm > li').bind('mouseout',  jsddm_timer)});
+
+			document.onclick = jsddm_close;		
+		</script>
 		<g:layoutHead />
         <g:javascript library="application" />
 	</head>
@@ -25,11 +53,28 @@
 
 			</div>
 			<div id="nav-bar">
-				<ul>
-					<li><a href="${createLink(uri: '/')}" class="${(request.forwardURI=='/EEL/')?'current':''}">Home</a></li>
+				<ul id="jsddm">
+					<li><a href="${createLink(uri: '/')}" class="${(request.forwardURI=='/EEL/'||request.forwardURI=='/EEL/login/**')?'current':''}">Home</a></li>
 					<g:ifAnyGranted role="ROLE_ADMIN,ROLE_TEACHER,ROLE_STUDENT">
 					    <li><g:link class="${(request.forwardURI=='/EEL/course/list')?'current':''}" controller="course" action="list">List Courses</g:link></li>
-					    <li><g:link class="${(request.forwardURI=='/EEL/courseClass/listByUser')?'current':''}" controller="courseClass" action="listByUser">My Classes</g:link></li>
+					    <li>
+							<g:ifAnyGranted role="ROLE_TEACHER,ROLE_STUDENT">
+								<g:link class="${(request.forwardURI=='/EEL/courseClass/listByUser')?'current':''}" controller="courseClass" action="listByUser">My Classes</g:link>
+							</g:ifAnyGranted>
+							<g:ifAnyGranted role="ROLE_ADMIN">	
+								<g:link class="${(request.forwardURI=='/EEL/user/list')?'current':''}" controller="user" action="list">Users</g:link>
+							</g:ifAnyGranted>
+							<g:ifAnyGranted role="ROLE_TEACHER,ROLE_STUDENT">
+							<ul>
+								<li><g:link controller="classLecture" action="list">Lectures</g:link></li>
+								<li><g:link controller="classQuiz" action="list">Quizzes</g:link></li>
+								<g:ifAnyGranted role="ROLE_TEACHER">	
+									<li><g:link controller="result" action="list">Results</g:link></li>
+								</g:ifAnyGranted>
+								<li><g:link controller="gradebook" action="list">Gradebook</g:link></li>
+							</ul>
+							</g:ifAnyGranted>
+						</li>
 				        <li><g:link class="${(request.forwardURI=='/EEL/courseClass/listByTerm')?'current':''}" controller="courseClass" action="listByTerm">Historical Class List</g:link></li>
 				        <li><g:loggedInUserProfileLink>My Profile</g:loggedInUserProfileLink></li>
 					</g:ifAnyGranted>

@@ -62,7 +62,7 @@
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
 					</g:ifAnyGranted>
 					<g:ifAnyGranted role="ROLE_TEACHER">
-					</br><span class="menuButton"><g:link class="create" controller="courseClass" action="create" id="${courseInstance.id}">Add Class</br></br></g:link></span>
+					<br /><span class="menuButton"><g:link class="create" controller="courseClass" action="create" id="${courseInstance.id}">Add Class<br /><br /></g:link></span>
 					</g:ifAnyGranted>
                 </g:form>
             </div>

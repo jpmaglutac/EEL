@@ -11,7 +11,7 @@
     <body>
 	<g:ifAllGranted role="ROLE_ADMIN">
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+
             <g:ifAnyGranted role="ROLE_ADMIN">
 			<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
 			</g:ifAnyGranted>
@@ -34,12 +34,9 @@
                             <g:sortableColumn property="description" title="${message(code: 'course.description.label', default: 'Description')}" />
 							
 							<!-- <g:sortableColumn property="id" title="${message(code: 'course.id.label', default: 'Id')}" /> -->
-							<g:ifAnyGranted role="ROLE_STUDENT">
-							<td class="tableTitle">Section</td>
-							</g:ifAnyGranted>
-							<g:ifAnyGranted role="ROLE_TEACHER,ROLE_ADMIN">
-							<td class="tableTitle">Details</td>
-							</g:ifAnyGranted>
+
+							<td class="tableTitle">Action</td>
+	
                         </tr>
                     </thead>
                     <tbody>
@@ -51,16 +48,29 @@
                         
                             <td>${fieldValue(bean: courseInstance, field: "description")}</td>
                             <td class="view">
-								<g:ifAnyGranted role="ROLE_STUDENT">
-									<g:link controller="courseClass" action="listByCourse" id="${courseInstance.id}">
-										<span>View Sections</span>
-									</g:link>
-								</g:ifAnyGranted>
+					<g:ifAnyGranted role="ROLE_STUDENT">
+						<g:link controller="courseClass" class="btn-link" action="listByCourse" id="${courseInstance.id}">
+							View Sections
+						</g:link>
+					</g:ifAnyGranted>
 								
-                                <g:ifAnyGranted role="ROLE_TEACHER,ROLE_ADMIN">
-                                    <g:link action="show" id="${courseInstance.id}">
-										<span>View Details</span>
-									</g:link>
+                                <g:ifAnyGranted role="ROLE_TEACHER">
+                                    <g:link class="btn-link" controller="courseClass" action="create" id="${courseInstance.id}">
+							Add Class
+						</g:link>
+                                </g:ifAnyGranted>		
+					  
+                                <g:ifAnyGranted role="ROLE_ADMIN">
+						  <span class="button">
+							<g:link class="btn-link" controller="course" action="edit" id="${courseInstance.id}">
+								Edit
+							</g:link>						  
+						  </span>
+						  <span class="button">
+							<g:link class="btn-link" controller="course" action="delete" id="${courseInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" >
+								Delete
+							</g:link>									  
+						  </span>
                                 </g:ifAnyGranted>
 								
                             </td>
