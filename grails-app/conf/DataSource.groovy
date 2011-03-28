@@ -15,8 +15,8 @@ environments {
         dataSource {
 		    /*dbCreate = "create-drop" // one of 'create', 'createeate-drop','update'
             url = "jdbc:hsqldb:mem:devDB"*/
-            dbCreate = "update"
-            url = "jdbc:hsqldb:file:devDb;shutdown=true"
+            dbCreate = "create-drop"
+            url = "jdbc:hsqldb:mem:devDb"
         }
     }
     test {
