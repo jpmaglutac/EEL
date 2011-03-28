@@ -80,12 +80,11 @@ class ClassQuizController {
     }
     
     def result = {
-		def courseClass = CourseClass.get(params.id)
 		def cq = ClassQuiz.get(params.id)
-        if(!courseClass)
+        if(!cq)
             redirect(controller: "courseClass", action: "listByUser")
         def score = Result.findAllByClassQuiz(cq) 
-        [resultInstanceList:score]
+        [resultInstanceList:score, classQuiz: cq]
 	}
     
     def listActiveByClass = {

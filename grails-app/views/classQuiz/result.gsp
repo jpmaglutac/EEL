@@ -20,19 +20,14 @@
 				<g:each in="${resultInstanceList}" status="i" var="resultInstance">
 				<tr class="prop">
 					<td valign="top" class="student">${resultInstance.student}</td>
-					<td valign="top" class="score">${resultInstance.score}</td>
+					<td valign="top" class="score">${(resultInstance.score/resultInstance.classQuiz.quiz.quizItems.size())*100}%</td>
 				</tr>
 				</g:each>
 			</tbody>
 			</table>
 		</div>
 		<div class="buttons">
-		    <g:if test="${isUser}">
-			    <g:form>
-				    <input type="hidden" name="id" value="${person.id}" />
-				    <span class="button"><g:actionSubmit class="edit" value="Edit" /></span>
-				</g:form>
-			</g:if>
+			<span class="button"><g:link controller="courseClass" action="show" id="${classQuiz?.courseClass?.id}">Back to Class Page</g:link></span>
 		</div>
 	</div>
 </body>

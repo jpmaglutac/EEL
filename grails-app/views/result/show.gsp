@@ -97,6 +97,9 @@
                     </table>
                 </g:if>
             </div>
+            <div class="buttons">
+				<g:link controller="courseClass" action="show" id="${classLecture?.courseClass?.id}">Back to Class Page</g:link>
+            </div>
         </div>
     </body>
 </html>

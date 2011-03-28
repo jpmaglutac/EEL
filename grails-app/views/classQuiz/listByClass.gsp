@@ -19,7 +19,7 @@
                         <tr>
                         
                             <th>Name</th>
-                            <th colspan="3">Options</th>
+                            <th colspan="2">Options</th>
                         
                         </tr>
                     </thead>
@@ -29,7 +29,6 @@
                         
                             <td>${classQuizInstance.quiz.name}</td>
                             <td><g:link controller="quiz" action="show" id="${classQuizInstance.quiz.id}" params="${[classQuizId: classQuizInstance.id]}">Edit Quiz</g:link></td>
-                            <td><g:link controller="quiz" action="show" id="${classQuizInstance.id}">View Quiz</g:link></td>
                             <td><g:link controller="classQuiz" action="result" id="${classQuizInstance.id}">View Results</g:link>                  </td>    
                         </tr>
                     </g:each>

@@ -54,6 +54,7 @@
 				<g:ifAnyGranted role="ROLE_STUDENT">
 					<p class="download" style="margin:5px"><g:link controller="download" id="${classLectureInstance?.lecture?.file?.id}">Download</g:link></p>
 				</g:ifAnyGranted>
+				<g:link controller="courseClass" action="show" id="${classLectureInstance?.courseClass?.id}">Back to Class Page</g:link>
 				</g:form>
             </div>
         </div>

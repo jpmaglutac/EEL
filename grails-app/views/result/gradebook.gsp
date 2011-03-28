@@ -25,11 +25,14 @@
                     	<g:each in="${resultInstanceList}" status="i" var="resultInstance">
                     		<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                             	<td>${resultInstance.classQuiz.quiz}</td>
-                            	<td><g:link action="show" id="${resultInstance.id}">${(resultInstance.score/resultInstance.classQuiz.quiz.quizItems.size())*100}</g:link></td>
+                            	<td><g:link action="show" id="${resultInstance.id}">${(resultInstance.score/resultInstance.classQuiz.quiz.quizItems.size())*100}%</g:link></td>
                         	</tr>                        
                     	</g:each>
                     </tbody>
                 </table>
+            </div>
+            <div class="buttons">
+				<g:link controller="courseClass" action="show" id="${params.id}">Back to Class Page</g:link>
             </div>
         </div>
     </body>
