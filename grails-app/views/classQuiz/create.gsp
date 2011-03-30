@@ -23,6 +23,11 @@
                 <g:renderErrors bean="${quizInstance}" as="list" />
             </div>
             </g:hasErrors>
+            <g:hasErrors bean="${classQuizInstance}">
+            <div class="errors">
+                <g:renderErrors bean="${classQuizInstance}" as="list" />
+            </div>
+            </g:hasErrors>
             <g:form action="save" >
                 <div class="dialog">
                     <table>
@@ -69,7 +74,7 @@
                     </table>
                 </div>
                 <div class="buttons">
-                	<g:hiddenField name="courseClassId" value="${params.id}" />
+                	<g:hiddenField name="courseClassId" value="${courseClassId?:params.id}" />
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>
             </g:form>
@@ -86,7 +91,7 @@
             			</tbody>
             		</table>
             	</div>
-            	<g:hiddenField name="courseClassId" value="${params.id}" />
+            	<g:hiddenField name="courseClassId" value="${courseClassId?:params.id}" />
                 <div class="buttons">
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>

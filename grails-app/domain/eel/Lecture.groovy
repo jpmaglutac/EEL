@@ -8,7 +8,7 @@ class Lecture {
 	UFile file
 
     static constraints = {
-    	
+    	title(blank: false, unique: ["instructor", "course"])
     }
     
     String toString(){

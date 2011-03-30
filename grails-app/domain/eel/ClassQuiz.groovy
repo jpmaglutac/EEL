@@ -7,7 +7,16 @@ class ClassQuiz {
 	Date endDate
 	
     static constraints = {
-    	
+    	endDate(validator: {endDate, classQuiz ->
+    	    if(classQuiz.startDate){
+    	        if(classQuiz.startDate.getTime() > endDate.getTime()){
+    	            return false
+    	        }else{
+    	            return true
+    	        }
+    	    }
+    	})
+    	quiz(unique: "courseClass")
     }
     
     String toString(){

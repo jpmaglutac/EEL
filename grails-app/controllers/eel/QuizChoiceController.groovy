@@ -30,7 +30,7 @@ class QuizChoiceController {
             redirect(action: "enterChoices", controller: "quizItem", id: quizItem.id, params: [classQuizId: params.classQuizId])
         }
         else {
-            render(view: "create", model: [quizChoiceInstance: quizChoiceInstance, id: quizItem?.id], params: [classQuizId: params.classQuizId])
+            render(view: "create", model: [quizChoiceInstance: quizChoiceInstance, id: quizItem?.id, classQuizId: params.classQuizId])
         }
     }
 

@@ -10,8 +10,8 @@ class QuizItem {
     Lecture relatedLecture
 
     static constraints = {
-        correctAns(nullable: true)
-        question(nullable: true)
+        correctAns(nullable: true, blank: false)
+        question(nullable: true, blank: false)
         relatedLecture(nullable: true)
     }
     

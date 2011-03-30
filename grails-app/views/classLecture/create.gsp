@@ -54,12 +54,16 @@
                         </tbody>
                     </table>
                 </div>
-                <g:hiddenField name="courseClassId" value="${params.id}" />
+                <g:hiddenField name="courseClassId" value="${courseClassId?:params.id}" />
                 <div class="buttons">
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.upload.label', default:'Upload')}" /></span>
                 </div>
             </g:uploadForm>
-            
+            <g:hasErrors bean="${classLectureInstance}">
+		        <div class="errors">
+			        <g:renderErrors bean="${classLectureInstance}" as="list" />
+		        </div>
+		    </g:hasErrors>
             <g:form action="addLecture" >
             	<h1>Add lectures from your other classes</h1>
             	<div class="dialog">
@@ -67,12 +71,12 @@
             			<tbody>
             				<tr class="prop">
             					<td valign="top" class="name">Lecture:</td>
-            					<td valign="top"><g:select name="lectureId" optionKey="id" from="${lectures}" /></td>
+            					<td valign="top" class="value ${hasErrors(bean: classLectureInstance, field: 'lecture', 'errors')}"><g:select name="lectureId" optionKey="id" from="${lectures}" /></td>
             				</tr>
             			</tbody>
             		</table>
             	</div>
-            	<g:hiddenField name="courseClassId" value="${params.id}" />
+            	<g:hiddenField name="courseClassId" value="${courseClassId?:params.id}" />
                 <div class="buttons">
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.add.label', default:'Add')}" /></span>
                 </div>

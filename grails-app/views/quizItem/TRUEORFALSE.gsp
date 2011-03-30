@@ -52,12 +52,12 @@
                     </table>
                 </div>
                 <div class="buttons">
-                	<g:hiddenField name="quizId" value="${params.id}" />
-                	<g:hiddenField name="classQuizId" value="${params.classQuizId}" />
+                	<g:hiddenField name="quizId" value="${quizId?:params.id}" />
+                	<g:hiddenField name="classQuizId" value="${classQuizId?:params.classQuizId}" />
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
-                	<g:if test="${quizItemInstance}">
-                		<g:hiddenField name="id" value="${quizItemInstance.id}" />
-                		<g:hiddenField name="classQuizId" value="${params.classQuizId}" />
+                	<g:if test="${quizItemInstance?.id}">
+                		<g:hiddenField name="id" value="${quizId?:quizItemInstance.id}" />
+                		<g:hiddenField name="classQuizId" value="${classQuizId?:params.classQuizId}" />
                 		<span class="button"><g:actionSubmit class="delete" action="delete" value="Delete" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 	</g:if>
                 </div>

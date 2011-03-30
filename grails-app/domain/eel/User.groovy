@@ -39,7 +39,8 @@ class User {
 		username(blank: false, unique: true)
 		userFirstName(blank: false)
 		userLastName(blank: false)
-		passwd(blank: false)
+		passwd(blank:false, size:6..50)
+		email(email: true)
 		enabled()
 	}
 	

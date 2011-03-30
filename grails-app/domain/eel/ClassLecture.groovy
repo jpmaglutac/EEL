@@ -4,6 +4,7 @@ class ClassLecture {
 	def belongsTo = [lecture:Lecture, courseClass: CourseClass]
 
     static constraints = {
+        lecture(unique:'courseClass')
     }
     
     String toString(){

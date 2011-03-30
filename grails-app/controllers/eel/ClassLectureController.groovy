@@ -62,7 +62,6 @@ class ClassLectureController {
     }
 
     def create = {
-        def classLectureInstance = new ClassLecture()
         User user = authenticateService.userDomain()
         def courseClass = CourseClass.get(params.id)
         if(!courseClass){
@@ -70,12 +69,12 @@ class ClassLectureController {
         	redirect(action: "create", id: params.id)
         }
         def lectures = Lecture.findAllByCourseAndInstructor(courseClass.course, user)
-        classLectureInstance.properties = params
-        return [classLectureInstance: classLectureInstance, lectures: lectures]
+        return [lectures: lectures]
     }
     
     def addLecture = {
     	def classLectureInstance = new ClassLecture()
+    	def user = authenticateService.userDomain()
     	def courseClass = CourseClass.get(params.courseClassId)
     	classLectureInstance.lecture = Lecture.get(params.lectureId)
     	classLectureInstance.courseClass = courseClass
@@ -84,7 +83,7 @@ class ClassLectureController {
             redirect(action: "show", id: classLectureInstance.id)
         }
         else {
-           	render(view: "create", model: [lectureInstance: lectureInstance, id: params.courseClassId])
+           	render(view: "create", model: [courseClassId: params.courseClassId, lectures: Lecture.findAllByCourseAndInstructor(courseClass.course, user), classLectureInstance: classLectureInstance, id: params.courseClassId])
         }
     }
 
@@ -120,11 +119,11 @@ class ClassLectureController {
             	redirect(action: "show", id: classLectureInstance.id)
         	}
         	else {
-            	render(view: "create", model: [lectureInstance: lectureInstance, id: params.courseClassId])
+            	render(view: "create", model: [lectures: Lecture.findAllByCourseAndInstructor(courseClass.course, user),courseClassId: params.courseClassId, lectureInstance: lectureInstance, id: params.courseClassId])
         	}
         }
         else {
-            render(view: "create", model: [lectureInstance: lectureInstance, id: params.courseClassId])
+            render(view: "create", model: [lectures: Lecture.findAllByCourseAndInstructor(courseClass.course, user),courseClassId: params.courseClassId, lectureInstance: lectureInstance, id: params.courseClassId])
         }
         
     }

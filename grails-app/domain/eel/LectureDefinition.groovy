@@ -8,5 +8,6 @@ class LectureDefinition {
 	String definition
 
     static constraints = {
+        identifier(unique:"lecture")
     }
 }

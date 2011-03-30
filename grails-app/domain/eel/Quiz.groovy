@@ -8,6 +8,8 @@ class Quiz {
     long timeAllotted
 	
     static constraints = {
+        name(blank: false)
+        timeAllotted(min: 1l)
     }
     
     String toString(){

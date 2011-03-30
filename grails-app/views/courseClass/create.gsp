@@ -73,7 +73,7 @@
                     </table>
                 </div>
                 <div class="buttons">
-                    <g:hiddenField name="courseId" value="${params.id}" />
+                    <g:hiddenField name="courseId" value="${courseId?:params.id}" />
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>
             </g:form>

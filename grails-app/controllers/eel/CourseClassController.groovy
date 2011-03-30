@@ -151,7 +151,7 @@ class CourseClassController {
             redirect(action: "show", id: courseClassInstance.id)
         }
         else {
-            render(view: "create", model: [courseClassInstance: courseClassInstance])
+            render(view: "create", model: [courseId: params.courseId, courseClassInstance: courseClassInstance])
         }
     }
 

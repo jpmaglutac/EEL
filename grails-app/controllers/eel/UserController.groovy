@@ -125,15 +125,17 @@ class UserController {
 		def role
 		def person = new User()
 		person.properties = params
-		person.passwd = authenticateService.encodePassword(params.passwd)
-		if((role = Role.findByAuthority(params.selectedAuthority?:"")))
-			person.addToAuthorities(role)
+		person.passwd = params.passwd
 		if (person.save()) {
+		    if((role = Role.findByAuthority(params.selectedAuthority?:"")))
+			    person.addToAuthorities(role)
+			person.passwd = authenticateService.encodePassword(params.passwd)
+			person.save(flush: true)
 			addRoles(person)
 			redirect action: show, id: person.id
 		}
 		else {
-			render view: 'create', model: [authorityList: Role.list(), person: person]
+			render view: 'create', model: [authority: params.selectedAuthority, authorityList: Role.list(), person: person]
 		}
 	}
 

@@ -11,5 +11,6 @@ class Course {
 	}
 
     static constraints = {
+        courseCode(unique: true)
     }
 }

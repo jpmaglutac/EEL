@@ -106,6 +106,8 @@ class QuizItemController {
 	            quiz.addToQuizItems(quizItem)
 	            quiz.save(flush:true)
 	            redirect(action: "enterChoices", id: quizItem.id, params: [classQuizId: params.classQuizId])
+	        }else{
+	            render view: "MULTIPLE", model: [quizId:params.quizId, classQuizId: params.classQuizId, quizItemInstance: quizItem]
 	        }
 	    }else{
 	        redirect(controller: "quiz")
@@ -123,6 +125,7 @@ class QuizItemController {
             redirect(controller: "quiz")
             return
         }
+        quizItemInstance.question = params.question
         if(params.correctAns?.length()>0){
             quizItemInstance.correctAns = params.correctAns
             quizItemInstance.relatedLecture = fileReadingService.findRelatedLecture(quizItemInstance)
@@ -136,7 +139,7 @@ class QuizItemController {
             redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id, params: [classQuizId: params.classQuizId])
         }
         else {
-            render(view: "enterChoices", model: [id: params.quizItemId, quizItemInstance: quizItemInstance], params:[classQuizId: params.classQuizId])
+            render(view: "enterChoices", model: [quizItemId: params.quizItemId, quizItemInstance: quizItemInstance, classQuizId: params.classQuizId])
         }
     }
     
@@ -145,19 +148,22 @@ class QuizItemController {
     }
     
     def saveIDENTIFICATION = {
-    	def quizItemInstance = new QuizItem(params)
+    	def quizItemInstance = new QuizItem()
+    	quizItemInstance.question = params.question
+    	quizItemInstance.correctAns = params.correctAns
     	quizItemInstance.quizType = QuizType.IDENTIFICATION
     	Quiz quiz = Quiz.get(params.quizId)
     	if(quiz){ quizItemInstance.quiz = quiz }
     	quizItemInstance.relatedLecture = fileReadingService.findRelatedLecture(quizItemInstance)
         if (quizItemInstance.save(flush: true)) {
+            println quizItemInstance.question.length()
             quiz.addToQuizItems(quizItemInstance)
 	        quiz.save(flush:true)
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'quizItem.label', default: 'QuizItem'), quizItemInstance.id])}"
             redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id, params: [classQuizId: params.classQuizId])
         }
         else {
-            render(view: "IDENTIFICATION", model: [id: params.quizId, quizItemInstance: quizItemInstance], params:[classQuizId: params.classQuizId])
+            render(view: "IDENTIFICATION", model: [quizId: params.quizId, quizItemInstance: quizItemInstance, classQuizId: params.classQuizId])
         }
     }
     
@@ -166,7 +172,9 @@ class QuizItemController {
     }
     
     def saveTRUEORFALSE = {
-    	def quizItemInstance = new QuizItem(params)
+    	def quizItemInstance = new QuizItem()
+    	quizItemInstance.question = params.question
+    	quizItemInstance.correctAns = params.correctAns
     	quizItemInstance.quizType = QuizType.TRUEORFALSE
     	Quiz quiz = Quiz.get(params.quizId)
     	if(quiz){ quizItemInstance.quiz = quiz }
@@ -178,7 +186,7 @@ class QuizItemController {
             redirect(controller: "quiz", action: "show", id: quizItemInstance.quiz.id, params: [classQuizId: params.classQuizId])
         }
         else {
-            render(view: "IDENTIFICATION", model: [id: params.quizId, quizItemInstance: quizItemInstance], params:[classQuizId: params.classQuizId])
+            render(view: "TRUEORFALSE", model: [quizId: params.quizId, quizItemInstance: quizItemInstance, classQuizId: params.classQuizId])
         }
     }
 

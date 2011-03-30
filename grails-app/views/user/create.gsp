@@ -92,7 +92,7 @@
 						<td valign="top" class="name" align="left">Assign Roles:</td>
 					</tr>
 
-					<g:radioGroup name="selectedAuthority" values="${authorityList.authority}" labels="${authorityList.description}">
+					<g:radioGroup name="selectedAuthority" values="${authorityList.authority}" labels="${authorityList.description}" value="${authority}">
 					<tr>
 						<td valign="top" class="name" align="left">${it.label} ${it.radio}</td>
 					</tr>

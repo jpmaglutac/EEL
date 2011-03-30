@@ -15,5 +15,6 @@ class Result {
 	}
 
     static constraints = {
+        student(unique: "classQuiz")
     }
 }

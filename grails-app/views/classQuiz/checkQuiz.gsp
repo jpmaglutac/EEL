@@ -15,6 +15,11 @@
         </div>
         --><div class="body">
             <h1><g:message code="default.show.label" args="[entityName]" /></h1>
+            <g:hasErrors bean="${classQuizInstance}">
+            <div class="errors">
+                <g:renderErrors bean="${classQuizInstance}" as="list" />
+            </div>
+            </g:hasErrors>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -87,7 +92,7 @@
             	</div>
             	<div class="buttons">
                     <g:hiddenField name="quizId" value="${quizInstance?.id}" />
-                    <g:hiddenField name="courseClassId" value="${params.courseClassId}" />
+                    <g:hiddenField name="courseClassId" value="${courseClassId?:params.courseClassId}" />
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
 	            </div>
             </g:form>
