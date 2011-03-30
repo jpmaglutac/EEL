@@ -54,7 +54,7 @@
                                 ${answer.quizItem.quizType.name}
                             </td>
                             <td>
-                                <g:if test="${answer.answerGiven ==  answer.quizItem.correctAns}">
+                                <g:if test="${answer.answerGiven.equalsIgnoreCase(answer.quizItem.correctAns)}">
                                     1
                                 </g:if>
                                 <g:else>

@@ -81,10 +81,29 @@ class ClassQuizController {
     
     def result = {
 		def cq = ClassQuiz.get(params.id)
+		def passing = 0.5
         if(!cq)
             redirect(controller: "courseClass", action: "listByUser")
-        def score = Result.findAllByClassQuiz(cq) 
-        [resultInstanceList:score, classQuiz: cq]
+        def results = Result.findAllByClassQuizAndSubmitted(cq, true)
+        def lectures = []
+        def recommended = []
+        def recommendedLectures = []
+        results.each{ result ->
+            result.lectureRecommendations.each {
+                if(lectures.contains(it.lecture)){
+                    recommended[lectures.indexOf(it.lecture)] += 1
+                }else{
+                    lectures << it.lecture
+                    recommended << 1
+                }
+            }
+        }
+        for(int i=0; i!=recommended.size(); i++){
+            if(recommended[i]/results.size() > passing){
+                recommendedLectures << lectures[i]
+            }
+        }
+        [resultInstanceList:results, classQuiz: cq, lectureRecommendations: recommendedLectures]
 	}
     
     def listActiveByClass = {
@@ -124,7 +143,7 @@ class ClassQuizController {
     		Collections.shuffle(quizItems)
     		quizItems.each {
     			if(StudentAnswer.countByStudentAndQuizItem(user, it)==0){
-    				def studentAnswer = new StudentAnswer(student: user, quizItem: it)
+    				def studentAnswer = new StudentAnswer(student: user, quizItem: it, result: result)
     				studentAnswer.save(flush: true)
     			}
     		}
@@ -171,10 +190,9 @@ class ClassQuizController {
 			return
 		}
 		answersGiven.each {
-			def id = it.key[0]
+			def id = (it.key.split("_"))[0]
 			def studentAnswer = StudentAnswer.get(id)
 			studentAnswer.answerGiven = it.value
-			studentAnswer.result = result
 			studentAnswer.save(flush: true)
 			result.addToStudentAnswers(studentAnswer)
 			result.save(flush: true)
@@ -190,12 +208,12 @@ class ClassQuizController {
 					total << 1
 					ind = lectures.indexOf(relatedLecture)
 				}
-				if(studentAnswer.answerGiven == studentAnswer.quizItem.correctAns){
+				if(studentAnswer.answerGiven.equalsIgnoreCase(studentAnswer.quizItem.correctAns)){
 					score++
 					scores[ind] = scores[ind] + 1
 				}
 			}else{
-				if(studentAnswer.answerGiven == studentAnswer.quizItem.correctAns)
+				if(studentAnswer.answerGiven.equalsIgnoreCase(studentAnswer.quizItem.correctAns))
 					score++
 			}
 		}

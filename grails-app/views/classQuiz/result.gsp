@@ -25,6 +25,24 @@
 				</g:each>
 			</tbody>
 			</table>
+			<g:if test="${lectureRecommendations.size() > 0}">
+                <h1>Lecture Recommendations</h1>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Lecture</th>
+                            <th>View Lecture</th>
+                        </tr>
+                        <g:each in="${lectureRecommendations}" var="recommendation">
+                        <g:set value="${eel.ClassLecture.findByLectureAndCourseClass(recommendation, classQuiz.courseClass)}" var="classLecture" />
+                        <tr class="prop">
+                            <td>${recommendation}</td>
+                            <td><g:link controller="classLecture" action="show" id="${classLecture.id}">View Lecture</g:link></td>
+                        </tr>
+                        </g:each>
+                    </tbody>
+                </table>
+            </g:if>
 		</div>
 		<div class="buttons">
 			<span class="button"><g:link controller="courseClass" action="show" id="${classQuiz?.courseClass?.id}">Back to Class Page</g:link></span>

@@ -19,13 +19,13 @@
                 	<g:each in="${items}" var="${item}" status="i">
                 		<b>${i+1}. ${item.quizItem}</b><br />
                 		<g:if test="${item.quizItem.quizType == eel.QuizType.IDENTIFICATION}">
-                		 	<g:textField name="${item.id}answerGiven" value="${item.answerGiven}" />
+                		 	<g:textField name="${item.id}_answerGiven" value="${item.answerGiven}" />
                 		</g:if><g:elseif test="${item.quizItem.quizType == eel.QuizType.TRUEORFALSE}">
-                			<g:radioGroup name="${item.id}answerGiven" values="['True', 'False']" labels="['True', 'False']" value="${item.answerGiven}">
+                			<g:radioGroup name="${item.id}_answerGiven" values="['True', 'False']" labels="['True', 'False']" value="${item.answerGiven}">
                         		${it.radio} ${it.label}<br />
                         	</g:radioGroup>
                 		</g:elseif><g:elseif test="${item.quizItem.quizType == eel.QuizType.MULTIPLE}">
-                			<g:radioGroup name="${item.id}answerGiven" values="${item.quizItem.quizChoices?.id}" labels="${item.quizItem.quizChoices?.choice}" value="${item.answerGiven}">
+                			<g:radioGroup name="${item.id}_answerGiven" values="${item.quizItem.quizChoices?.id}" labels="${item.quizItem.quizChoices?.choice}" value="${item.answerGiven}">
                         		${it.radio} ${it.label}<br />
                         	</g:radioGroup>
                 		</g:elseif>
