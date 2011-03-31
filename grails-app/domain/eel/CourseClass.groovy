@@ -6,6 +6,7 @@ class CourseClass {
 
 	String section
 	String enrollmentKey
+	boolean canViewResults
 
     static constraints = {
         section(unique: ["course", "term"])

@@ -39,8 +39,10 @@ class ResultController {
         }
         else {
             def answerInstances = StudentAnswer.findAllByResult(resultInstance)
-            
-            [resultInstance: resultInstance, answerInstances: answerInstances]
+            User user = authenticateService.userDomain()
+            def role = user.authorities.asList()[0].authority
+            println role
+            [resultInstance: resultInstance, answerInstances: answerInstances, role: role]
         }
     }
     

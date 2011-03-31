@@ -59,6 +59,13 @@
                                     <g:textField name="section" value="${courseClassInstance?.section}" />
                                 </td>
                             </tr>
+                            
+                            <tr class="prop">
+						        <td valign="top" class="name"><label for="canViewResults">Students Can View Answers on Results:</label></td>
+						        <td valign="top" class="value ${hasErrors(bean:person,field:'canViewResults','errors')}">
+							        <g:checkBox name="canViewResults" value="${courseClassInstance?.canViewResults}" ></g:checkBox>
+						        </td>
+					        </tr>
                         
                             <%--<tr class="prop">
                                 <td valign="top" class="name">

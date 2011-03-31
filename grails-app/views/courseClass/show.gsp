@@ -14,57 +14,6 @@
             <div class="message">${flash.message}</div>
             </g:if>
             <div class="dialog">
-                <!--<table>
-                    <tbody>
-						<tr class="prop">
-                            <td valign="top" class="name" colspan="2">Class Information:</td>
-
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="courseClass.id.label" default="Id" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: courseClassInstance, field: "id")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="courseClass.course.label" default="Course" /></td>
-                            
-                            <td valign="top" class="value"><g:link controller="course" action="show" id="${courseClassInstance?.course?.id}">${courseClassInstance?.course?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="courseClass.enrollmentKey.label" default="Enrollment Key" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: courseClassInstance, field: "enrollmentKey")}</td>
-                            
-                        </tr>
-                    
-                       <tr class="prop">
-                            <td valign="top" class="name"><g:message code="courseClass.section.label" default="Section" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: courseClassInstance, field: "section")}</td>
-                            
-                        </tr>
-                        
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="courseClass.term.label" default="Term" /></td>
-                            
-                            <td valign="top" class="value"><g:link controller="term" action="show" id="${courseClassInstance?.term?.id}">${courseClassInstance?.term?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="courseClass.instructor.label" default="instructor" /></td>
-                            
-                            <td valign="top" class="value"><g:link controller="user" action="show" id="${courseClassInstance?.instructor?.id}">${courseClassInstance?.instructor?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
-                    
-                    </tbody>
-                </table>-->
 			<table>
 			 <tbody>
 				<tr>
@@ -82,6 +31,12 @@
 					<td class="courseClassPage"><g:message code="courseClass.instructor.label" default="Instructor" />:</td>
 					<td class="courseClassPage"><g:link controller="user" action="show" id="${courseClassInstance?.instructor?.id}">${courseClassInstance?.instructor?.encodeAsHTML()}</g:link></td>
 				</tr>
+				<g:ifAllGranted role="ROLE_TEACHER">
+				    <tr>
+				        <td class="courseClassPage">Students Can View<br /><br />Answers on Results:</td>
+				        <td class="courseClassPage">${(courseClassInstance.canViewResults)?'Yes':'No'}</td>
+				    </tr>
+				</g:ifAllGranted>
 			 </tbody>
 			</table>
 		</div>
