@@ -64,22 +64,22 @@ class QuizChoiceController {
                 if (quizChoiceInstance.version > version) {
                     
                     quizChoiceInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'quizChoice.label', default: 'QuizChoice')] as Object[], "Another user has updated this QuizChoice while you were editing")
-                    render(view: "edit", model: [quizChoiceInstance: quizChoiceInstance, quizItemId: params.quizItemId])
+                    render(view: "edit", model: [classQuizId: params.classQuizId, quizChoiceInstance: quizChoiceInstance, quizItemId: params.quizItemId])
                     return
                 }
             }
             quizChoiceInstance.properties = params
             if (!quizChoiceInstance.hasErrors() && quizChoiceInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'quizChoice.label', default: 'QuizChoice'), quizChoiceInstance.id])}"
-                redirect(controller: "quizItem", action: "enterChoices", id: params.quizItemId)
+                redirect(controller: "quizItem", action: "enterChoices", id: params.quizItemId, params: [classQuizId: params.classQuizId])
             }
             else {
-                render(view: "edit", model: [quizChoiceInstance: quizChoiceInstance, quizItemId: params.quizItemId])
+                render(view: "edit", model: [classQuizId: params.classQuizId, quizChoiceInstance: quizChoiceInstance, quizItemId: params.quizItemId])
             }
         }
         else {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'quizChoice.label', default: 'QuizChoice'), params.id])}"
-            redirect(controller: "quizItem", action: "enterChoices", id: params.quizItemId)
+            redirect(controller: "quizItem", action: "enterChoices", id: params.quizItemId, params: [classQuizId: params.classQuizId])
         }
     }
 
