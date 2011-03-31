@@ -98,7 +98,7 @@
                 </g:if>
             </div>
             <div class="buttons">
-				<g:link controller="courseClass" action="show" id="${classLecture?.courseClass?.id}">Back to Class Page</g:link>
+				<g:link controller="courseClass" action="show" id="${resultInstance?.classQuiz?.courseClass?.id}">Back to Class Page</g:link>
             </div>
         </div>
     </body>
