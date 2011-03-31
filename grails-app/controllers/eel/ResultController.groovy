@@ -115,4 +115,28 @@ class ResultController {
             redirect(action: "list")
         }
     }
+    
+    def courseClass = {
+    	def courseClass = CourseClass.get(params.id)
+    	def students = ClassStudent.findAllByCourseClass(courseClass).student
+    	def classQuizzes = ClassQuiz.findAllByCourseClass(courseClass)
+    	def results = Result.findAllByClassQuizInList(classQuizzes)
+    	def listGrades = []
+    	students.each{student ->
+    		def grades = []
+    		classQuizzes.each {classQuiz ->
+    			def result = results.find{
+    				it.student == student && it.classQuiz == classQuiz
+    			}
+    			if(result){
+    				result = result.score/result.classQuiz.quiz.quizItems.size()*100
+    				grades << result
+    			}else{
+    				grades << "-"
+    			}
+    		}
+    		listGrades << grades
+    	}
+    	[students:students, classQuizzes: classQuizzes, listGrades: listGrades]
+    }
 }
