@@ -42,7 +42,7 @@ class BootStrap {
     	term.save(flush: true)
     	Course softdev = new Course(courseCode: "SOFTDEV", description: "Software Development", department: "ITE")
     	softdev.save(flush: true)
-    	CourseClass i41 = new CourseClass(course: softdev, enrollmentKey: "hey", instructor: uTeacher, term: term, section: "I41")
+    	CourseClass i41 = new CourseClass(canViewResults: true, course: softdev, enrollmentKey: "hey", instructor: uTeacher, term: term, section: "I41")
     	i41.save(flush: true)
 		
 		new Requestmap(url: '/admin/**', configAttribute: 'ROLE_ADMIN').save()

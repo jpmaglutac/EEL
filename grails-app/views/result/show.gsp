@@ -42,17 +42,18 @@
                     <tbody>
                         <tr>
                         <th>Item No.</th>
-                        <th>Quiz Type</th>
                         <th>Score</th>
-                        <th>Details</th>
+                        <th>Quiz Type</th>
+                        <g:if test="${(role=='ROLE_TEACHER')||(role=='ROLE_STUDENT' && resultInstance.classQuiz.courseClass.canViewResults)}">
+                            <th>Question</th>
+                            <th>Answer Given</th>
+                            <th>Correct Answer</th>
+                        </g:if>
                         </tr>
                         
                         <g:each in="${answerInstances}" var="answer" status="i">
                         <tr class="prop">
                             <td>${i+1}</td>
-                            <td>
-                                ${answer.quizItem.quizType.name}
-                            </td>
                             <td>
                                 <g:if test="${answer.answerGiven.equalsIgnoreCase(answer.quizItem.correctAns)}">
                                     1
@@ -61,18 +62,21 @@
                                     0                                    
                                 </g:else>
 
-                                <%--
-                                <g:if test="${answer.quizItem.quizType == eel.QuizType.MULTIPLE}">
-                                    ${eel.QuizChoice.get(answer.answerGiven)}
-                                </g:if>
-                                <g:else>
-                                    ${answer.answerGiven}
-                                </g:else>
-                                --%>
                             </td>
                             <td>
-                                View Details
+                                ${answer.quizItem.quizType.name}
                             </td>
+                            <g:if test="${(role=='ROLE_TEACHER')||(role=='ROLE_STUDENT' && resultInstance.classQuiz.courseClass.canViewResults)}">
+                                <td>${answer.quizItem.question}</td>
+                                <g:if test="${answer.quizItem.quizType == eel.QuizType.MULTIPLE}">
+                                    <td>${eel.QuizChoice.get(answer.answerGiven)}</td>
+                                    <td>${eel.QuizChoice.get(answer.quizItem.correctAns)}</td>
+                                </g:if>
+                                <g:else>
+                                    <td>${answer.answerGiven}</td>
+                                    <td>${answer.quizItem.correctAns}</td>
+                                </g:else>
+                            </g:if>
                         </tr>
                         </g:each>
                     </tbody>
