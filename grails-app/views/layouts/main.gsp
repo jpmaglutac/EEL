@@ -37,7 +37,7 @@
 		<g:layoutHead />
         <g:javascript library="application" />
 	</head>
-	<body>
+	<body onload="${pageProperty(name:'body.onload')}">
 
 		<div id="wrapper">
 
