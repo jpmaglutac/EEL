@@ -55,7 +55,7 @@
                         <tr class="prop">
                             <td>${i+1}</td>
                             <td>
-                                <g:if test="${answer.answerGiven.equalsIgnoreCase(answer.quizItem.correctAns)}">
+                                <g:if test="${answer.answerGiven?.equalsIgnoreCase(answer.quizItem.correctAns)}">
                                     1
                                 </g:if>
                                 <g:else>
