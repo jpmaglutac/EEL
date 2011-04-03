@@ -43,10 +43,11 @@
             </div>
             <div class="buttons">
                 <g:form>
-				<g:ifAnyGranted role="ROLE_ADMIN,ROLE_TEACHER">
+				<g:ifAnyGranted role="ROLE_TEACHER">
                     <g:hiddenField name="id" value="${lectureInstance?.id}" />
                     <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+					<span class="backbtn"><g:link controller="courseClass" action="show" id="${classLectureInstance?.courseClass?.id}"><< Back to Class Page</g:link></span>
                 </g:ifAnyGranted>
 				</g:form>
             </div>

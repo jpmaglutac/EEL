@@ -17,18 +17,15 @@
                 <table>
                     <thead>
                         <tr>
-                        
-                            <!-- <g:sortableColumn property="id" title="${message(code: 'courseClass.id.label', default: 'Id')}" /> -->
-                        
-                            <th class="tableTitle"><g:message code="courseClass.course.label" default="Course" /></th>
-                        
-                            <g:sortableColumn property="enrollmentKey" title="${message(code: 'courseClass.enrollmentKey.label', default: 'Enrollment Key')}" />
-                        
-                            <g:sortableColumn property="section" title="${message(code: 'courseClass.section.label', default: 'Section')}" />
-                        
-                            <th class="tableTitle"><g:message code="courseClass.term.label" default="Term" /></th>
+							<g:sortableColumn property="course" title="${message(code: 'courseClass.course.label', default: 'Course')}" />
                             
-                            <th class="tableTitle"><g:message code="courseClass.instructor.label" default="instructor" /></th>
+							<g:sortableColumn property="enrollmentKey" title="${message(code: 'courseClass.enrollmentKey.label', default: 'Enrollment Key')}" />
+                            
+							<g:sortableColumn property="section" title="${message(code: 'courseClass.section.label', default: 'Section')}" />
+                            
+							<g:sortableColumn property="term" title="${message(code: 'courseClass.term.label', default: 'Term')}" />
+							
+							<g:sortableColumn property="instructor" title="${message(code: 'courseClass.instructor.label', default: 'Instructor')}" />
                         
 							<th class="tableTitle">Details</th>
                         </tr>

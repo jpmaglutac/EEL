@@ -28,12 +28,16 @@
                     <thead>
                         <tr>
                         
-                        
+                        <!-- No sorting -->
                             <th class="tableTitle"><g:message code="courseClass.course.label" default="Course" /></th>
-                        <g:ifAnyGranted role="ROLE_ADMIN, ROLE_TEACHER">
+						<g:ifAnyGranted role="ROLE_TEACHER">
+							<th class="tableTitle"><g:message code="courseClass.enrollmentKey.label" default="Enrollment Key" /></th>
+						</g:ifAnyGranted>
+							<th class="tableTitle"><g:message code="courseClass.section.label" default="Section" /></th>
+                        <!--<g:ifAnyGranted role="ROLE_TEACHER">
                             <g:sortableColumn property="enrollmentKey" title="${message(code: 'courseClass.enrollmentKey.label', default: 'Enrollment Key')}" />
                         </g:ifAnyGranted>
-                            <g:sortableColumn property="section" title="${message(code: 'courseClass.section.label', default: 'Section')}" />
+                            <g:sortableColumn property="section" title="${message(code: 'courseClass.section.label', default: 'Section')}" />-->
                         
                             <th class="tableTitle"><g:message code="courseClass.term.label" default="Term" /></th>
                             
@@ -47,7 +51,7 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
                             <td>${fieldValue(bean: courseClassInstance, field: "course")}</td>
-						<g:ifAnyGranted role="ROLE_ADMIN, ROLE_TEACHER">
+						<g:ifAnyGranted role="ROLE_TEACHER">
                             <td>${fieldValue(bean: courseClassInstance, field: "enrollmentKey")}</td>
                         </g:ifAnyGranted>
                             <td>${fieldValue(bean: courseClassInstance, field: "section")}</td>

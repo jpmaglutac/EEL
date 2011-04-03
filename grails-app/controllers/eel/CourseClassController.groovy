@@ -96,6 +96,7 @@ class CourseClassController {
     }
     
     def listByUser = {
+	
     	User user = authenticateService.userDomain()
     	def terms = Term.withCriteria {
             def now = new Date()
@@ -156,8 +157,15 @@ class CourseClassController {
     }
 
     def show = {
+		def courseClass = CourseClass.get(params.id)//show list of lectures by class
         def courseClassInstance = CourseClass.get(params.id)
         User user = authenticateService.userDomain()
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		//show list of lectures by class
+		if(!courseClass){
+            redirect(controller: "courseClass", action: "listByUser")
+            return
+        }
         if(authenticateService.ifAnyGranted("ROLE_STUDENT")&&!ClassStudent.findByStudentAndCourseClass(user,courseClassInstance)){
         	
         	redirect(action:"joinClass", id: courseClassInstance.id)
@@ -167,7 +175,7 @@ class CourseClassController {
             redirect(action: "list")
         }
         else {
-            [courseClassInstance: courseClassInstance]
+            [courseClassInstance: courseClassInstance, classLectureInstanceList: ClassLecture.findAllByCourseClass(courseClass, params), classLectureInstanceTotal: ClassLecture.findAllByCourseClass(courseClass).size()]
         }
     }
 

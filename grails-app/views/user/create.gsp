@@ -4,12 +4,6 @@
 </head>
 
 <body>
-<g:ifAllGranted role="ROLE_ADMIN">
-	<div class="nav">
-		<span class="menuButton"><a class="home" href="${createLinkTo(dir:'')}">Home</a></span>
-		<span class="menuButton"><g:link class="list" action="list">User List</g:link></span>
-	</div>
-</g:ifAllGranted>
 	<div class="body">
 		<h1>Create User</h1>
 		<g:if test="${flash.message}">
@@ -101,12 +95,15 @@
 				</tbody>
 				</table>
 			</div>
-
+		<g:ifAllGranted role="ROLE_ADMIN">
 			<div class="buttons">
 				<span class="button"><input class="save" type="submit" value="Create" /></span>
+				<span class="menuButton"><g:link class="list" action="list">User List</g:link></span>
 			</div>
+		</g:ifAllGranted>
 
 		</g:form>
 
 	</div>
+
 </body>

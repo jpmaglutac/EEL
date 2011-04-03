@@ -9,14 +9,7 @@
 		<script type="text/javascript" src="${createLinkTo(dir:'js/jquery', file:'jquery.js')}"></script>
     </head>
     <body>
-	<g:ifAllGranted role="ROLE_ADMIN">
-        <div class="nav">
-
-            <g:ifAnyGranted role="ROLE_ADMIN">
-			<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
-			</g:ifAnyGranted>
-        </div>
-	</g:ifAllGranted>
+	
         <div class="body">
             <h1><g:message code="default.list.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
@@ -32,8 +25,6 @@
                             <g:sortableColumn property="department" title="${message(code: 'course.department.label', default: 'Department')}" />
                         
                             <g:sortableColumn property="description" title="${message(code: 'course.description.label', default: 'Description')}" />
-							
-							<!-- <g:sortableColumn property="id" title="${message(code: 'course.id.label', default: 'Id')}" /> -->
 
 							<td class="tableTitle">Action</td>
 	
@@ -54,27 +45,26 @@
 						</g:link>
 					</g:ifAnyGranted>
 								
-                                <g:ifAnyGranted role="ROLE_TEACHER">
-                                    <g:link class="btn-link" controller="courseClass" action="create" id="${courseInstance.id}">
+                    <g:ifAnyGranted role="ROLE_TEACHER">
+                         <g:link class="btn-link" controller="courseClass" action="create" id="${courseInstance.id}">
 							Add Class
 						</g:link>
-                                </g:ifAnyGranted>		
+                    </g:ifAnyGranted>		
 					  
-                                <g:ifAnyGranted role="ROLE_ADMIN">
-						  <span class="button">
+                    <g:ifAnyGranted role="ROLE_ADMIN">
+						<span class="button">
 							<g:link class="btn-link" controller="course" action="edit" id="${courseInstance.id}">
 								Edit
 							</g:link>						  
-						  </span>
-						  <span class="button">
+						</span>
+						<span class="button">
 							<g:link class="btn-link" controller="course" action="delete" id="${courseInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" >
 								Delete
 							</g:link>									  
-						  </span>
-                                </g:ifAnyGranted>
-								
-                            </td>
-                        </tr>
+						</span>
+                    </g:ifAnyGranted>			
+                    </td>
+                    </tr>
                     </g:each>
                     </tbody>
                 </table>
@@ -83,5 +73,10 @@
                 <g:paginate total="${courseInstanceTotal}" />
             </div>
         </div>
+		<g:ifAllGranted role="ROLE_ADMIN">
+        <div class="nav">
+			<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
+        </div>
+	</g:ifAllGranted>
     </body>
 </html>

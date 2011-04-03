@@ -16,20 +16,26 @@
             <div class="list">
                 <table>
                     <thead>
-                        <tr>
-                        
-                            <!--<g:sortableColumn property="id" title="${message(code: 'courseClass.id.label', default: 'Id')}" />-->
-                        
-                            <th class="tableTitle"><g:message code="courseClass.course.label" default="Course" /></th>
-                        <g:ifAnyGranted role="ROLE_ADMIN, ROLE_TEACHER">
-                            <g:sortableColumn property="enrollmentKey" title="${message(code: 'courseClass.enrollmentKey.label', default: 'Enrollment Key')}" />
+                        <tr> 
+						<!-- No sorting -->
+                        <th class="tableTitle"><g:message code="courseClass.course.label" default="Course" /></th>
+						<g:ifAnyGranted role="ROLE_TEACHER">
+                        <th class="tableTitle"><g:message code="courseClass.enrollmentKey.label" default="Enrollment Key" /></th>
+						</g:ifAnyGranted>
+						<th class="tableTitle"><g:message code="courseClass.section.label" default="Section" /></th>
+						<!-- <g:ifAnyGranted role="ROLE_TEACHER">
+                        <g:sortableColumn property="enrollmentKey" title="${message(code: 'courseClass.enrollmentKey.label', default: 'Enrollment Key')}" />
                         </g:ifAnyGranted>
-                            <g:sortableColumn property="section" title="${message(code: 'courseClass.section.label', default: 'Section')}" />
-                        
-                            <th class="tableTitle"><g:message code="courseClass.term.label" default="Term" /></th>
-                            
-                            <th class="tableTitle"><g:message code="courseClass.instructor.label" default="instructor" /></th>
-							<th class="tableTitle">Details</th>
+						<g:sortableColumn property="section" title="${message(code: 'courseClass.section.label', default: 'Section')}" />
+						<g:sortableColumn property="term" title="${message(code: 'courseClass.term.label', default: 'Term')}" />
+						<g:sortableColumn property="instructor" title="${message(code: 'courseClass.instructor.label', default: 'Instructor')}" />
+						-->
+						<th class="tableTitle"><g:message code="courseClass.term.label" default="Term" /></th>
+						
+                        <th class="tableTitle"><g:message code="courseClass.instructor.label" default="instructor" /></th>
+						
+							
+						<th class="tableTitle">Details</th>
                         
                         </tr>
                     </thead>
@@ -38,9 +44,11 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
                             <td>${fieldValue(bean: courseClassInstance, field: "course")}</td>
-						<g:ifAnyGranted role="ROLE_ADMIN, ROLE_TEACHER">
+							
+							<g:ifAnyGranted role="ROLE_TEACHER">
                             <td>${fieldValue(bean: courseClassInstance, field: "enrollmentKey")}</td>
-                        </g:ifAnyGranted>
+							</g:ifAnyGranted>
+						
                             <td>${fieldValue(bean: courseClassInstance, field: "section")}</td>
                             
                             <td>${fieldValue(bean: courseClassInstance, field: "term")}</td>
