@@ -20,7 +20,8 @@
 				<g:each in="${resultInstanceList}" status="i" var="resultInstance">
 				<tr class="prop">
 					<td valign="top" class="student">${resultInstance.student}</td>
-					<td valign="top" class="score"><g:link controller="result" action="show" id="${resultInstance.id}">${(resultInstance.score/resultInstance.classQuiz.quiz.quizItems.size())*100}%</g:link></td>
+					<g:set var="size" value="${resultInstance.classQuiz.quiz.quizItems.size()}" />
+					<td valign="top" class="score"><g:link controller="result" action="show" id="${resultInstance.id}">${(size==0)?100:(resultInstance.score/size)*100}%</g:link></td>
 				</tr>
 				</g:each>
 			</tbody>

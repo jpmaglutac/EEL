@@ -131,7 +131,8 @@ class ResultController {
     				it.student == student && it.classQuiz == classQuiz
     			}
     			if(result){
-    				result = result.score/result.classQuiz.quiz.quizItems.size()*100
+    				def size = result.classQuiz.quiz.quizItems.size()
+    				result = (size==0)?100:(result.score/size*100)
     				grades << result
     			}else{
     				grades << "-"
