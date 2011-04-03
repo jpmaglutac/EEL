@@ -17,13 +17,9 @@
                 <table>
                     <thead>
                         <tr>
-                        
-                            <!-- <g:sortableColumn property="id" title="${message(code: 'classLecture.id.label', default: 'Id')}" />-->
-                        
-                            <th><g:message code="classLecture.courseClass.label" default="Course Class" /></th>
-                        
-                            <th><g:message code="classLecture.lecture.label" default="Lecture" /></th>
-
+							<g:sortableColumn property="courseClass" title="${message(code: 'classLecture.courseClass.label', default: 'Course Class')}" />
+							
+							<g:sortableColumn property="lecture" title="${message(code: 'classLecture.lecture.label', default: 'Lecture')}" />
 							
 							<g:ifAnyGranted role="ROLE_ADMIN,ROLE_TEACHER">
 							<th class="tableTitle" colspan="4">Action</th>

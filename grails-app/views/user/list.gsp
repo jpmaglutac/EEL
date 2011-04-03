@@ -4,12 +4,6 @@
 </head>
 
 <body>
-<g:ifAllGranted role="ROLE_ADMIN">
-	<div class="nav">
-		<span class="menuButton"><a class="home" href="${createLinkTo(dir:'')}">Home</a></span>
-		<span class="menuButton"><g:link class="create" action="create">New User</g:link></span>
-	</div>
-</g:ifAllGranted>
 	<div class="body">
 		<h1>User List</h1>
 		<g:if test="${flash.message}">
@@ -35,8 +29,8 @@
 					<td>${person.getUserRealName()}</td>
 					<td>${person.enabled?.encodeAsHTML()}</td>
 					<td>${person.description?.encodeAsHTML()}</td>
-					<td class="actionButtons">
-						<span class="actionButton">
+					<td>
+						<span class="btn-link1">
 							<g:link action="show" id="${person.id}">Show</g:link>
 						</span>
 					</td>
@@ -49,6 +43,10 @@
 		<div class="paginateButtons">
 			<g:paginate total="${eel.User.count()}" />
 		</div>
-
 	</div>
+	<g:ifAllGranted role="ROLE_ADMIN">
+	<div class="nav">
+		<span class="menuButton"><g:link class="create" action="create">New User</g:link></span>
+	</div>
+</g:ifAllGranted>
 </body>
