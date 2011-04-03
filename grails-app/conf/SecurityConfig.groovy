@@ -7,6 +7,8 @@ security {
 	loginUserDomainClass = "eel.User"
 	authorityDomainClass = "eel.Role"
 	requestMapClass = "eel.Requestmap"
+	defaultTargetUrl = "/login"
+	alwaysUseDefaultTargetUrl = true
 	
 	// added for config'd requestmap
 	useRequestMapDomainClass = true

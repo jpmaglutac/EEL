@@ -31,18 +31,23 @@ class LoginController {
 
 	private final authenticationTrustResolver = new AuthenticationTrustResolverImpl()
 
-	def index = {
-		if (isLoggedIn()) {
-			redirect uri: '/'
-		}
-		else {
-			redirect action: auth, params: params
-		}
-	}
 
 	/**
 	 * Show the login page.
 	 */
+	
+	def index = {
+		if(isLoggedIn()){
+			if(authenticateService.ifAllGranted("ROLE_ADMIN")){
+				redirect(controller: "course", action: "list")
+			}else
+				redirect(controller: "courseClass", action: "listByUser")
+		}else{
+			redirect(action: "auth", params: params)
+		}
+		return
+	}
+	
 	def auth = {
 
 		nocache response
