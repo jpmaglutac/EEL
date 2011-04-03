@@ -175,7 +175,20 @@ class CourseClassController {
             redirect(action: "list")
         }
         else {
-            [courseClassInstance: courseClassInstance, classLectureInstanceList: ClassLecture.findAllByCourseClass(courseClass, params), classLectureInstanceTotal: ClassLecture.findAllByCourseClass(courseClass).size()]
+        	def quizzes
+        	if(authenticateService.ifAllGranted("ROLE_TEACHER")){
+        		quizzes = ClassQuiz.findAllByCourseClass(courseClass)
+        	}else{
+        		quizzes = ClassQuiz.withCriteria {
+            		def now = new Date()
+            		and{
+                		lt("startDate", now)
+                		gt("endDate", now)
+                		eq("courseClass", courseClass)
+            		}
+        		}
+        	}
+            [classQuizInstanceList: quizzes, courseClassInstance: courseClassInstance, classLectureInstanceList: ClassLecture.findAllByCourseClass(courseClass, params)]
         }
     }
 

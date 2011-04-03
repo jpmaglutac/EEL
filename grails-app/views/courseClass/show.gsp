@@ -40,7 +40,7 @@
 				
 				<tr>				
 					<td class="classInfo-left"><g:message code="courseClass.instructor.label" default="Instructor" />:</td>
-					<td class="classInfo-right">${courseClassInstance?.instructor?.encodeAsHTML()}</td>
+					<td class="classInfo-right"><g:link controller="profile" action="view" id="${courseClassInstance.instructor.id}">${courseClassInstance?.instructor?.encodeAsHTML()}</g:link></td>
 				</tr>
 				<g:ifAllGranted role="ROLE_TEACHER">
 				    <tr>
@@ -99,7 +99,7 @@
 						<g:ifAnyGranted role="ROLE_ADMIN,ROLE_TEACHER">
 								<g:hiddenField name="id" value="${classLectureInstance?.id}" />
 								<g:link controller="classLecture" action="editLecture" id="${courseClassInstance.id}">Edit Lecture</g:link>
-								<g:link action="delete" id="${classLectureInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">Delete</g:link>
+								<g:link controller="classLecture" action="delete" id="${classLectureInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">Delete</g:link>
 					</td>
 						</g:ifAnyGranted>
                         
@@ -108,9 +108,6 @@
                     </tbody>
                 </table>
 			</div>
-            <div class="paginateButtons">
-                <g:paginate total="${classLectureInstanceTotal}" />
-            </div>
 			
 			<g:ifAnyGranted role="ROLE_TEACHER">
 			<div class="menu-grid">
@@ -141,8 +138,12 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
                             <td>${classQuizInstance.quiz.name}</td>
-                            <td><g:link controller="quiz" action="show" id="${classQuizInstance.quiz.id}" params="${[classQuizId: classQuizInstance.id]}">Edit Quiz</g:link></td>
-                            <td><g:link controller="classQuiz" action="result" id="${classQuizInstance.id}">View Results</g:link></td>    
+                            <g:ifAllGranted role="ROLE_TEACHER">
+                            	<td><g:link controller="quiz" action="show" id="${classQuizInstance.quiz.id}" params="${[classQuizId: classQuizInstance.id]}">Edit Quiz</g:link></td>
+                            	<td><g:link controller="classQuiz" action="result" id="${classQuizInstance.id}">View Results</g:link></td>    
+                        	</g:ifAllGranted><g:ifAllGranted role="ROLE_STUDENT">
+                        		<td><g:link controller="classQuiz" action="startQuiz" id="${classQuizInstance.id}">Take Quiz</g:link></td>
+                        	</g:ifAllGranted>
                         </tr>
                     </g:each>
                     </tbody>
