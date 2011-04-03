@@ -54,29 +54,27 @@
 			</div>
 			<div id="nav-bar">
 				<ul id="jsddm">
-					<li><a href="${createLink(uri: '/')}" class="${(request.forwardURI=='/EEL/'||request.forwardURI=='/EEL/login/**')?'current':''}">Home</a></li>
-					<g:ifAnyGranted role="ROLE_ADMIN,ROLE_TEACHER,ROLE_STUDENT">
+					<g:ifAnyGranted role="ROLE_TEACHER,ROLE_STUDENT">
 					    <li><g:link class="${(request.forwardURI=='/EEL/course/list')?'current':''}" controller="course" action="list">List Courses</g:link></li>
 					    <li>
-							<g:ifAnyGranted role="ROLE_TEACHER,ROLE_STUDENT">
-								<g:link class="${(request.forwardURI=='/EEL/courseClass/listByUser')?'current':''}" controller="courseClass" action="listByUser">My Classes</g:link>
-							</g:ifAnyGranted>
-							<g:ifAnyGranted role="ROLE_ADMIN">	
-								<g:link class="${(request.forwardURI=='/EEL/user/list')?'current':''}" controller="user" action="list">Users</g:link>
-							</g:ifAnyGranted>
-							<g:ifAnyGranted role="ROLE_TEACHER,ROLE_STUDENT">
+							<g:link class="${(request.forwardURI=='/EEL/courseClass/listByUser')?'current':''}" controller="courseClass" action="listByUser">My Classes</g:link>
 							<ul>
-								<li><g:link controller="classLecture" action="list">Lectures</g:link></li>
-								<li><g:link controller="classQuiz" action="list">Quizzes</g:link></li>
-								<g:ifAnyGranted role="ROLE_TEACHER">	
+								<li><g:link controller="classLecture" action="listAllByUser">Lectures</g:link></li>
+								<li><g:link controller="classQuiz" action="listAllByUser">Quizzes</g:link></li>
+								<%--<g:ifAnyGranted role="ROLE_TEACHER">	
 									<li><g:link controller="result" action="list">Results</g:link></li>
 								</g:ifAnyGranted>
-								<li><g:link controller="gradebook" action="list">Gradebook</g:link></li>
+								<li><g:link controller="gradebook" action="list">Gradebook</g:link></li>--%>
 							</ul>
-							</g:ifAnyGranted>
 						</li>
 				        <li><g:link class="${(request.forwardURI=='/EEL/courseClass/listByTerm')?'current':''}" controller="courseClass" action="listByTerm">Historical Class List</g:link></li>
 				        <li><g:loggedInUserProfileLink>My Profile</g:loggedInUserProfileLink></li>
+					</g:ifAnyGranted>
+					<g:ifAnyGranted role="ROLE_ADMIN">
+						<li><g:link class="${(request.forwardURI=='/EEL/user/list')?'current':''}" controller="user" action="list">Users</g:link>
+						<li><g:link class="${(request.forwardURI=='/EEL/course/list')?'current':''}" controller="course" action="list">Courses</g:link></li>
+						<li><g:link class="${(request.forwardURI=='/EEL/term/list')?'current':''}" controller="term" action="list">Terms</g:link></li>
+						<li><g:loggedInUserProfileLink>My Profile</g:loggedInUserProfileLink></li>
 					</g:ifAnyGranted>
 				</ul>
 			</div>

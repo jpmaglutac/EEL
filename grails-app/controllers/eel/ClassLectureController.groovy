@@ -57,8 +57,32 @@ class ClassLectureController {
             redirect(controller: "courseClass", action: "listByUser")
             return
         }
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [classLectureInstanceList: ClassLecture.findAllByCourseClass(courseClass, params), classLectureInstanceTotal: ClassLecture.findAllByCourseClass(courseClass).size()]
+        [classLectureInstanceList: ClassLecture.findAllByCourseClass(courseClass)]
+    }
+    
+    def listAllByUser = {
+    	def user = authenticateService.userDomain()
+    	def terms = Term.withCriteria {
+            def now = new Date()
+            and{
+                lt("startDate", now)
+                gt("endDate", now)
+            }
+        }
+    	def courseClasses
+    	if(authenticateService.ifAllGranted("ROLE_STUDENT")){
+    		courseClasses = ClassStudent.withCriteria {
+    			eq("student", user)
+    			courseClass{
+    				'in'("term", terms)
+    			}
+    		}
+    		courseClasses = courseClasses.courseClass
+    	}else if(authenticateService.ifAllGranted("ROLE_TEACHER")){
+    		courseClasses = CourseClass.findAllByInstructorAndTermInList(user, terms)
+    	}
+        def lectures = ClassLecture.findAllByCourseClassInList(courseClasses)
+        render(view: "listByClass", model: [classLectureInstanceList: lectures])
     }
 
     def create = {

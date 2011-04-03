@@ -17,7 +17,7 @@
                 <table>
                     <thead>
                         <tr>
-                        
+                        	<g:if test="${showClass}"><th>Course Class</th></g:if>
                             <th>Name</th>
                             <th>Options</th>
                         
@@ -26,7 +26,7 @@
                     <tbody>
                     <g:each in="${quizInstanceList}" status="i" var="quizInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        
+                        	<g:if test="${showClass}"><td>${quizInstance.courseClass}</td></g:if>
                             <td>${quizInstance.quiz.name}</td>
                             <td class="view"><g:link controller="classQuiz" action="startQuiz" id="${quizInstance.id}">Take Quiz</g:link>
                         

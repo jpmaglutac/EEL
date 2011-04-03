@@ -130,6 +130,40 @@ class ClassQuizController {
         [classQuizInstanceList:quizzes]
     }
     
+    def listAllByUser = {
+    	def user = authenticateService.userDomain()
+    	def terms = Term.withCriteria {
+            def now = new Date()
+            and{
+                lt("startDate", now)
+                gt("endDate", now)
+            }
+        }
+    	def courseClasses
+    	if(authenticateService.ifAllGranted("ROLE_STUDENT")){
+    		courseClasses = ClassStudent.withCriteria {
+    			eq("student", user)
+    			courseClass{
+    				'in'("term", terms)
+    			}
+    		}
+    		courseClasses = courseClasses.courseClass
+    		def quizzes = ClassQuiz.withCriteria {
+            	def now = new Date()
+            	and{
+                	lt("startDate", now)
+                	gt("endDate", now)
+                	'in'("courseClass", courseClasses)
+            	}
+        	}
+        	render(view: "listActiveByClass", model: [quizInstanceList:quizzes, showClass: true])
+    	}else if(authenticateService.ifAllGranted("ROLE_TEACHER")){
+    		courseClasses = CourseClass.findAllByInstructorAndTermInList(user, terms)
+    		def quizzes = ClassQuiz.findAllByCourseClassInList(courseClasses)
+    		render(view: "listByClass", model: [classQuizInstanceList:quizzes, showClass: true])
+    	}
+    }
+    
     def initializeQuiz = {
     	def user = authenticateService.userDomain()
     	def classQuiz = ClassQuiz.get(params.id)

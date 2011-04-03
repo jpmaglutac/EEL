@@ -40,9 +40,6 @@
                     </tbody>
                 </table>
             </div>
-            <div class="paginateButtons">
-                <g:paginate total="${classLectureInstanceTotal}" />
-            </div>
         </div>
     </body>
 </html>
