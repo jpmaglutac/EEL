@@ -51,6 +51,9 @@ class ProfileController {
 
 		def oldPassword = person.passwd
 		person.properties = params
+		if(params.password){
+			person.passwd = params.password
+		}
 		if(authenticateService.encodePassword(params.oldpassword) != oldPassword){
 		    flash.message = "The inputted current password is incorrect!"
 		    render(view: "edit", model: buildPersonModel(person))
@@ -61,10 +64,11 @@ class ProfileController {
 		    render(view: "edit", model: buildPersonModel(person))
 		    return
 		}
-		if (!params.password.equals(oldPassword)&&params.password) {
-			person.passwd = authenticateService.encodePassword(params.password)
-		}
 		if (person.save()) {
+			if (!params.password.equals(oldPassword)&&params.password) {
+				person.passwd = authenticateService.encodePassword(params.password)
+			}
+			person.save(flush: true)
 			redirect(action: "view", id: person.id)
 		}
 		else {
