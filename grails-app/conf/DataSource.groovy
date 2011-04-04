@@ -28,7 +28,11 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:hsqldb:file:prodDb;shutdown=true"
+            pooled = true
+			driverClassName = "com.mysql.jdbc.Driver"
+			username = "root"
+			password = "" 
+			url = "jdbc:mysql://localhost:3306/eel"
         }
     }
 }
