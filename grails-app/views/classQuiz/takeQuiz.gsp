@@ -90,7 +90,7 @@
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
-            <g:form id="quiz" onSubmit="return confirm('Are you sure you want to finish this quiz?');">
+            <g:form action="submitQuiz" name="quiz" >
             	<div class="dialog">
                 	<g:each in="${items}" var="${item}" status="i">
                 		<b>${i+1}. ${item.quizItem}</b><br />
@@ -110,7 +110,7 @@
             	</div>
             	<div class="buttons">
             		<g:hiddenField name="classQuizId" value="${classQuiz.id}" />
-                    <span class="button"><g:actionSubmit action="submitQuiz" value="Submit Quiz" /></span>
+                    <span class="button"><g:submitButton name="Submit Quiz" onClick="return confirm('Are you sure you want to finish this quiz?');"/></span>
             	</div>
             </g:form>
         </div>   
