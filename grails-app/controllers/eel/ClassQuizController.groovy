@@ -194,6 +194,8 @@ class ClassQuizController {
     	    flash.message = "You have already taken this quiz"
     	    redirect(action: "listActiveByClass", id: quiz.courseClass.id)
     	    return
+    	}else if(result){
+    	    redirect(action: "takeQuiz", id: params.id)
     	}
     	[quiz: quiz]
     }

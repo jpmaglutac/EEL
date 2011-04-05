@@ -21,6 +21,9 @@
         hours=${inputHours};
         mins=${inputMinutes};
         secs=${inputSeconds};
+        if(hours < 0){
+            Check();
+        }
         StopTimer();
         StartTimer();
     }
@@ -62,7 +65,7 @@
     {
         if(mins==5 && secs==0)
             alert("You have only five minutes remaining.");
-        else if(hours==0 && mins==0 && secs==0)
+        else if((hours==0 && mins==0 && secs==0)|| hours < 0)
         {
             submitform();
             alert("Your alloted time is over. Your quiz will be automatically submitted.");

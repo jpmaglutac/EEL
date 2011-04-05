@@ -32,6 +32,12 @@ class QuizItemController {
     
     def generateType = {
     	def lecture = Lecture.get(params.lectureId)
+    	def quiz = Quiz.get(params.id)
+    	if(!lecture){
+    	    flash.message = "Lecture does not exist!"
+    	    redirect(controller: "quiz", action: "show", id: quiz?.id, params: [classQuizId: params.classQuizId])
+    	    return
+    	}
     	def lectureDefinitions = LectureDefinition.findAllByLecture(lecture)
     	Collections.shuffle(lectureDefinitions)
     	def quizType = QuizType.valueOf(params.quizType)
@@ -39,9 +45,9 @@ class QuizItemController {
     	if(lectureDefinitions.size()==0){
     		flash.message = "Cannot generate questions for selected lecture"
     		redirect(controller: "quiz", action: "show", id: params.id, params: [classQuizId: params.classQuizId])
+    	    return
     	}
     	def item = new QuizItem()
-    	def quiz = Quiz.get(params.id)
     	item.quiz = quiz
     	item.quizType = quizType
     	item.relatedLecture = lecture
