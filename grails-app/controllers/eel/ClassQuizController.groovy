@@ -35,6 +35,10 @@ class ClassQuizController {
     
     def checkQuiz = {
     	def quiz = Quiz.get(params.quizId)
+    	if(!quiz){
+    		flash.message = "Quiz does not exist!"
+    		redirect(action: "create", id: params.courseClassId)
+    	}
     	[quizInstance: quiz]
     }
     

@@ -21,9 +21,6 @@
         hours=${inputHours};
         mins=${inputMinutes};
         secs=${inputSeconds};
-        if(hours < 0){
-            Check();
-        }
         StopTimer();
         StartTimer();
     }
@@ -44,7 +41,7 @@
         Check();
         document.getElementById('txt').value=Pad(hours)+":"+Pad(mins)+":"+Pad(secs);
     
-        if(hours==0 && mins==0 && secs==0)
+        if((hours==0 && mins==0 && secs==0)|| hours < 0)
         StopTimer();
        
         if(mins==0 && secs==0)
@@ -63,12 +60,13 @@
  
     function Check()
     {
-        if(mins==5 && secs==0)
+        if(mins==5 && secs==0 && hours == 0)
             alert("You have only five minutes remaining.");
         else if((hours==0 && mins==0 && secs==0)|| hours < 0)
         {
+        	alert("Your alloted time is over. Your quiz will be automatically submitted.");
+        	StopTimer();
             submitform();
-            alert("Your alloted time is over. Your quiz will be automatically submitted.");
         }
     }
  
