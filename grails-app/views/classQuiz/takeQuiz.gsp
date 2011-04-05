@@ -64,6 +64,7 @@
             alert("You have only five minutes remaining.");
         else if(hours==0 && mins==0 && secs==0)
         {
+            submitform();
             alert("Your alloted time is over. Your quiz will be automatically submitted.");
         }
     }
@@ -74,15 +75,20 @@
             number=0+""+number;
         return number;
     }
+    
+    function submitform()
+    {
+        document.forms["quiz"].submit();
+    }
+    
     </script>
     </head>
         
      
     <body onload="Init()">
         <div class="body">
-            ${timeRemaining}
             <form id="display">
-            <input type="text" id="txt" />
+            Time Remaining: <input type="text" id="txt" />
             </form>
             
             
