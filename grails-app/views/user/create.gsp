@@ -84,21 +84,22 @@
 
 					<tr class="prop">
 						<td valign="top" class="name" align="left">Assign Roles:</td>
-					</tr>
-
+					<td>
+					<ul>
 					<g:radioGroup name="selectedAuthority" values="${authorityList.authority}" labels="${authorityList.description}" value="${authority}">
-					<tr>
-						<td valign="top" class="name" align="left">${it.label} ${it.radio}</td>
-					</tr>
+					<li>${it.radio} ${it.label}</li>
+					
 					</g:radioGroup>
-
+					</ul>
+					</td>
+					</tr>
 				</tbody>
 				</table>
 			</div>
 		<g:ifAllGranted role="ROLE_ADMIN">
 			<div class="buttons">
 				<span class="button"><input class="save" type="submit" value="Create" /></span>
-				<span class="menuButton"><g:link class="list" action="list">User List</g:link></span>
+				<span class="back"><g:link class="list" action="list">Back to User List</g:link></span>
 			</div>
 		</g:ifAllGranted>
 

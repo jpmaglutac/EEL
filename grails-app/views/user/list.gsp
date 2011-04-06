@@ -5,7 +5,12 @@
 
 <body>
 	<div class="body">
-		<h1>User List</h1>
+		<h1>Users</h1>
+		<g:ifAllGranted role="ROLE_ADMIN">
+		<div class="nav" style="margin-bottom:5px;">
+			<span class="menuButton"><g:link class="create" action="create">New User</g:link></span>
+		</div>	
+		</g:ifAllGranted>
 		<g:if test="${flash.message}">
 		<div class="message">${flash.message}</div>
 		</g:if>
@@ -18,7 +23,7 @@
 					<g:sortableColumn property="userRealName" title="Full Name" />
 					<g:sortableColumn property="enabled" title="Enabled" />
 					<g:sortableColumn property="description" title="Description" />
-					<th>&nbsp;</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,7 +35,7 @@
 					<td>${person.enabled?.encodeAsHTML()}</td>
 					<td>${person.description?.encodeAsHTML()}</td>
 					<td>
-						<span class="btn-link1">
+						<span class="btn-link">
 							<g:link action="show" id="${person.id}">Show</g:link>
 						</span>
 					</td>
@@ -44,9 +49,4 @@
 			<g:paginate total="${eel.User.count()}" />
 		</div>
 	</div>
-	<g:ifAllGranted role="ROLE_ADMIN">
-	<div class="nav">
-		<span class="menuButton"><g:link class="create" action="create">New User</g:link></span>
-	</div>
-</g:ifAllGranted>
 </body>

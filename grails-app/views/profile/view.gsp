@@ -6,7 +6,12 @@
 <body>
 
 	<div class="body">
-		<h1>Show User</h1>
+		<g:if test="${isUser}">
+		<h1>My Profile</h1>
+		</g:if>
+		<g:else>
+		<h1>View Profile</h1>
+		</g:else>
 		<g:if test="${flash.message}">
 		<div class="message">${flash.message}</div>
 		</g:if>
@@ -56,6 +61,7 @@
 				    <span class="button"><g:actionSubmit class="edit" value="Edit" /></span>
 				</g:form>
 			</g:if>
+			<!--<span class="back"><g:link controller="classStudent" action="listStudentsByClass" id="${params.id}">Back to Student List</g:link></span>-->
 		</div>
 	</div>
 </body>

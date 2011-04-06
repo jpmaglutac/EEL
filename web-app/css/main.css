@@ -7,6 +7,7 @@
 }
 
 
+
 input, select, textarea {
     background-color: #fcfcfc;
     border: 1px solid #ccc;
@@ -46,6 +47,7 @@ input:focus, select:focus, textarea:focus {
     color: #333;
     padding: 4px 6px;
 }
+
 .menuButton a.home {
     background: url(../images/skin/house.png) center left no-repeat;
     color: #333;
@@ -60,6 +62,21 @@ input:focus, select:focus, textarea:focus {
     background: url(../images/skin/database_add.png) center left no-repeat;
     color: #333;
     padding-left: 25px;
+}
+/*extra*/
+.btn-link1 a.create {
+    background: url(../images/skin/database_add.png) center left no-repeat;
+    color: #333;
+    padding-left: 25px;
+	font-size:10px;
+	font-weight:bold;
+}
+.btn-link1 a.edit {
+    background: url(../images/skin/database_edit.png) center left no-repeat;
+    color: #333;
+    padding-left: 25px;
+	font-size:10px;
+	font-weight:bold;
 }
 
 /* MESSAGES AND ERRORS */
@@ -256,9 +273,32 @@ th.desc a {
 .download a{    
 	background: url(../images/skin/database_table.png) center left no-repeat;
 	font-family:Verdana, Geneva, sans-serif;
-	margin-left:5px;
+	margin:5px;
 	font-size: 10px;
 	font-weight: bold;
+	color: #333333;
+	text-decoration:none;
+	padding:0px 0px 0px 20px;
+}
+.back a{    
+	background: url(../images/skin/back.png) center left no-repeat;
+	font-family:Verdana, Geneva, sans-serif;
+	margin:5px;
+	width:16px;
+	height:16px;
+	font-size: 10px;
+	font-weight: bold;
+	color: #333333;
+	text-decoration:none;
+	padding:0px 0px 0px 20px;
+}
+ a.view{    
+	background: url(../images/skin/view.png) center left no-repeat;
+	font-family:Verdana, Geneva, sans-serif;
+	margin:5px;
+	width:16px;
+	height:16px;
+	font-size: 11px;
 	color: #333333;
 	text-decoration:none;
 	padding:0px 0px 0px 20px;
@@ -284,6 +324,8 @@ th.desc a {
 	border: 1px solid #ccc;
 	border-radius:5px;
 	text-align:left;
+	background:#fafafa;
+	color:#777777;
 }
 .classInfo{
 	border:0px;

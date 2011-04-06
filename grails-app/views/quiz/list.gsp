@@ -20,25 +20,23 @@
             <div class="list">
                 <table>
                     <thead>
-                        <tr>
-                        
-                            <g:sortableColumn property="id" title="${message(code: 'quiz.id.label', default: 'Id')}" />
-                        
+                        <tr>         
                             <th><g:message code="quiz.instructor.label" default="Instructor" /></th>
                         
                             <g:sortableColumn property="name" title="${message(code: 'quiz.name.label', default: 'Name')}" />
                         
+							<th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                     <g:each in="${quizInstanceList}" status="i" var="quizInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        
-                            <td><g:link action="show" id="${quizInstance.id}">${fieldValue(bean: quizInstance, field: "id")}</g:link></td>
-                        
+                                               
                             <td>${fieldValue(bean: quizInstance, field: "instructor")}</td>
                         
                             <td>${fieldValue(bean: quizInstance, field: "name")}</td>
+                           
+						   <td><span class="btn-link"><g:link action="show" id="${quizInstance.id}">View</g:link></span></td>
                         
                         </tr>
                     </g:each>

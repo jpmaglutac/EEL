@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="body">
-            <h1><g:message code="default.create.label" args="[entityName]" /></h1>
+            <h1>Add Class</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -82,7 +82,9 @@
                 <div class="buttons">
                     <g:hiddenField name="courseId" value="${courseId?:params.id}" />
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
-                </div>
+					<span class="back"><g:link controller="course" action="list">Back to Course List</g:link></span>				
+             
+			 </div>
             </g:form>
         </div>
     </body>

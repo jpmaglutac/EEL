@@ -15,10 +15,6 @@
 		</div>
 		</g:hasErrors>
 
-		<div class="prop">
-			<span class="name">ID:</span>
-			<span class="value">${person.id}</span>
-		</div>
 
 		<g:form>
 			<input type="hidden" name="id" value="${person.id}" />
@@ -94,8 +90,9 @@
 						<td valign="top" class="name"><label for="authorities">Roles:</label></td>
 						<td valign="top" class="value ${hasErrors(bean:person,field:'authorities','errors')}">
 							<ul>
-							<g:radioGroup name="selectedAuthority" values="${roleMap}">
-								<li>${it.key.authority.encodeAsHTML()} ${it.radio}</li>
+							<g:set var="authorityList" value="${eel.Role.list()}" />
+							<g:radioGroup name="selectedAuthority" values="${authorityList.authority}" labels="${authorityList.description}" value="${person.authorities.asList()[0].authority}">
+								<li> ${it.radio} ${it.label}</li>
 							</g:radioGroup>
 							</ul>
 						</td>
@@ -108,8 +105,7 @@
 			<div class="buttons">
 				<span class="button"><g:actionSubmit class="save" value="Update" /></span>
 				<span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
-				<span class="menuButton"><g:link class="create" action="create">New User</g:link></span>
-				<span class="menuButton"><g:link class="list" action="list">User List</g:link></span>
+				<span class="back"><g:link class="list" action="list">Back to User List</g:link></span>
 			</div>
 			</g:ifAllGranted>
 		</g:form>

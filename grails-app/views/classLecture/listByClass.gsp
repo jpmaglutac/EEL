@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="body">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
+            <h1>Lectures</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -34,7 +34,7 @@
                         
                             <td>${fieldValue(bean: classLectureInstance, field: "lecture")}</td>
                         
-							<td><g:link action="show" id="${classLectureInstance.id}">View Details</g:link></td>
+							<td><span class="btn-link"><g:link action="show" id="${classLectureInstance.id}">View Details</g:link></span></td>
                         </tr>
                     </g:each>
                     </tbody>

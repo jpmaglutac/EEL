@@ -8,12 +8,7 @@
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body>
-       <!--<div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
-            <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
-            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
-        </div>
-        --><div class="body">
+		<div class="body">
             <h1><g:message code="default.show.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
@@ -21,14 +16,7 @@
             <div class="dialog">
                 <table>
                     <tbody>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="quiz.id.label" default="Id" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: quizInstance, field: "id")}</td>
-                            
-                        </tr>
-                    
+                                
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="quiz.instructor.label" default="Instructor" /></td>
                             
@@ -50,13 +38,14 @@
                             	<table>
                             		<tr>
                             			<th>Question</th>
-                            			<th>Correct Answer</th>
+                            			<th style="width:140px;">Correct Answer</th>
+                            			<th>Action</th>
                             		</tr>
-                            		<g:each in="${quizInstance.quizItems}" var="quizItem">
-                            			<tr>
+                            		<g:each in="${quizInstance.quizItems}" var="quizItem" status="i">
+                            			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                             				<td>${quizItem.question}</td>
                             				<td>${(quizItem.quizType==eel.QuizType.MULTIPLE)?eel.QuizChoice.get(quizItem.correctAns).choice:quizItem.correctAns}</td>
-                            				<td><g:link controller="quizItem" action="edit" id="${quizItem.id}" params="${[classQuizId: params.classQuizId]}">Edit</g:link></td>
+                            				<td><span class="btn-link"><g:link controller="quizItem" action="edit" id="${quizItem.id}" params="${[classQuizId: params.classQuizId]}">Edit</g:link></span></td>
                             			</tr>
                             		</g:each>
                             	</table>
@@ -71,11 +60,11 @@
                 <g:form>
                     <g:hiddenField name="id" value="${quizInstance?.id}" />
                     <g:hiddenField name="classQuizId" value="${params.classQuizId}" />
-                    <span class="menuButton"><g:link controller="quizItem" action="chooseType" id="${quizInstance.id}" params="${[classQuizId: params.classQuizId]}" class="create">Add Question</g:link>
+                    <span class="btn-link1" style="border:0px;"><g:link controller="quizItem" action="chooseType" id="${quizInstance.id}" params="${[classQuizId: params.classQuizId]}" class="create">Add Question</g:link>
                     <span class="menuButton"><g:link controller="quizItem" action="chooseGeneratedType" params="${[classQuizId: params.classQuizId]}" id="${quizInstance.id}" class="create">Generate Question</g:link>
-                    <span class="button"><g:link class="edit" controller="classQuiz" id="${params.classQuizId}" action="edit" >Edit Details</g:link></span>
+                    <span class="menuButton"><g:link class="edit" controller="classQuiz" id="${params.classQuizId}" action="edit" >Edit Details</g:link></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-                    <span class="button"><g:link controller="courseClass" action="show" id="${eel.ClassQuiz.get(params.classQuizId)?.courseClass?.id}">Back to Class Page</g:link></span>
+                    <span class="back" style="border:0px;"><g:link controller="classQuiz" action="listAllByUser" id="${eel.ClassQuiz.get(params.classQuizId)?.courseClass?.id}">Back to Quiz Page</g:link></span>
                 </g:form>
             </div>
         </div>

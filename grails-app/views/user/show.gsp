@@ -12,12 +12,6 @@
 		<div class="dialog">
 			<table>
 			<tbody>
-
-				<tr class="prop">
-					<td valign="top" class="name">ID:</td>
-					<td valign="top" class="value">${person.id}</td>
-				</tr>
-
 				<tr class="prop">
 					<td valign="top" class="name">Login Name:</td>
 					<td valign="top" class="value">${person.username?.encodeAsHTML()}</td>
@@ -78,8 +72,7 @@
 				<input type="hidden" name="id" value="${person.id}" />
 				<span class="button"><g:actionSubmit class="edit" value="Edit" /></span>
 				<span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
-				<span class="menuButton"><g:link class="create" action="create">New User</g:link></span>
-				<span class="menuButton"><g:link class="list" action="list">User List</g:link></span>
+				<span class="back"><g:link class="list" action="list">Back to User List</g:link></span>
 			</g:form>
 		</div>
 		</g:ifAnyGranted>

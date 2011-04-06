@@ -37,8 +37,8 @@
                     </tbody>
                 </table>
             </div>
-            <div class="buttons">
-				<g:link controller="courseClass" action="show" id="${params.id}">Back to Class Page</g:link>
+            <div class="buttons" style="height:15px;padding-top:5px;">
+				<span class="back"><g:link controller="courseClass" action="show" id="${params.id}">Back to Class Page</g:link></span>
             </div>
         </div>
     </body>

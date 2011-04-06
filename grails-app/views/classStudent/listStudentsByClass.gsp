@@ -5,7 +5,7 @@
 
 <body>
 	<div class="body">
-		<h1>User List</h1>
+		<h1>Student List</h1>
 		<g:if test="${flash.message}">
 		<div class="message">${flash.message}</div>
 		</g:if>
@@ -31,7 +31,7 @@
 					<td>${person.description?.encodeAsHTML()}</td>
 					<td class="actionButtons">
 						<span class="actionButton">
-							<g:link controller="profile" action="view" id="${person.id}">View Details</g:link>
+							<span class="btn-link"><g:link controller="profile" action="view" id="${person.id}">View Details</g:link></span>
 						</span>
 					</td>
 				</tr>

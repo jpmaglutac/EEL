@@ -55,6 +55,7 @@
 			<div id="nav-bar">
 				<ul id="jsddm">
 					<g:ifAnyGranted role="ROLE_TEACHER,ROLE_STUDENT">
+						<li><g:loggedInUserProfileLink>My Profile</g:loggedInUserProfileLink></li>
 					    <li><g:link class="${(request.forwardURI=='/EEL/course/list')?'current':''}" controller="course" action="list">List Courses</g:link></li>
 					    <li>
 							<g:link class="${(request.forwardURI=='/EEL/courseClass/listByUser')?'current':''}" controller="courseClass" action="listByUser">My Classes</g:link>
@@ -68,13 +69,13 @@
 							</ul>
 						</li>
 				        <li><g:link class="${(request.forwardURI=='/EEL/courseClass/listByTerm')?'current':''}" controller="courseClass" action="listByTerm">Historical Class List</g:link></li>
-				        <li><g:loggedInUserProfileLink>My Profile</g:loggedInUserProfileLink></li>
+				        
 					</g:ifAnyGranted>
 					<g:ifAnyGranted role="ROLE_ADMIN">
+						<li><g:loggedInUserProfileLink>My Profile</g:loggedInUserProfileLink></li>
 						<li><g:link class="${(request.forwardURI=='/EEL/user/list')?'current':''}" controller="user" action="list">Users</g:link>
 						<li><g:link class="${(request.forwardURI=='/EEL/course/list')?'current':''}" controller="course" action="list">Courses</g:link></li>
 						<li><g:link class="${(request.forwardURI=='/EEL/term/list')?'current':''}" controller="term" action="list">Terms</g:link></li>
-						<li><g:loggedInUserProfileLink>My Profile</g:loggedInUserProfileLink></li>
 					</g:ifAnyGranted>
 				</ul>
 			</div>

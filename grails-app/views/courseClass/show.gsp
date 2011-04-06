@@ -44,8 +44,8 @@
 				</tr>
 				<g:ifAllGranted role="ROLE_TEACHER">
 				    <tr>
-				        <td class="courseClassPage">Students Can View<br /><br />Answers on Results:</td>
-				        <td class="courseClassPage">${(courseClassInstance.canViewResults)?'Yes':'No'}</td>
+				        <td class="classInfo-left">Students Can View Answers on Results:</td>
+				        <td class="classInfo-right">${(courseClassInstance.canViewResults)?'Yes':'No'}</td>
 				    </tr>
 				</g:ifAllGranted>
 			 </tbody>
@@ -57,13 +57,13 @@
 						<div class="menu-grid">
 								<span class="btn-edit"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
 								<span class="btn-delete"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-								<span class="btn-link1"><g:link class="list" controller="classStudent" action="listStudentsByClass" id="${courseClassInstance.id}">View Students</g:link></span>
+								<span class="btn-link1"><g:link class="view" controller="classStudent" action="listStudentsByClass" id="${courseClassInstance.id}">View Students</g:link></span>
 						</div>	
 							</g:ifAnyGranted>
 					
 							<g:ifAnyGranted role="ROLE_STUDENT">
 						<div class="menu-grid">
-								<span class="btn-link1"><g:link class="list" controller="classStudent" action="listStudentsByClass" id="${courseClassInstance.id}">View Students</g:link></span>
+								<span class="btn-link1"><g:link class="view" controller="classStudent" action="listStudentsByClass" id="${courseClassInstance.id}">View Students</g:link></span>
 						</div>
 							</g:ifAnyGranted>
 						</g:form>
@@ -139,10 +139,10 @@
                         
                             <td>${classQuizInstance.quiz.name}</td>
                             <g:ifAllGranted role="ROLE_TEACHER">
-                            	<td><g:link controller="quiz" action="show" id="${classQuizInstance.quiz.id}" params="${[classQuizId: classQuizInstance.id]}">Edit Quiz</g:link></td>
-                            	<td><g:link controller="classQuiz" action="result" id="${classQuizInstance.id}">View Results</g:link></td>    
+                            	<td><span class="btn-link"><g:link controller="quiz" action="show" id="${classQuizInstance.quiz.id}" params="${[classQuizId: classQuizInstance.id]}">Edit Quiz</g:link></span></td>
+                            	<td><span class="btn-link"><g:link controller="classQuiz" action="result" id="${classQuizInstance.id}">View Results</g:link></span></td>    
                         	</g:ifAllGranted><g:ifAllGranted role="ROLE_STUDENT">
-                        		<td><g:link controller="classQuiz" action="startQuiz" id="${classQuizInstance.id}">Take Quiz</g:link></td>
+                        		<td><span class="btn-link"><g:link controller="classQuiz" action="startQuiz" id="${classQuizInstance.id}">Take Quiz</g:link></span></td>
                         	</g:ifAllGranted>
                         </tr>
                     </g:each>
@@ -154,13 +154,12 @@
                     <g:hiddenField name="id" value="${courseClassInstance?.id}" />
 					<g:ifAnyGranted role="ROLE_TEACHER">
                 	<span class="btn-link1"><g:link class="create" controller="classQuiz" action="create" id="${courseClassInstance.id}">Add Quiz</g:link></span>
-                	<span class="btn-link1"><g:link class="list" controller="classQuiz" action="listByClass" id="${courseClassInstance.id}">View Quizzes</g:link></span>
-                	<span class="btn-link1"><g:link class="list" controller="result" action="courseClass" id="${courseClassInstance.id}">View Gradebook</g:link></span>
+                	<span class="btn-link1"><g:link class="view" controller="result" action="courseClass" id="${courseClassInstance.id}">View Gradebook</g:link></span>
 					
 					</g:ifAnyGranted>
 					<g:ifAnyGranted role="ROLE_STUDENT,ROLE_ADMIN">
-					<span class="btn-link1"><g:link class="list" controller="classQuiz" action="listActiveByClass" id="${courseClassInstance.id}">View Active Quizzes</g:link></span>
-                	<span class="btn-link1"><g:link class="list" controller="result" action="gradebook" id="${courseClassInstance.id}">View Gradebook</g:link></span>
+					<span class="btn-link1"><g:link class="view" controller="classQuiz" action="listActiveByClass" id="${courseClassInstance.id}">View Active Quizzes</g:link></span>
+                	<span class="btn-link1"><g:link class="view" controller="result" action="gradebook" id="${courseClassInstance.id}">View Gradebook</g:link></span>
 					</g:ifAnyGranted>
                 </g:form>
 			</div>

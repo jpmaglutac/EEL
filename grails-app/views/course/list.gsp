@@ -11,7 +11,12 @@
     <body>
 	
         <div class="body">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
+            <h1>Courses</h1>
+			<g:ifAllGranted role="ROLE_ADMIN">
+			<div class="nav" style="margin-bottom:5px;">
+				<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
+			</div>
+			</g:ifAllGranted>			
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -57,11 +62,6 @@
 								Edit
 							</g:link>						  
 						</span>
-						<span class="button">
-							<g:link class="btn-link" controller="course" action="delete" id="${courseInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" >
-								Delete
-							</g:link>									  
-						</span>
                     </g:ifAnyGranted>			
                     </td>
                     </tr>
@@ -73,10 +73,6 @@
                 <g:paginate total="${courseInstanceTotal}" />
             </div>
         </div>
-		<g:ifAllGranted role="ROLE_ADMIN">
-        <div class="nav">
-			<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
-        </div>
-	</g:ifAllGranted>
+
     </body>
 </html>

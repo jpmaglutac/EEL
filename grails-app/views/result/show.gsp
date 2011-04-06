@@ -41,7 +41,7 @@
                 <table>
                     <tbody>
                         <tr>
-                        <th>Item No.</th>
+                        <th>Item#.</th>
                         <th>Score</th>
                         <th>Quiz Type</th>
                         <g:if test="${(role=='ROLE_TEACHER')||(role=='ROLE_STUDENT' && resultInstance.classQuiz.courseClass.canViewResults)}">
@@ -101,8 +101,8 @@
                     </table>
                 </g:if>
             </div>
-            <div class="buttons">
-				<g:link controller="courseClass" action="show" id="${resultInstance?.classQuiz?.courseClass?.id}">Back to Class Page</g:link>
+            <div class="buttons" style="height:15px;padding-top:5px;">
+				<span class="back"><g:link controller="courseClass" action="show" id="${resultInstance?.classQuiz?.courseClass?.id}">Back to Class Page</g:link></span>
             </div>
         </div>
     </body>

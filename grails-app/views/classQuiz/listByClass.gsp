@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="body">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
+            <h1>Quizzes</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -20,7 +20,7 @@
                         
                         	<g:if test="${showClass}"><th>Course Class</th></g:if>
                             <th>Name</th>
-                            <th colspan="2">Options</th>
+                            <th colspan="2">Action</th>
                         
                         </tr>
                     </thead>
@@ -29,8 +29,8 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         	<g:if test="${showClass}"><td>${classQuizInstance.courseClass}</td></g:if>
                             <td>${classQuizInstance.quiz.name}</td>
-                            <td><g:link controller="quiz" action="show" id="${classQuizInstance.quiz.id}" params="${[classQuizId: classQuizInstance.id]}">Edit Quiz</g:link></td>
-                            <td><g:link controller="classQuiz" action="result" id="${classQuizInstance.id}">View Results</g:link>                  </td>    
+                            <td><span class="btn-link"><g:link controller="quiz" action="show" id="${classQuizInstance.quiz.id}" params="${[classQuizId: classQuizInstance.id]}">Edit Quiz</g:link></span></td>
+                            <td><span class="btn-link"><g:link controller="classQuiz" action="result" id="${classQuizInstance.id}">View Results</g:link></span></td>    
                         </tr>
                     </g:each>
                     </tbody>
