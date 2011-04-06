@@ -208,7 +208,7 @@ class ClassLectureController {
             try {
                 classLectureInstance.delete(flush: true)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'classLecture.label', default: 'ClassLecture'), params.id])}"
-                redirect(action: "listByClass", id: courseClassId)
+                redirect(controller: "courseClass", action: "show", id: courseClassId)
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
                 flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'classLecture.label', default: 'ClassLecture'), params.id])}"

@@ -56,7 +56,7 @@
 							<g:ifAnyGranted role="ROLE_TEACHER">
 						<div class="menu-grid">
 								<span class="btn-edit"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-								<span class="btn-delete"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+								<span class="btn-delete"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('Are you sure you want to delete this class? All information associated to this will also be deleted!');" /></span>
 								<span class="btn-link1"><g:link class="view" controller="classStudent" action="listStudentsByClass" id="${courseClassInstance.id}">View Students</g:link></span>
 						</div>	
 							</g:ifAnyGranted>
@@ -95,13 +95,17 @@
                             <td>${fieldValue(bean: classLectureInstance, field: "lecture")}</td>
 							
 					<td class="view">
-						<g:link controller="download" id="${classLectureInstance?.lecture?.file?.id}">Download</g:link>			
-						<g:ifAnyGranted role="ROLE_ADMIN,ROLE_TEACHER">
+						<g:form controller="classLecture" action="delete">
+							<g:link controller="download" id="${classLectureInstance?.lecture?.file?.id}">Download</g:link>			
+							<g:ifAnyGranted role="ROLE_ADMIN,ROLE_TEACHER">
+							
 								<g:hiddenField name="id" value="${classLectureInstance?.id}" />
-								<g:link controller="classLecture" action="editLecture" id="${courseClassInstance.id}">Edit Lecture</g:link>
-								<g:link controller="classLecture" action="delete" id="${classLectureInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">Delete</g:link>
+								<g:link controller="classLecture" action="editLecture" id="${classLectureInstance.id}">Edit Lecture</g:link>
+								<g:submitButton name="delete" value="Delete" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+							</g:ifAnyGranted>
+						</g:form>
 					</td>
-						</g:ifAnyGranted>
+						
                         
                         </tr>
                     </g:each>
@@ -129,7 +133,7 @@
                         <tr>
                         
                             <th>Name</th>
-                            <th colspan="2">Options</th>
+                            <th colspan="3">Options</th>
                         
                         </tr>
                     </thead>
@@ -138,12 +142,15 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
                             <td>${classQuizInstance.quiz.name}</td>
+                            <g:form controller="classQuiz" action="delete" id="${classQuizInstance.id}">
                             <g:ifAllGranted role="ROLE_TEACHER">
                             	<td><span class="btn-link"><g:link controller="quiz" action="show" id="${classQuizInstance.quiz.id}" params="${[classQuizId: classQuizInstance.id]}">Edit Quiz</g:link></span></td>
                             	<td><span class="btn-link"><g:link controller="classQuiz" action="result" id="${classQuizInstance.id}">View Results</g:link></span></td>    
+                        		<td><span class="btn-link"><g:submitButton name="delete" value="Delete" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span></td>
                         	</g:ifAllGranted><g:ifAllGranted role="ROLE_STUDENT">
                         		<td><span class="btn-link"><g:link controller="classQuiz" action="startQuiz" id="${classQuizInstance.id}">Take Quiz</g:link></span></td>
                         	</g:ifAllGranted>
+                        	</g:form>
                         </tr>
                     </g:each>
                     </tbody>

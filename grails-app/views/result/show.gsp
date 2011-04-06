@@ -22,10 +22,11 @@
                             <td valign="top" class="value">${resultInstance?.classQuiz?.encodeAsHTML()}</td>
                             
                         </tr>
+                        <g:set var="size" value="${resultInstance.classQuiz.quiz.quizItems.size()}" />
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="result.score.label" default="No. of Items" /></td>
                             
-                            <td valign="top" class="value">${eel.QuizItem.countByQuiz(resultInstance.classQuiz.quiz)}</td>
+                            <td valign="top" class="value">${size}</td>
                             
                         </tr>
                         <tr class="prop">
@@ -34,6 +35,13 @@
                             <td valign="top" class="value">${fieldValue(bean: resultInstance, field: "score")}</td>
                             
                         </tr>
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="result.score.label" default="Percentage" /></td>
+                            
+                            <td valign="top" class="value">${(size==0)?100:((resultInstance.score/size)*100)}%</td>
+                            
+                        </tr>
+                        
                     </tbody>
                 </table>
                 <br />

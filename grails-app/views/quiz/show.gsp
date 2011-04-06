@@ -20,7 +20,7 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="quiz.instructor.label" default="Instructor" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="user" action="show" id="${quizInstance?.instructor?.id}">${quizInstance?.instructor?.encodeAsHTML()}</g:link></td>
+                            <td valign="top" class="value">${quizInstance?.instructor?.encodeAsHTML()}</td>
                             
                         </tr>
                     
@@ -64,7 +64,7 @@
                     <span class="menuButton"><g:link controller="quizItem" action="chooseGeneratedType" params="${[classQuizId: params.classQuizId]}" id="${quizInstance.id}" class="create">Generate Question</g:link>
                     <span class="menuButton"><g:link class="edit" controller="classQuiz" id="${params.classQuizId}" action="edit" >Edit Details</g:link></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-                    <span class="back" style="border:0px;"><g:link controller="classQuiz" action="listAllByUser" id="${eel.ClassQuiz.get(params.classQuizId)?.courseClass?.id}">Back to Quiz Page</g:link></span>
+                    <span class="back" style="border:0px;"><g:link controller="courseClass" action="show" id="${eel.ClassQuiz.get(params.classQuizId)?.courseClass?.id}">Back to Class Page</g:link></span>
                 </g:form>
             </div>
         </div>

@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="body">
-            <h1>Add Class</h1>
+            <h1>Add Class for ${course}</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>

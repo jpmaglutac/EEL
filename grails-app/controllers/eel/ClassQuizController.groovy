@@ -275,5 +275,25 @@ class ClassQuizController {
 		flash.message = "Quiz successfully answered"
 		redirect(controller: "result", action: "show", id: result.id)
 	}
+	
+	def delete = {
+        def classQuizInstance = ClassQuiz.get(params.id)
+        if (classQuizInstance) {
+            def courseClassId = classQuizInstance.courseClass.id
+            try {
+                classQuizInstance.delete(flush: true)
+                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'classLecture.label', default: 'ClassQuiz'), params.id])}"
+                redirect(controller: "courseClass", action: "show", id: courseClassId)
+            }
+            catch (org.springframework.dao.DataIntegrityViolationException e) {
+                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'classLecture.label', default: 'ClassQuiz'), params.id])}"
+                redirect(action: "show", id: params.id)
+            }
+        }
+        else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'classLecture.label', default: 'ClassQuiz'), params.id])}"
+            redirect(action: "list")
+        }
+    }
 
 }

@@ -19,7 +19,7 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="classLecture.courseClass.label" default="Course Class" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="courseClass" action="show" id="${classLectureInstance?.courseClass?.id}">${classLectureInstance?.courseClass?.encodeAsHTML()}</g:link></td>
+                            <td valign="top" class="value">${classLectureInstance?.courseClass?.encodeAsHTML()}</td>
                             
                         </tr>
                     
@@ -45,11 +45,11 @@
 					<span class="button"><g:actionSubmit class="edit" action="editLecture" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
 					<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
 					<span class="download"><g:link controller="download" id="${classLectureInstance?.lecture?.file?.id}">Download</g:link></span>
-					<span class="back"><g:link controller="classLecture" action="listAllByUser" id="${classLectureInstance?.courseClass?.id}">Back to Lecture List</g:link></span>
+					<span class="back"><g:link controller="courseClass" action="show" id="${classLectureInstance?.courseClass?.id}">Back to Class Page</g:link></span>
 				</g:ifAnyGranted>
 				<g:ifAnyGranted role="ROLE_STUDENT">	
 					<span class="download"><g:link controller="download" id="${classLectureInstance?.lecture?.file?.id}">Download</g:link></span>
-					<span class="back"><g:link controller="classLecture" action="listAllByUser" id="${classLectureInstance?.courseClass?.id}">Back to Lecture List</g:link></span>
+					<span class="back"><g:link controller="courseClass" action="show" id="${classLectureInstance?.courseClass?.id}">Back to Class Page</g:link></span>
 				</g:ifAnyGranted>
 				</g:form>
             </div>

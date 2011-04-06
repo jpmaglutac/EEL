@@ -67,7 +67,7 @@
                 <div class="buttons">
                 	<g:hiddenField name="classQuizId" value="${params.id}" />
                     <span class="button"><g:submitButton name="update" class="save" value="${message(code: 'default.button.update.label', default: 'Update')}" /></span>
-					<span class="back"><g:link class="list" action="listAllByUser">Back to Quiz List</g:link></span>					
+					<span class="back"><g:link class="list" controller="quiz" action="show" id="${classQuizInstance.quiz.id}" params="${[classQuizId: classQuizInstance.id]}">Back to Quiz List</g:link></span>					
                 </div>
             </g:form>
             

@@ -9,7 +9,7 @@ class CourseClass {
 	boolean canViewResults
 
     static constraints = {
-        section(unique: ["course", "term"])
+        section(blank: false, unique: ["course", "term"])
     }
     
     String toString(){

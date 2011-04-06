@@ -7,6 +7,14 @@ class ClassQuiz {
 	Date endDate
 	
     static constraints = {
+    	startDate(validator: {startDate, term ->
+        	def date = new Date()
+    	    if(date.getTime() > startDate.getTime()){
+    	        return false
+    	    }else{
+    	        return true
+    	    }
+    	})
     	endDate(validator: {endDate, classQuiz ->
     	    if(classQuiz.startDate){
     	        if(classQuiz.startDate.getTime() > endDate.getTime()){

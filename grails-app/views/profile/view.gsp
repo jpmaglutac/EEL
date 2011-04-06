@@ -61,7 +61,7 @@
 				    <span class="button"><g:actionSubmit class="edit" value="Edit" /></span>
 				</g:form>
 			</g:if>
-			<!--<span class="back"><g:link controller="classStudent" action="listStudentsByClass" id="${params.id}">Back to Student List</g:link></span>-->
+			<span class="back"> <a href="javascript:history.back()">Back</a></span>
 		</div>
 	</div>
 </body>

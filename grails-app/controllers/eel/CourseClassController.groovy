@@ -125,9 +125,11 @@ class CourseClassController {
     }
 
     def create = {
-        def courseClassInstance = new CourseClass()
-        courseClassInstance.properties = params
-        return [courseClassInstance: courseClassInstance]
+    	def course = Course.get(params.id)
+    	if(!course){
+    		redirect(controller: "course")
+    	}
+    	[course: course]
     }
 
     def save = {
@@ -152,7 +154,7 @@ class CourseClassController {
             redirect(action: "show", id: courseClassInstance.id)
         }
         else {
-            render(view: "create", model: [courseId: params.courseId, courseClassInstance: courseClassInstance])
+            render(view: "create", model: [course: Course.get(params.courseId),courseId: params.courseId, courseClassInstance: courseClassInstance])
         }
     }
 
@@ -234,6 +236,19 @@ class CourseClassController {
         def courseClassInstance = CourseClass.get(params.id)
         if (courseClassInstance) {
             try {
+            	def students = ClassStudent.findAllByCourseClass(courseClassInstance)
+            	students.each {
+            		it.delete(flush: true)
+            	}
+            	def lectures = ClassLecture.findAllByCourseClass(courseClassInstance)
+            	lectures.each {
+            	
+            		it.delete(flush: true)
+            	}
+            	def quizzes = ClassQuiz.findAllByCourseClass(courseClassInstance)
+            	quizzes.each {
+            		it.delete(flush: true)
+            	}
                 courseClassInstance.delete(flush: true)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'courseClass.label', default: 'CourseClass'), params.id])}"
                 redirect(action: "list")
