@@ -10,6 +10,7 @@ class CourseClass {
 
     static constraints = {
         section(blank: false, unique: ["course", "term"])
+        enrollmentKey(blank: false)
     }
     
     String toString(){

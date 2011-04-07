@@ -36,7 +36,7 @@ class User {
 	}
 
 	static constraints = {
-		username(blank: false, unique: true)
+		username(blank: false, unique: true, matches: /[a-zA-Z0-9\_]+/)
 		userFirstName(blank: false)
 		userLastName(blank: false)
 		passwd(blank:false, size:6..50)
