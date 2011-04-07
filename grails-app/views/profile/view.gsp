@@ -54,13 +54,13 @@
 			</tbody>
 			</table>
 		</div>
-		<div class="buttons">
+		<div class="buttons" style="height:15px;padding-top:5px;">
 		    <g:form>
 	    	    <g:if test="${isUser}">
 				    <input type="hidden" name="id" value="${person.id}" />
 				    <span class="button"><g:actionSubmit class="edit" value="Edit" /></span>
     			</g:if>
-	    		<span class="back"> <a href="javascript:history.back()">Back</a></span>
+	    		<span class="back" > <a href="javascript:history.back()">Back</a></span>
 			</g:form>
 		</div>
 	</div>
