@@ -19,6 +19,7 @@
                         <tr>                        
                             <th>Quiz</th>
                             <th>Grade</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,7 +27,8 @@
                     		<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                             	<td>${resultInstance.classQuiz.quiz}</td>
                             	<g:set var="size" value="${resultInstance.classQuiz.quiz.quizItems.size()}" />
-                            	<td><g:link action="show" id="${resultInstance.id}">${(size==0)?100:((resultInstance.score/size)*100)}%</g:link></td>
+                            	<td>${(size==0)?100:((resultInstance.score/size)*100)}%</td>
+                            	<td><span class="btn-link"><g:link action="show" id="${resultInstance.id}">View Result</g:link></span></td>
                         	</tr>                        
                     	</g:each>
                     </tbody>

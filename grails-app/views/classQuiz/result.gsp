@@ -15,13 +15,15 @@
 			<thead>
 				<th>Student</th>
 				<th>Score</th>
+				<th>Action</th>
 			</thead>
 			<tbody>
 				<g:each in="${resultInstanceList}" status="i" var="resultInstance">
 				<tr class="prop">
 					<td valign="top" class="student">${resultInstance.student}</td>
 					<g:set var="size" value="${resultInstance.classQuiz.quiz.quizItems.size()}" />
-					<td valign="top" class="score"><g:link controller="result" action="show" id="${resultInstance.id}">${(size==0)?100:(resultInstance.score/size)*100}%</g:link></td>
+					<td>${(size==0)?100:((resultInstance.score/size)*100)}%</td>
+                    <td><span class="btn-link"><g:link controller="result" action="show" id="${resultInstance.id}">View Result</g:link></span></td>
 				</tr>
 				</g:each>
 			</tbody>

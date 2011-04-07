@@ -101,7 +101,7 @@
 							
 								<g:hiddenField name="id" value="${classLectureInstance?.id}" />
 								<g:link controller="classLecture" action="editLecture" id="${classLectureInstance.id}">Edit Lecture</g:link>
-								<g:submitButton name="delete" value="Delete" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+								<g:submitButton class="lostdeletebutton" name="delete" value="Delete" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 							</g:ifAnyGranted>
 						</g:form>
 					</td>
@@ -133,7 +133,7 @@
                         <tr>
                         
                             <th>Name</th>
-                            <th colspan="3">Options</th>
+                            <th>Options</th>
                         
                         </tr>
                     </thead>
@@ -144,9 +144,11 @@
                             <td>${classQuizInstance.quiz.name}</td>
                             <g:form controller="classQuiz" action="delete" id="${classQuizInstance.id}">
                             <g:ifAllGranted role="ROLE_TEACHER">
-                            	<td><span class="btn-link"><g:link controller="quiz" action="show" id="${classQuizInstance.quiz.id}" params="${[classQuizId: classQuizInstance.id]}">Edit Quiz</g:link></span></td>
-                            	<td><span class="btn-link"><g:link controller="classQuiz" action="result" id="${classQuizInstance.id}">View Results</g:link></span></td>    
-                        		<td><span class="btn-link"><g:submitButton name="delete" value="Delete" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span></td>
+                            	<td>
+                            	    <span class="btn-link"><g:link controller="quiz" action="show" id="${classQuizInstance.quiz.id}" params="${[classQuizId: classQuizInstance.id]}">Edit Quiz</g:link></span>
+                            	    <span class="btn-link"><g:link controller="classQuiz" action="result" id="${classQuizInstance.id}">View Results</g:link></span>
+                        		    <span class="btn-link"><g:submitButton class="lostdeletebutton" name="delete" value="Delete" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+                        		</td>
                         	</g:ifAllGranted><g:ifAllGranted role="ROLE_STUDENT">
                         		<td><span class="btn-link"><g:link controller="classQuiz" action="startQuiz" id="${classQuizInstance.id}">Take Quiz</g:link></span></td>
                         	</g:ifAllGranted>
@@ -165,7 +167,7 @@
 					
 					</g:ifAnyGranted>
 					<g:ifAnyGranted role="ROLE_STUDENT,ROLE_ADMIN">
-					<span class="btn-link1"><g:link class="view" controller="classQuiz" action="listActiveByClass" id="${courseClassInstance.id}">View Active Quizzes</g:link></span>
+					<%--<span class="btn-link1"><g:link class="view" controller="classQuiz" action="listActiveByClass" id="${courseClassInstance.id}">View Active Quizzes</g:link></span>--%>
                 	<span class="btn-link1"><g:link class="view" controller="result" action="gradebook" id="${courseClassInstance.id}">View Gradebook</g:link></span>
 					</g:ifAnyGranted>
                 </g:form>

@@ -48,7 +48,7 @@
 					<g:ifAnyGranted role="ROLE_ADMIN">
                     <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-					<span class="menuButton"><g:link class="list" action="list">Back to Course List</g:link></span>
+					<span class="back"><g:link class="list" action="list">Back to Course List</g:link></span>
 					</g:ifAnyGranted>
 					<g:ifAnyGranted role="ROLE_TEACHER">
 					<span class="nav"><g:link class="create" controller="courseClass" action="create" id="${courseInstance.id}">Add Class<br /><br /></g:link></span>

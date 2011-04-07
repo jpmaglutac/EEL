@@ -133,7 +133,7 @@ td, th {
     vertical-align: top;
 }
 th {
-    background: #fff url(../images/skin/shadow.jpg);
+    background: #eaeaea url(../images/skin/shadow.jpg) repeat-x;
     color: #666;
     font-size: 11px;
     font-weight: bold;
@@ -255,6 +255,22 @@ th.desc a {
     background: transparent url(../images/skin/database_save.png) 5px 50% no-repeat;
     padding-left: 28px;
 }
+/*extra*/
+.lostdeletebutton {
+    /*background: transparent url(../images/skin/database_delete.png) 5px 50% no-repeat;*/
+    background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;  
+	border: 1px outset #ccc;
+	border-radius:3px;
+	padding-left:5px;
+	padding-right:5px;
+	padding-top:1px;
+	padding-bottom:1px;
+	font-size:12px;
+	color:#555;
+	font: 11px verdana, arial, helvetica, sans-serif;
+}
+
+
 
 /*DOWNLOAD AND VIEW LINKS*/
 .view a {

@@ -196,7 +196,7 @@ class ClassQuizController {
     	def result = Result.findByStudentAndClassQuiz(user, quiz)
     	if(result?.submitted){
     	    flash.message = "You have already taken this quiz"
-    	    redirect(action: "listActiveByClass", id: quiz.courseClass.id)
+    	    redirect(controller: "courseClass", action: "show", id: quiz.courseClass.id)
     	    return
     	}else if(result){
     	    redirect(action: "takeQuiz", id: params.id)
