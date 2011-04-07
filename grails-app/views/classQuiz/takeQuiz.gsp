@@ -6,8 +6,8 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'quiz.label', default: 'Quiz')}" />
         <g:set var="inputHours" value="${Math.floor(timeRemaining/1000/60/60).toInteger()}" />
-        <g:set var="inputMinutes" value="${Math.floor((timeRemaining/1000/60)-(inputHours*60)).toInteger()}" />
-        <g:set var="inputSeconds" value="${Math.floor((timeRemaining/1000)-(inputMinutes*60)).toInteger()}" />
+        <g:set var="inputMinutes" value="${Math.floor((timeRemaining/1000/60)).toInteger()-(inputHours*60)}" />
+        <g:set var="inputSeconds" value="${Math.floor((timeRemaining/1000)).toInteger()-(inputMinutes*60)-(inputHours*60*60)}" />
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     <script type="text/javascript">
     var hours, mins, secs, TimerRunning, TimerID;
