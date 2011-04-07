@@ -19,8 +19,9 @@ class DownloadController {
 			log.debug "Serving file id=[${ufile.id}] for the ${ufile.downloads} to ${request.remoteAddr}"
 			ufile.downloads++
 			ufile.save()
-			response.setContentType("application/octet-stream")
-			response.setHeader("Content-disposition", "${params.contentDisposition}; filename=${file.name}")
+			response.setContentType("application/msword")
+			println file.name
+			response.setHeader("Content-disposition", "${params.contentDisposition}; filename=\"${file.name}\"")
 			response.outputStream << file.readBytes()
 			return
 		} else {
