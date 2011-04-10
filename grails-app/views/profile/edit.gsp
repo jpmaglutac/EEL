@@ -22,6 +22,7 @@
 			<div class="dialog">
 				<table>
 				<tbody>
+				    <g:ifAllGranted role="ROLE_ADMIN">
 
 					<tr class="prop">
 						<td valign="top" class="name"><label for="userFirstName">First Name:</label></td>
@@ -36,6 +37,7 @@
 							<input type="text" id="userLastName" name="userLastName" value="${person.userLastName?.encodeAsHTML()}"/>
 						</td>
 					</tr>
+					</g:ifAllGranted>
 					
 					<tr class="prop">
 						<td valign="top" class="name"><label for="passwd">Current Password:</label></td>

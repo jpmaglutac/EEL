@@ -107,13 +107,17 @@ class CourseClassController {
         }
     	def courseClasses
     	if(authenticateService.ifAllGranted("ROLE_STUDENT")){
+    	    if(!terms)
+    	        courseClasses = []
+    	    else{
     		courseClasses = ClassStudent.withCriteria {
     			eq("student", user)
     			courseClass{
     				'in'("term", terms)
     			}
-    		}
     		courseClasses = courseClasses.courseClass
+    		}}
+    		
     	}else if(authenticateService.ifAllGranted("ROLE_TEACHER")){
     		courseClasses = CourseClass.findAllByInstructorAndTermInList(user, terms)
     		

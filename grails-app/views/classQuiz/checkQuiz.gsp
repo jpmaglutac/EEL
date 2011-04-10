@@ -14,7 +14,7 @@
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
         --><div class="body">
-            <h1><g:message code="default.show.label" args="[entityName]" /></h1>
+            <h1>Add Quiz from Other Class</h1>
             <g:hasErrors bean="${classQuizInstance}">
             <div class="errors">
                 <g:renderErrors bean="${classQuizInstance}" as="list" />
@@ -38,7 +38,7 @@
                 	        <tr class="prop">
                 	            <td valign="top" class="name"><g:message code="quiz.instructor.label" default="Instructor" /></td>
                 	            
-                	            <td valign="top" class="value"><g:link controller="user" action="show" id="${quizInstance?.instructor?.id}">${quizInstance?.instructor?.encodeAsHTML()}</g:link></td>
+                	            <td valign="top" class="value">${quizInstance?.instructor?.encodeAsHTML()}</td>
                 	            
                 	        </tr>
                 	    
@@ -93,7 +93,7 @@
             	<div class="buttons">
                     <g:hiddenField name="quizId" value="${quizInstance?.id}" />
                     <g:hiddenField name="courseClassId" value="${courseClassId?:params.courseClassId}" />
-                    <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
+                    <span class="button"><g:submitButton name="create" class="save" value="Add" /></span>
 	            </div>
             </g:form>
         </div>

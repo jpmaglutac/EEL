@@ -269,6 +269,11 @@ th.desc a {
 	color:#555;
 	font: 11px verdana, arial, helvetica, sans-serif;
 }
+.lostdeletebutton:hover{
+    border:1px outset #f90;
+    color:#f90;
+    cursor:pointer;
+}
 
 
 
