@@ -44,6 +44,9 @@ class BootStrap {
     	softdev.save(flush: true)
     	CourseClass i41 = new CourseClass(canViewResults: true, course: softdev, enrollmentKey: "hey", instructor: uTeacher, term: term, section: "I41")
     	i41.save(flush: true)
+    	
+    	PassingRates passingRate = new PassingRates(quizPassing: 70.0d, classPassing: 50.0d)
+    	passingRate.save(flush: true)
 		
 		new Requestmap(url: '/admin/**', configAttribute: 'ROLE_ADMIN').save()
 		new Requestmap(url: '/classLecture/create/**', configAttribute: 'ROLE_TEACHER').save()
@@ -70,6 +73,7 @@ class BootStrap {
 		new Requestmap(url: '/term/**', configAttribute: 'ROLE_ADMIN').save()
 		new Requestmap(url: '/user/**', configAttribute: 'ROLE_ADMIN').save()
 		new Requestmap(url: '/course/create/**', configAttribute: 'ROLE_ADMIN').save()
+		new Requestmap(url: '/passingRates/**', configAttribute: 'ROLE_ADMIN').save()
 
 		
 		/*** default roles:

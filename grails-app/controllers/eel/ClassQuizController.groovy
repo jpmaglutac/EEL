@@ -86,7 +86,9 @@ class ClassQuizController {
     
     def result = {
 		def cq = ClassQuiz.get(params.id)
-		def passing = 0.5
+		//def passing = 0.5
+		def passingRate = PassingRates.list()[0]
+		def passing = passingRate.classPassing/100
         if(!cq)
             redirect(controller: "courseClass", action: "listByUser")
         def results = Result.findAllByClassQuizAndSubmitted(cq, true)
@@ -215,7 +217,9 @@ class ClassQuizController {
 	
 	def submitQuiz = {
 		def score = 0
-		def passing = 0.5
+		//def passing = 0.5
+		def passingRate = PassingRates.list()[0]
+		def passing = passingRate.quizPassing/100
 		def user = authenticateService.userDomain()
 		def classQuiz = ClassQuiz.get(params.classQuizId)
 		def result = Result.findByStudentAndClassQuiz(user, classQuiz)

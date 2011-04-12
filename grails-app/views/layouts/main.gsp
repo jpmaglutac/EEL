@@ -62,10 +62,6 @@
 							<ul>
 								<li><g:link controller="classLecture" action="listAllByUser">Lectures</g:link></li>
 								<li><g:link controller="classQuiz" action="listAllByUser">Quizzes</g:link></li>
-								<%--<g:ifAnyGranted role="ROLE_TEACHER">	
-									<li><g:link controller="result" action="list">Results</g:link></li>
-								</g:ifAnyGranted>
-								<li><g:link controller="gradebook" action="list">Gradebook</g:link></li>--%>
 							</ul>
 						</li>
 				        <li><g:link class="${(request.forwardURI=='/EEL/courseClass/listByTerm')?'current':''}" controller="courseClass" action="listByTerm">Historical Class List</g:link></li>
@@ -74,7 +70,13 @@
 					<g:ifAnyGranted role="ROLE_ADMIN">
 						<li><g:loggedInUserProfileLink>My Profile</g:loggedInUserProfileLink></li>
 						<li><g:link class="${(request.forwardURI=='/EEL/user/list')?'current':''}" controller="user" action="list">Users</g:link>
-						<li><g:link class="${(request.forwardURI=='/EEL/course/list')?'current':''}" controller="course" action="list">Courses</g:link></li>
+						<li>
+						    <g:link class="${(request.forwardURI=='/EEL/course/list')?'current':''}" controller="course" action="list">Courses</g:link>
+						    <ul>
+						        <li><g:link controller="passingRates" action="index">Passing Rates</g:link></li>
+						    </ul>
+						</li>
+						
 						<li><g:link class="${(request.forwardURI=='/EEL/term/list')?'current':''}" controller="term" action="list">Terms</g:link></li>
 					</g:ifAnyGranted>
 				</ul>
